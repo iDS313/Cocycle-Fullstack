@@ -1,0 +1,283 @@
+﻿@model IEnumerable<Cocycle.Models.Arranged>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css" />
+<div class="form-area">
+    <div class="container">
+
+        <div class="card" style="box-shadow: #00000017 0px 3px 12px;">
+
+            <div class="card-header" style="background-color: #a5c7b6;font-family: 'Avenir-Bold'">
+                Request for General Cycling
+            </div>
+
+            <div class="card-body">
+                @*<p>
+                    @Html.ActionLink("Create New", "Create")
+                </p>*@
+                <table class="table table-responsive-lg" id="tablearranged" style="color:black">
+                    <thead>
+                        <tr>
+                            <th>
+                                Ride No.
+                            </th>
+                            <th>
+                                Requested By
+                            </th>
+                            <th>
+                                Accepted By
+                            </th>
+                            <th>
+                                Meeting Point
+                            </th>
+                            <th>
+                                Request Date
+                            </th>
+                            <th>
+                                Message
+                            </th>
+                            <th>
+                                Status
+                            </th>
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.applicationUserRequested.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.applicationUserApproved.Name)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.StartPoint)
+                                </td>
+
+                                <td>
+
+                                    @*@Html.DisplayFor(modelItem => item.RequestDate)*@
+                                    @item.RequestDate.ToString("dd-MMM-yyyy")
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RequestRemark)
+                                </td>
+                                <td>
+
+
+                                    @if (@item.IsApproved == false)
+                                    {
+
+                                        <a href="#">
+                                            @Html.ActionLink("Offer help", "ScheduleDates",
+                                         new { Id = @item.Id }, new { @class = "btn btn-sm btn-red float-right" })
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        if (item.IsScheduled == true)
+                                        {
+                                            <badge class="badge badge-info">
+                                                Scheduled
+                                            </badge>
+                                        }
+                                        else
+                                        {
+                                            <badge class="badge badge-info">
+                                               To Be Scheduled
+                                            </badge>
+                                        }
+
+
+
+
+                                    }
+
+                                </td>
+                                @*<td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                </td>*@
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
+
+        <div class="input-group date form-group" id="datepicker">
+            <input type="hidden" class="form-control" id="requestedSchedule" name="RequestingDates" placeholder="Select days" />
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i><span class="count"></span></span>
+        </div>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Schedule Your Date</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body" style="color:black">
+                        <label class="label-info">Start Date</label>
+                        @*<input class="form-control" id="requestedSchedule" type="datetime-local" />*@
+                        <div class="input-group date form-group" id="datepicker">
+                            <input type="text" class="form-control" id="requestedSchedule" name="RequestingDates" placeholder="Select days" />
+                            <span style="display:none" class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i><span class="count"></span></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                        <button type="button" class="btn btn-element btn-medium btn-red" id="btnsubmit">
+                            @*@Html.ActionLink("Submit", "ScheduleDate","Arrangeds",
+                            new { id = 1, StartDate="2021/01/01",EndDate= "2021/01/01" }, new { @class = "btn btn-element btn-medium btn-red " })*@
+                            Submit
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+      
+
+
+
+        @section Scripts {
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+            <script>
+                $(document).ready(function () {
+                    $('#tablearranged').DataTable();
+
+
+                    //$('#datepicker').datepicker({
+                    //    startDate: new Date(),
+                    //    multidate: true,
+                    //    format: "dd/mm/yyyy",
+                    //    //daysOfWeekHighlighted: "5,6",
+                    //    //datesDisabled: ['31/08/2017'],
+                    //    language: 'en'
+                    //}).on('changeDate', function (e) {
+                    //    // `e` here contains the extra attributes
+                    //    $(this).find('.input-group-addon .count').text(' ' + e.dates.length);
+                    //});
+                });
+
+                function showschedule(elem) {
+                    var dates = $(elem).data('assigned-dates');
+                    alert(dates);
+
+                    //$("#datepicker").datepicker({
+                    //    startDate: new Date(),
+                    //    dateFormat: "mm-dd-yy",
+                    //    multidate: true,
+                    //    //datesDisabled: dates,
+                    //});
+                    var eventDates = {};
+
+                    dates.split(/\s*,\s*/).forEach(function (d) {
+
+                        var dt = Date.parse(toValidDate(d));
+                        myd = new Date(dt).toLocaleString();
+                        console.log("unparsed", d);
+                        console.log("parsed Date", dt);
+                        console.log("After Parsing", myd);
+
+
+                        //console.log(d);
+
+
+                        eventDates[d] = new Date(d);
+
+                    });
+
+                    console.log("Custom date", eventDates);
+
+                    var eventDate = {};
+                    eventDate[new Date('06, 22, 2021')] = new Date('06, 22, 2021');
+                    eventDate[new Date('06, 23, 2021')] = new Date('06, 23, 2021');
+                    eventDate[new Date('06, 25, 2021')] = new Date('06, 25, 2021');
+                    eventDate[new Date('06, 27, 2021')] = new Date('06, 27, 2021');
+
+                    console.log("Static Date", eventDate)
+
+                    var date = new Date();
+                    $('#datepicker').datepicker({
+                        startDate: new Date(),
+                        format: "dd/mm/yyyy",
+                        multidate: true,
+
+                        beforeShowDay: function (date) {
+                            var highlight = eventDate[date];
+                            if (highlight) {
+                                return [true, "event", 'Tooltip text'];
+                            } else {
+                                return [true, '', ''];
+                            }
+                        }
+
+                    });
+                    //  $("#datepicker").datepicker("show");
+
+                    //$('#requestedSchedule').data(dates);
+                    //$('#exampleModal').modal('show');
+
+                }
+
+                function toValidDate(datestring) {
+                    return datestring.replace(/(\d{2})(\/)(\d{2})/, "$3$2$1");
+                }
+
+
+
+
+
+            </script>
+        }
+
+        @section Style{
+
+        }
+
+        <!-- Modal -->
+        @*<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>*@

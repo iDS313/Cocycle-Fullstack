@@ -1,0 +1,172 @@
+﻿@model Cocycle.Models.Arranged
+
+@{
+    ViewBag.Title = "ScheduleDate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @section Style{
+        <link rel="stylesheet" href="~/Content/WebAssets/TavoCalendar-master/dist/tavo-calendar.css" />
+        @*<style>
+                .error {
+                    color: red;
+                }
+            </style>*@
+    }
+}
+
+<div class="form-area">
+    <div class="container pt-5 pb-5">
+        <div class="card" style="box-shadow: #00000017 0px 3px 12px;">
+            <div class="card-header" style="background-color: #a5c7b6;font-family: 'Avenir-Bold'">Confirm Date</div>
+            <div class="card-body">
+                <div class="row" style="color:black">
+                    <form action="#" class="form">
+                        <div class=" col-lg-12 d-flex justify-content-center form-title">
+                            <h3>Confirm Date</h3>
+                        </div>
+                        <h4 id="lbltime"></h4>
+                        <div class="col-lg-12  ">
+
+                            <div class="form-group">
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="form-group  mt-3 d-flex justify-content-center" style="width: 100%; margin:0 auto">
+                                            <div id="my-calendar"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-wrapper mt-3">
+                                    <button type="button" id="btnsubmit" class="btn btn-element btn-medium btn-red float-right">Submit</button>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- With locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <!-- Without locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <script src="~/Content/WebAssets/TavoCalendar-master/dist/tavo-calendar.js"></script>
+
+
+    <script>
+        var finaldate ="";
+        var selectedDates;
+        var datess = `@Html.Raw(@Model.OfferingDates)`.split(',');
+        var alldates = `@Html.Raw(@Model.OfferingDates)`.replace("/","");
+        var values = JSON.parse(alldates);
+        console.log("parsed", values);
+
+        var timers = new Array();
+      //  var nameArr = datess.split(',');
+
+       // console.log(nameArr);
+
+
+        values.forEach((item) => {
+            var d = item.date
+            var a = moment(d).format('MM-DD-YYYY');
+            var date = "" + "" + a + "" + ""
+           // console.log("key",date);
+            timers.push(date);
+
+        });
+       // console.log("timers",timers);
+
+        const myCalendar = new TavoCalendar('#my-calendar', {
+            date: new Date(),
+            highlight_sunday: false,
+           // multi_select: true,
+            highlight: timers,
+            format: "MM-DD-YYYY"
+
+        })
+
+        document.getElementById('my-calendar').addEventListener('calendar-select', (ev) => {
+            //   alert(myCalendar.getSelected());
+            selectedDates = myCalendar.getSelected();
+           // var currentdate = selectedDates.slice(-1).pop();
+           // console.log("currentdate", selectedDates);
+            if (selectedDates != "") {
+                values.forEach((item) => {
+                    if (selectedDates === item.date) {
+                        const timeString12hr = new Date('1970-01-01T' + item.time + 'Z')
+                            .toLocaleTimeString({},
+                                { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: 'numeric' }
+                            );
+                        $('#lbltime').html("Time : " + timeString12hr);
+                        var d = item.date
+                        var a = moment(d).format('YYYY-MM-DD');
+                        finaldate = new Date(a + 'T' + item.time);
+                        console.log("final 1", finaldate);
+                    }
+                    else {
+                       // finaldate = "";
+                    }
+                });
+            }
+
+
+        });
+
+        $("#btnsubmit").click(function () {
+            console.log("submit final",finaldate);
+            if ( finaldate!="" ) {
+                console.log("submit final", finaldate);
+                obj = { Id: @Model.Id, confirmdate: finaldate }
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Content("~/Arrangeds/Confirm/")',
+                    data: JSON.stringify(obj),
+                    dataType: 'json',
+                    contentType: "application/json",
+                    success: function (data) {
+                        window.location = "../IndexLearner"
+                        // location.reload();
+                        console.log(data);
+
+                    },
+                });
+            }
+            else {
+                swal("Warning", "Please select the available date", "warning");
+            }
+        });
+
+        //function formatDate(date) {
+        //    var d = new Date(date),
+        //        month = '' + (d.getMonth() + 1),
+        //        day = '' + d.getDate(),
+        //        year = d.getFullYear();
+
+        //    if (month.length < 2)
+        //        month = '0' + month;
+        //    if (day.length < 2)
+        //        day = '0' + day;
+
+        //    return [year, month, day].join('-');
+        //}
+    </script>
+
+}

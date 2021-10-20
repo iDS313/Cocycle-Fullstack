@@ -1,0 +1,392 @@
+﻿@model Cocycle.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "container-fluid p-0", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @section Style{
+            <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+        }
+
+    <!--<div class="signinup-area signup-area">
+        <div class="content col-lg-12 col-md-12">
+            <div class="login-panel ">
+
+                <div class=" col-8 offset-lg-2 panel-body text-black">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
+                                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Phone Number" } })
+                                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Starting Postcode" } })
+                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        @Html.DropDownList("StateId", new SelectList(ViewBag.States, "StateId", "StateName"), " Select State", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <select id="AreaId" name="AreaId" class="form-control"><option value="">Select City</option></select>
+                                        @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">-->
+    @*<div class="form-group">
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.TravellingDistance, new { htmlAttributes = new { @class = "form-control", @placeholder = "Travelling Distance" } })
+                @Html.ValidationMessageFor(model => model.TravellingDistance, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+    <!--<div class="form-group">
+
+        <div class="col-md-12">-->
+    @*<select id="UserType" name="UserType" class="form-control">
+            <option value="">User Type</option>
+            <option value="1">I Want to help</option>
+            <option value="2">I Need help</option>
+        </select>*@
+    <!--@Html.DropDownList("UserType", new SelectList(ViewBag.UserTypes, "UserTypeId", "UserTypeText"), " Select User Type", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.UserType, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+
+        <div class="col-md-12">
+
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+
+        </div>
+
+    </div>
+    <div class="form-group">
+
+        <div class="col-md-12">
+
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password" } })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+
+
+        </div>
+    </div>
+    <div class="form-group">
+
+        <div class="col-md-12">
+
+            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "Confirm Password" } })
+            @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })-->
+
+
+
+    @*@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })*@
+    <!--</div>
+                                </div>
+                            </div>
+                            <div class="col-md-2"></div>
+                        </div>
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger " })
+                        <div class="action">
+                            <div class="col-12">
+                                <div class="btn-wrapper desktop-right">
+                                    <button type="submit" href="#" class="btn btn-element btn-medium btn-red ">Sign Up</button>
+                                </div>
+                            </div>
+
+                        </div>
+                        <p class="bottom">Already Have An Account Please <a class="signup">@Html.ActionLink(" Login Now", "Login", null, new { @class = "signup" }) </a> </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-md-6">
+
+                <div class="col-md-12 d-flex align-items-start">
+                    <img class="my-2" src="/Content/WebAssets/img/5243-ai.png" />
+                </div>
+
+                <p style="color:#2c9297">Cocycle exists to connect people who travel by bike with those who don’t have the confidence to take to the roads solo. Sign up today to buddy up and get cycling, or help other people find their wheels!.</p>
+            </div>
+            <div class="col-md-6 p-1">
+                <div class="card" style=" box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;">
+                    <div class="card-header d-flex justify-content-between align-items-center" style="background: #e7e9d7;">
+                        <h3 class="m-0">Registration</h3>
+                        <img class="img" src="~/Content/WebAssets/img/logo.png" />
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
+                                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "Phone Number" } })
+                                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        @*<div class="form-group">
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Starting Postcode" } })
+                                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>*@
+                                         <div class="form-group">
+                                            @*<div class="col-md-12">
+                                                <select id="PostCodeId" name="PostCodeId" class="form-control"></select>
+                                            </div>*@
+                                              
+                                             <div class="col-md-12">
+                                                 @Html.DropDownList("PostCodeId", new SelectList(ViewBag.postCodes, "Id", "PostCodeName"), " Select PostCode", new { @class = "form-control" })
+                                                 @Html.ValidationMessageFor(model => model.PostCodeId, "", new { @class = "text-danger" })
+                                             </div>
+
+                                            </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                @Html.DropDownList("StateId", new SelectList(ViewBag.States, "StateId", "StateName"), " Select State", new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                @Html.DropDownList("AreaId", new SelectList(ViewBag.Areas, "Id", "AreaName"), " Select City", new { @class = "form-control" })
+                                                @*<select id="AreaId" name="AreaId" class="form-control"><option value="">Select City</option></select>*@
+                                                @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+
+                                        <div class="form-group">
+
+                                            <div class="col-md-12">
+                                                @Html.DropDownList("UserType", new SelectList(ViewBag.UserTypes, "UserTypeId", "UserTypeText"), " Select User Type", new { @class = "form-control" })
+                                                @Html.ValidationMessageFor(model => model.UserType, "", new { @class = "text-danger" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "About you" } })
+                                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+
+                                            <div class="col-md-12">
+                                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email" } })
+                                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group">
+
+                                            <div class="col-md-12">
+
+                                                @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password" } })
+                                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+
+                                            <div class="col-md-12">
+
+                                                @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", @placeholder = "Confirm Password" } })
+                                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+
+
+
+                                                @*@Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })*@
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer" style="background: #e7e9d7;">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger " })
+                        <div class="action">
+                            <div class="col-12">
+
+                                <div class="btn-wrapper desktop-right">
+                                    <button type="submit" href="#" class="btn btn-element btn-red ">Create Account</button>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                @*<p class="bottom">Already Have An Account Please <a class="signup">@Html.ActionLink(" Login Now", "Login", null, new { @class = "signup" }) </a> </p>*@
+            </div>
+            <a class="signup"> <h4>Already Have An Account Please @Html.ActionLink(" Login Now", "Login", null, new { @class = "signup labels" })</h4> </a>
+        </div>
+    </div>
+
+
+}
+
+@section Scripts {
+    
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    var ddlarea = document.getElementById("AreaId");
+
+
+     //getstate();
+   // var ddlstate = document.getElementById("StateId");
+  @*function  getstate(){
+       $.ajax({
+                type: 'GET',
+                url:'@Url.Content("~/States/GetAll/")',
+                //url: '/State/GetByState/' + id + '',
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    data.forEach((item) => {
+                        ddlstate.options[ddlstate.options.length] = new Option(item.StateName, item.Id);
+                    });
+                },
+
+            });
+    }*@
+    $('#StateId').change(function () {
+        var id = $('#StateId option:selected').val();
+           // alert(id);
+            if (id > 0) {
+
+            $.ajax({
+                type: 'POST',
+                url:'@Url.Content("~/Areas/GetByState/")',
+                //url: '/State/GetByState/' + id + '',
+                data: "{Stateid:'" + id + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    ddlarea.innerHTML = "";
+                    data.forEach((item) => {
+                        ddlarea.options[ddlarea.options.length] = new Option(item.AreaName, item.Id);
+                     });
+                },
+            });
+        }
+            else {
+                ddlarea.innerHTML = "";
+                ddlarea.options[ddlarea.options.length] = new Option("Select City", "");
+            }
+        });
+
+    $('#PostCodeId').change(function () {
+        var postcodeid = $('#PostCodeId').val();
+        if (postcodeid == "") {
+            $('#StateId').val("");
+            $('#AreaId').val("");
+        } else {
+        $.ajax({
+                type: 'POST',
+                url:'@Url.Content("~/PostCodes/GetstateandArea/")',
+                  data: "{postcode:'" + postcodeid + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    $('#StateId').val(data.StateId);
+                   // getarea(data.StateId, data.AreaId);
+                    $('#AreaId').val(data.AreaId);
+                },
+
+            });
+        }
+
+    });
+        $("#PostCodeId").select2({
+            placeholder: "Start Post Code",
+            allowClear: true,
+            ajax: {
+                url: "../../PostCodes/Getpostcode",
+                type: 'get',
+                dataType: 'json',
+                delay: 500,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term,
+                        areaid:$('#AreaId').val(),
+                    };
+                },
+                processResults: function (res) {
+                    return {
+                        results: res
+                    }
+                },
+                cache: true,
+            }
+        });
+
+
+    function getarea(stateid, areaid) {
+        $.ajax({
+                type: 'POST',
+                url:'@Url.Content("~/Areas/GetByState/")',
+                //url: '/State/GetByState/' + id + '',
+            data: "{Stateid:'" + stateid + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    ddlarea.innerHTML = "";
+                    data.forEach((item) => {
+                        ddlarea.options[ddlarea.options.length] = new Option(item.AreaName, item.Id);
+                     });
+                },
+        });
+        $('#AreaId').val(areaid);
+    }
+</script>
+}
+
+
+
+

@@ -1,0 +1,402 @@
+﻿@using Microsoft.AspNet.Identity
+<form method="post" action="@Url.Action("LogOff", "Account")" id="logoutForm" style="display:none;">
+    @Html.AntiForgeryToken()
+</form>
+<!DOCTYPE html>
+<html>
+<head>
+    @*<meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title - My ASP.NET Application</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")*@
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CoCycle</title>
+    <!-- favicon -->
+    <link rel=icon href="~/Content/WebAssets/img/favicon.png" sizes="20x20" type="image/png">
+    <!-- animate -->
+    <link rel="stylesheet" href="~/Content/WebAssets/css/animate.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="~/Content/WebAssets/css/bootstrap.min.css">
+    <!-- magnific popup -->
+    <link rel="stylesheet" href="~/Content/WebAssets/css/magnific-popup.css">
+    <!-- Slick -->
+    <link rel="stylesheet" href="~/Content/WebAssets/css/slick.css" />
+    <link rel="stylesheet" href="~/Content/WebAssets/css/slick-theme.css" />
+    <!-- swiper -->
+    <link rel="stylesheet" href="~/Content/WebAssets/css/swiper.min.css" />
+    <!-- owl carousel -->
+    <link rel="stylesheet" href="~/Content/WebAssets/css/owl.carousel.min.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="~/Content/WebAssets/css/font-awesome.min.css">
+    <!-- flaticon -->
+    <link rel="stylesheet" href="~/Content/WebAssets/css/flaticon.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="~/Content/WebAssets/css/style.css">
+    <!-- responsive Stylesheet -->
+    <link rel="stylesheet" href="~/Content/WebAssets/css/responsive.css">
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+
+
+    @RenderSection("Style", required: false)
+    <style>
+
+
+        .labels {
+            color: var(--main-color);
+        }
+    </style>
+
+
+</head>
+<body>
+    @*<div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+    *@
+
+
+
+    <!-- preloader area start -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div class="spinner">
+                <div class="dot1"></div>
+                <div class="dot2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- preloader area end -->
+
+    <div class="billa-navbar" id="navbars">
+        <nav class="navbar navbar-area black-bg navbar-expand-lg nav-style-02" >
+            <div class="container nav-container">
+                <div class="responsive-mobile-menu">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#billatrail_main_menu"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                        <span class="bar1"></span>
+                        <span class="bar2"></span>
+                        <span class="bar3"></span>
+                    </button>
+                </div>
+                <div class="logo">
+                    <a href="#" style="position: relative; bottom: 5px;" > <img src="~/Content/WebAssets/img/logo.png" style="vertical-align: unset;" alt="logo"></a>
+                </div>
+                <div class="collapse navbar-collapse" id="billatrail_main_menu">
+                    <ul class="navbar-nav">
+                        <li>
+                            <a href="">@Html.ActionLink("Home", "Index", "Home")</a>
+
+                        </li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        @*<li>@Html.ActionLink("Gallery", "Gallery", "Home")</li>*@
+                        @if (Request.IsAuthenticated)
+                        {
+                            if (User.IsInRole("cyclist"))
+                            {
+                                <li class="menu-item-has-children">
+                                    <a href="#">Routes</a>
+                                    <ul class="sub-menu">
+                                        <li>@Html.ActionLink("List New Route", "Create", "Routes")</li>
+                                        <li>@Html.ActionLink("View Routes", "Index", "Routes")</li>
+
+                                    </ul>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="menu-item-has-children">
+                                    <a href="#">Routes</a>
+                                    <ul class="sub-menu">
+                                        <li>@Html.ActionLink("View Routes", "Index", "Routes")</li>
+
+                                    </ul>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li class="menu-item-has-children">
+                                <a href="#">Routes</a>
+                                <ul class="sub-menu">
+                                    <li>@Html.ActionLink("View Routes", "Index", "Routes")</li>
+
+                                </ul>
+                            </li>
+                        }
+
+
+                        @if (Request.IsAuthenticated)
+                        {
+                            if (User.IsInRole("cyclist"))
+                            {
+                                <li class="menu-item-has-children">
+                                    <a href="#">Request</a>
+                                    <ul class="sub-menu">
+                                        <li>@Html.ActionLink("View Requested Rides", "Index", "Arrangeds")</li>
+                                        <li>@Html.ActionLink("View Requested Routes", "ViewRequest", "Routes")</li>
+                                    </ul>
+                                </li>
+                            }
+
+                            if (User.IsInRole("learner"))
+                            {
+                                <li class="menu-item-has-children">
+                                    <a href="#">Request</a>
+                                    <ul class="sub-menu">
+                                        <li>@Html.ActionLink("Request For New Route", "Create", "Routes")</li>
+                                        <li>@Html.ActionLink("Help For General Cycling", "Create", "Arrangeds")</li>
+                                    </ul>
+                                </li>
+                            }
+
+                        }
+
+                        <!-- <li class="menu-item-has-children">
+        <a href="#">Ui Elements</a>
+        <ul class="sub-menu">
+            <li><a href="form.html">Form</a>
+            <li><a href="button.html">Button</a>
+            <li><a href="header-style.html">Header Style</a>
+            <li><a href="typography.html">Typography</a></li>
+            <li><a href="icon.html">Icon</a></li>
+            <li><a href="accordion.html">Accordion</a></li>
+            <li><a href="tables.html">Table</a></li>
+            <li><a href="alert-cookie.html">Alert & Cookie</a></li>
+            <li><a href="countdown-menu.html">Countdown & Menu</a></li>
+            <li><a href="card.html">Card</a></li>
+            <li><a href="modals.html">Modals</a></li>
+            <li><a href="popover-list.html">Popover & List</a></li>
+            <li><a href="footer.html">Footer Style</a></li>
+            <li><a href="pagination-progressbar.html">Pagination & Progressbar</a></li>
+        </ul>
+    </li> -->
+                        <!-- <li class="menu-item-has-children">
+        <a href="#">Shop</a>
+        <ul class="sub-menu">
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="product-details.html">Product Details</a></li>
+            <li><a href="shopping-cart.html">Shopping Cart</a></li>
+            <li><a href="payment.html">Payment</a></li>
+            <li><a href="checkout.html">Checkout</a></li>
+        </ul>
+    </li> -->
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            if (User.IsInRole("cyclist"))
+                            {
+                    <li class="menu-item-has-children">
+                        @{ var user = (System.Security.Claims.ClaimsIdentity)User.Identity; }
+                        <a>@Html.ActionLink( user.FindFirstValue("CustomName") + "!", "MyProfile", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })</a>
+                       
+
+                        <ul class="sub-menu">
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                            @*<li>@Html.ActionLink("My Routes", "MyRoutes", "Routes")</li>
+                            <li>@Html.ActionLink("My Request Status", "MyRequest", "RouteGroups")</li>
+                            <li>@Html.ActionLink("View Route Request", "Index", "RouteGroups")</li>
+                            <li>@Html.ActionLink("Joined Routes", "MyGroups", "RouteGroups")</li>
+                            <li>@Html.ActionLink("Arranged Rides", "IndexCyclist", "Arrangeds")</li>*@
+                            <li>@Html.ActionLink("My Profile", "MyProfile", "Account") </li>
+                            <li>@Html.ActionLink("Change your password", "ChangePassword", "Manage") </li>
+                        </ul>
+                    </li>
+                            }
+                            else
+                            {
+                    <li class="menu-item-has-children">
+                        @{ var user = (System.Security.Claims.ClaimsIdentity)User.Identity; }
+                        <a>@Html.ActionLink( user.FindFirstValue("CustomName") + "!", "MyProfile", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })</a>
+
+                        <ul class="sub-menu">
+                            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+                            @*<li>@Html.ActionLink("My Request", "MyRequest", "RouteGroups")</li>
+                            <li>@Html.ActionLink("Joined Routes", "MyGroups", "RouteGroups")</li>
+                            <li>@Html.ActionLink("Arranged Rides", "IndexLearner", "Arrangeds")</li>*@
+                            <li>@Html.ActionLink("My Profile", "MyProfile", "Account") </li>
+                            <li>@Html.ActionLink("Reset your password?", "ForgotPassword", "Account") </li>
+                        </ul>
+                    </li>
+                            }
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+                        }
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </nav>
+    </div>
+    <div class=" body-content">
+       
+        @RenderBody()
+
+        <!-- footer area start -->
+        <footer class="footer-area footer-style-2">
+            <div class="footer-top padding-top-40 padding-bottom-0">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2">
+                            <div class="footer-widget widget">
+                                <div class="about_us_widget">
+                                    <a href="#" class="footer-logo">
+                                        <img src="~/Content/WebAssets/img/logo.png" alt="footer logo">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-6">
+                            <div class="footer-widget widget widget_nav_menu">
+                                <ul>
+                                   
+                                    <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+                                    <li><a href="@Url.Action("About", "Home")">About</a></li>
+                                    <li><a href="@Url.Action("Index", "Routes")">Routes</a></li>
+                                    <li><a href="@Url.Action("Contact", "Home")">Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-4">
+                            <div class="footer-widget widget widget_nav_menu">
+                                <ul>
+                                    <li><a href="#" target="_blank"><i class="fa fa-facebook-f"></i></a></li>
+                                    <li><a href="#" target="_blank"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#" target="_blank"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a href="#" target="_blank"><i class="fa fa-youtube"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="copyright-area-inner">
+                                <a> © CoCycle 2019 All rights reserved.</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- footer area end -->
+        <!-- back to top area start -->
+        <div class="back-to-top">
+            <span class="back-top"><i class="fa fa-angle-up"></i></span>
+        </div>
+        <!-- back to top area end -->
+        <!-- jquery -->
+        <script src="~/Content/WebAssets/js/jquery-2.2.4.min.js"></script>
+
+        <!-- popper -->
+        <script src="~/Content/WebAssets/js/popper.min.js"></script>
+        <!-- bootstrap -->
+        <script src="~/Content/WebAssets/js/bootstrap.min.js"></script>
+        <!-- magnific popup -->
+        <script src="~/Content/WebAssets/js/jquery.magnific-popup.js"></script>
+        <!-- wow -->
+        <script src="~/Content/WebAssets/js/wow.min.js"></script>
+        <!-- nice select -->
+        <script src="~/Content/WebAssets/js/nice-select.js"></script>
+        <!-- owl carousel -->
+        <script src="~/Content/WebAssets/js/owl.carousel.min.js"></script>
+        <!-- Slick -->
+        <script src="~/Content/WebAssets/js/slick.min.js"></script>
+        <!-- Slick Animation -->
+        <script src="~/Content/WebAssets/js/slick-animation.js"></script>
+        <!-- swiper -->
+        <script src="~/Content/WebAssets/js/swiper.min.js"></script>
+        <!-- waypoint -->
+        <script src="~/Content/WebAssets/js/waypoints.min.js"></script>
+        <!-- validate -->
+        <script src="~/Content/WebAssets/js/jquery.validate.min.js"></script>
+        <!-- counterup -->
+        <script src="~/Content/WebAssets/js/jquery.counterup.min.js"></script>
+        <!-- imageloaded -->
+        <script src="~/Content/WebAssets/js/imagesloaded.pkgd.min.js"></script>
+        <!-- isotope -->
+        <script src="~/Content/WebAssets/js/isotope.pkgd.min.js"></script>
+        <!-- rProgressbar -->
+        <script src="~/Content/WebAssets/js/jQuery.rProgressbar.min.js"></script>
+        <!-- contact form -->
+        <script src="~/Content/WebAssets/js/contact.js"></script>
+        <!-- main js -->
+
+        <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+        <script src="~/Content/WebAssets/js/script.js"></script>
+        <script src="~/Content/WebAssets/js/main.js"></script>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+   
+    @section Scripts {
+        <script>
+
+            document.getElementById("btnsignout").onclick = function () { Start() };
+
+
+            //$("#btnsignout").click(function (e) {
+            //    e.preventDefault();
+            //    alert("The paragraph was clicked.");
+            //});
+
+            function Start() {
+                alert("Start")
+            }
+
+
+            $(function () {
+                var showPopover = function () {
+                    $(this).popover('show');
+                }
+                    , hidePopover = function () {
+                        $(this).popover('hide');
+                    };
+                $('#ex1').popover({
+                    content: 'An Example1 popover',
+                    trigger: 'hover',
+                    placement: 'top'
+                })
+
+            });
+        </script>
+    }
+</body>
+</html>

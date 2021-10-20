@@ -1,0 +1,171 @@
+﻿@model IEnumerable<Cocycle.Models.Arranged>
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container pt-5 pb-5">
+
+
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="pt-3">Request of Rides</h3>
+        </div>
+        <div class="card-body">
+            <table class="table table-responsive-lg " id="tablearranged" style="color:black">
+                <thead>
+                    <tr>
+                        <th>
+                            Ride #.
+                        </th>
+                        <th>
+                            Requested By
+                        </th>
+                        <th>
+                            Meet Point
+                        </th>
+                        <th>
+                            Message
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Ride Status
+                        </th>
+                        <th>
+                            Details
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.applicationUserRequested.UserName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartPoint)
+                            </td>
+
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RequestRemark)
+                            </td>
+                            <td>
+                                @if (item.IsScheduled == true)
+                                {
+
+                                    if (item.StartTime < DateTime.Now)
+                                    {
+
+                                        if (item.FeedBack.Count() > 0)
+                                        {
+                                            foreach (var items in item.FeedBack)
+                                            {
+
+                                                if (User.Identity.GetUserId() == items.UserId)
+                                                {
+
+                                                    <span class="badge badge-success">Feedback Offered</span>
+
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    @Html.ActionLink("Offer Feedback", "Create", "FeedBacks", new { id = item.Id }, new { @class = "btn btn-sm btn-red" })
+                                                }
+
+                                            }
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink("Offer Feedback", "Create", "FeedBacks", new { id = item.Id }, new { @class = "btn btn-sm btn-red" })
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-success">Scheduled</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="badge badge-secondary"> Not Scheduled</span>
+                                }
+
+
+                            </td>
+                            <td>
+                                @if (item.RideCompleted == true)
+                                {
+                                    <span class="badge  badge-success m-1"> Completed</span>
+                                }
+                                else
+                                {
+                                    <span class="badge  badge-danger m-1">InComplete</span>
+                                }
+                            </td>
+                            <td>  @Html.ActionLink("View", "Details", new { id = item.Id }, new { @class = "btn btn-sm btn-info " })  </td>
+                            @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>*@
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tablearranged').DataTable();
+        });
+    </script>
+}
+@section style{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+          }
+
+
+
+    <!-- Modal -->
+    @*<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>*@

@@ -1,0 +1,618 @@
+﻿@model Cocycle.Models.Routes
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "Routes", FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+        <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+ 
+    @Html.AntiForgeryToken()
+
+    <!-- form start -->
+    <div class="form-area">
+        <div class="container">
+            <div class="card" style="box-shadow: #00000017 0px 3px 12px;">
+                <div class="card-header" style="background-color: #a5c7b6;font-family: 'Avenir-Bold'">
+                    List A New Route
+                </div>
+                <div class="card-body">
+                    <div class="row" style="color:black">
+                        <form action="#" class="form" id="frmroutes">
+                            <input type="hidden" name="hidInput" id="hidInput" value="" required="required" />
+                            <div class="col-lg-6  d-flex justify-content-center">
+                                <div class="form-group">
+                                    @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
+                                    <div class="form-group ">
+
+                                        <div class="col-md-12">
+                                            <label class="label-default">Route Type</label>
+                                            <select name="RouteType" class="form-control" required>
+                                                <option value="1">Commute</option>
+                                                <option value="2">Social</option>
+                                            </select>
+                                            @Html.ValidationMessageFor(model => model.RouteType, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <div class="col-md-12">
+                                            <label class="label-default">Departure Point</label>
+                                            @Html.EditorFor(model => model.StartingPoint, new { htmlAttributes = new { @class = "form-control", @required = "required", placeholder = "e.g. Kings Heath" } })
+                                            @Html.ValidationMessageFor(model => model.StartingPoint, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <div class="col-md-12">
+                                            <label class="label-default">Arrival Point</label>
+                                            @Html.EditorFor(model => model.EndPoint, new { htmlAttributes = new { @class = "form-control", @required = "required", placeholder = "to Selly Oak  " } })
+                                            @Html.ValidationMessageFor(model => model.EndPoint, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <div class="col-md-12">
+                                            <label class="label-default">Your Message</label>
+                                            @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control",placeholder="your message" } })
+                                            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <div class="col-md-12">
+                                            <label class="label-default">Add Image</label>
+                                            <input type="file" name="PosterImage" id="PosterImage" class="form-control" />
+                                            @*@Html.EditorFor(model => model.PosterImage, new { htmlAttributes = new { @class = "form-control" } })*@
+                                            @Html.ValidationMessageFor(model => model.PosterImage, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <div class="col-md-12">
+                                            <label class="label-default">Description</label>
+                                            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Please add details of your route in terms of how long / busy / difficult it is, how much riding on the road / quieter paths is involved / how hilly etc… " } })
+                                            @*<input type="text" name="Description" id="Description"  />*@
+                                            @*@Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })*@
+                                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group ">
+                                        <div class="row ml-1">
+                                            <div class="col-md-4">
+                                              
+                                                    @Html.EditorFor(model => model.Addreturn)
+                                                    @Html.ValidationMessageFor(model => model.Addreturn, "", new { @class = "text-danger" })
+                                                
+                                                <label>Round Trip</label>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6  d-flex justify-content-center">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                      
+                                        <div class="col-md-12">
+                                            <label class="label-default">Postal Code </label>
+                                            @Html.DropDownList("PostCodeId", new SelectList(ViewBag.postCodes, "Id", "PostCodeName"), " Select PostCode", new { @class = "form-control" })
+                                            <span class="col-form-label-sm" style="color:red">Note : your postcode is hidden , we will not share this</span>
+                                            @Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                     
+                                        <div class="col-md-12">
+                                            <label class="label-default">State</label>
+                                            @Html.DropDownList("StateId", new SelectList(ViewBag.States, "StateId", "StateName"), " Select State", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                      
+                                        <div class="col-md-12">
+                                            <label class="label-default">City</label>
+                                            @Html.DropDownList("AreaId", new SelectList(ViewBag.Areas, "Id", "AreaName"), " Select City", new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <label class="label-default">Departure Time</label>
+                                            <input type="time" name="StartTime" placeholder="Start time" class="form-control" required />
+                                            @*@Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })*@
+                                            @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                      
+                                        <div class="col-md-12">
+                                            <label class="label-default">Arrival Time</label>
+                                            <input type="time" name="EndTime" placeholder="End time" class="form-control" required />
+                                            @*@Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })*@
+                                            @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger", @type = "time" })
+                                        </div>
+                                    </div>
+
+                                    <div class="container pt-3">
+                                        @Html.ValidationMessageFor(model => model.hidInput, "", new { @class = "text-danger" })
+                                        <div class="row">
+
+                                            <div class="col-4">
+                                                <input name="chkday" class=" chk" data-day="monday" type="checkbox" value="1" />
+                                                <label class="form-check-label">Monday</label>
+                                            </div>
+                                            <div class="col-4">
+                                                <input name="chkday" data-day="tuesday" class="chk" type="checkbox" value="2" />
+                                                <label>Tuesday</label>
+                                            </div>
+                                            <div class="col-4">
+                                                <input name="chk" class="chk" type="checkbox" value="3" data-day="wednesday" />
+                                                <label>Wednesday</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <input name="chk" class="chk" type="checkbox" value="4" data-day="thursday" />
+                                                <label>Thursday</label>
+                                            </div>
+                                            <div class="col-4">
+                                                <input name="chk" class="chk" data-day="friday" type="checkbox" value="5" />
+                                                <label>Friday</label>
+                                            </div>
+                                            <div class="col-4">
+                                                <input name="chk" class="chk" type="checkbox" value="6" data-day="saturday" />
+                                                <label>Saturday</label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <input name="chk" class="chk" type="checkbox" value="7" data-day="sunday" />
+                                                <label>Sunday</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="btn-wrapper mt-3">
+                                        <button type="submit" class="btn btn-element btn-medium btn-red float-right">Create</button>
+                                    </div>
+                                </div>
+
+
+                                @*<div class="form-group">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                                Set Route Schedule
+                            </button>
+                        </div>
+                    </div>*@
+
+
+
+                            </div>
+
+                            @*<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Set Schedule</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="form-check">
+                                                <input name="chkday" class="form-check-input chk" data-day="monday" type="checkbox" value="1" />
+                                                <label class="form-check-label">Monday</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <label>Start Time</label>
+                                            <input id="monstarttime" name="StartTime" type="time" disabled class="form-control monday" />
+                                        </div>
+                                        <div class="col-4">
+                                            <label>End Time</label>
+                                            <input id="monendtime" type="time" name="EndTime" disabled class="form-control monday" />
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <input name="chkday" data-day="tuesday" class="chk" type="checkbox" value="2" />
+                                            <label>Tuesday</label>
+                                        </div>
+                                        <div class="col-4">
+
+                                            <label>Start Time</label>
+                                            <input id="tuestarttime" type="time" disabled class="form-control tuesday" />
+                                        </div>
+                                        <div class="col-4">
+                                            <label>End Time</label>
+                                            <input id="tueendtime" type="time" disabled class="form-control tuesday" />
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-4">
+
+                                            <input name="chk" class="chk" type="checkbox" value="3" data-day="wednesday" />
+                                            <label>Wednesday</label>
+                                        </div>
+                                        <div class="col-4">
+
+                                            <label>Start Time</label>
+                                            <input id="wedstarttime" type="time" disabled class="form-control wednesday" />
+                                        </div>
+                                        <div class="col-4">
+                                            <label>End Time</label>
+                                            <input id="medendtime" type="time" disabled class="form-control wednesday" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+
+                                            <input name="chk" class="chk" type="checkbox" value="4" data-day="thursday" />
+                                            <label>Thursday</label>
+                                        </div>
+                                        <div class="col-4">
+
+                                            <label>Start Time</label>
+                                            <input id="thustarttime" type="time" disabled class="form-control thursday" />
+                                        </div>
+                                        <div class="col-4">
+                                            <label>End Time</label>
+                                            <input id="thuendtime" type="time" disabled class="form-control thursday" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+
+                                            <input name="chk" class="chk" data-day="friday" type="checkbox" value="5" />
+                                            <label>Friday</label>
+                                        </div>
+                                        <div class="col-4">
+
+                                            <label>Start Time</label>
+                                            <input id="fristarttime" type="time" disabled class="form-control friday" />
+                                        </div>
+                                        <div class="col-4">
+                                            <label>End Time</label>
+                                            <input id="friendtime" type="time" disabled class="form-control friday" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+
+                                            <input name="chk" class="chk" type="checkbox" value="6" data-day="saturday" />
+                                            <label>Saturday</label>
+                                        </div>
+                                        <div class="col-4">
+
+                                            <label>Start Time</label>
+                                            <input id="satstarttime" type="time" disabled class="form-control saturday" />
+                                        </div>
+                                        <div class="col-4">
+                                            <label>End Time</label>
+                                            <input id="satendtime" type="time" disabled class="form-control saturday" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+
+                                            <input name="chk" class="chk" type="checkbox" value="7" data-day="sunday" />
+                                            <label>Sunday</label>
+                                        </div>
+                                        <div class="col-4">
+
+                                            <label>Start Time</label>
+                                            <input id="sunstarttime" type="time" disabled class="form-control sunday" />
+                                        </div>
+                                        <div class="col-4">
+                                            <label>End Time</label>
+                                            <input id="sunendtime" type="time" disabled class="form-control sunday" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" id="btnschedule" data-dismiss="modal" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- form end -->
+}
+
+
+
+
+
+@*<div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>*@
+@section Style{
+    <style>
+        body {
+            padding-right: 0 !important
+        }
+    </style>
+}
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <!--  jquery script  -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <!--  validation script  -->
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.19.0/jquery.validate.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $("#frmroutes").validate({
+                rules: {
+                    ignore: [],
+                    //txtfathername: { required: true },
+                    //radiotype: { required: true },
+                    //  aadharfile: { required: true }
+                },
+                onkeyup: false,
+                onblur: true
+            });
+
+        });
+
+
+        var form = $("#frmroutes");
+        form.validate();
+
+    var listvalues = [];
+    let arr = [];
+    let Obj = {};
+    @*getstate();
+    var ddlstate = document.getElementById("StateId");
+  function  getstate(){
+       $.ajax({
+                type: 'GET',
+                url:'@Url.Content("~/States/GetAll/")',
+                //url: '/State/GetByState/' + id + '',
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    data.forEach((item) => {
+                        ddlstate.options[ddlstate.options.length] = new Option(item.StateName, item.Id);
+                    });
+                },
+            });
+    }
+
+    var ddlarea = document.getElementById("AreaId");
+
+    $('#StateId').change(function () {
+        var id = $('#StateId option:selected').val();
+          //  alert(id);
+            if (id > 0) {
+
+            $.ajax({
+                type: 'POST',
+                url:'@Url.Content("~/Areas/GetByState/")',
+                //url: '/State/GetByState/' + id + '',
+                data: "{Stateid:'" + id + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    ddlarea.innerHTML = "";
+                    data.forEach((item) => {
+                        ddlarea.options[ddlarea.options.length] = new Option(item.AreaName, item.Id);
+                    });
+                },
+            });
+        }
+            else {
+                ddlarea.innerHTML = "";
+                ddlarea.options[ddlarea.options.length] = new Option("Select City", "");
+            }
+
+    });*@
+
+    $('#btnschedule').click(function () {
+        Obj = {};
+        arr = [];
+        const alldays = Array.from(document.querySelectorAll(".chk"));
+        let selecteddays = alldays.filter(function (val) {return val.checked == true;})
+        selecteddays.forEach(function (item) {
+
+            var day = item.dataset.day;
+            const dishNodeList = Array.from(document.querySelectorAll(`.${day}`));
+            for (var i = 0; i < dishNodeList.length; i++) {
+                const dishNodeListOne = dishNodeList[i];
+                var id = dishNodeListOne.id;
+                var data = $(`#${id}`).val();
+                var StartTime;
+                var EndTime;
+
+                Obj = {
+                    DayId: item.value
+                };
+            }
+            arr.push(Obj);
+            var objschedule = JSON.stringify(arr);
+
+            console.log("array", arr);
+            console.log("Schedule", objschedule);
+            var $hidInput = $("#hidInput");
+
+
+            $hidInput.val(JSON.stringify(arr));
+        });
+
+        //$("#exampleModal .close").click()
+       // $("#exampleModal").modal("hide");
+        //$(".modal-backdrop").remove();
+    });
+    $(".chk").click(function () {
+        if ($(this).is(":checked")) {
+            var day = $(this).data("day");
+            console.log($(this).val());
+          var  dayid = $(this).val()
+            Obj = {
+                DayId: dayid
+            };
+            arr.push(Obj);
+            //var $hidInput = $("#hidInput");
+            //$hidInput.val(JSON.stringify(arr));
+
+            //const dishNodeList = Array.from(document.querySelectorAll(`.${day}`));
+            //for (var i = 0; i < dishNodeList.length; i++) {
+            //    const dishNodeListOne = dishNodeList[i];
+            //    var id = dishNodeListOne.id;
+            //}
+
+        }
+        else {
+            var day = $(this).val()
+            arr.forEach((entry, i) => {
+                if (entry.DayId == day) {
+                    arr.splice(i, 1);
+                }
+            });
+            console.log("after", arr);
+
+            //const dishNodeList = Array.from(document.querySelectorAll(`.${day}`));
+            //for (var i = 0; i < dishNodeList.length; i++) {
+            //    const dishNodeListOne = dishNodeList[i];
+            //    var id = dishNodeListOne.id;
+            //    //$(`#${id}`).prop('disabled', true);
+            //}
+        }
+        var $hidInput = $("#hidInput");
+        $hidInput.val(JSON.stringify(arr));
+        console.log("final", $hidInput);
+    });
+
+        var ddlarea = document.getElementById("AreaId");
+         $('#StateId').change(function () {
+        var id = $('#StateId option:selected').val();
+           // alert(id);
+            if (id > 0) {
+
+            $.ajax({
+                type: 'POST',
+                url:'@Url.Content("~/Areas/GetByState/")',
+                //url: '/State/GetByState/' + id + '',
+                data: "{Stateid:'" + id + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    ddlarea.innerHTML = "";
+                    data.forEach((item) => {
+                        ddlarea.options[ddlarea.options.length] = new Option(item.AreaName, item.Id);
+                     });
+                },
+            });
+        }
+            else {
+                ddlarea.innerHTML = "";
+                ddlarea.options[ddlarea.options.length] = new Option("Select City", "");
+            }
+        });
+
+    $('#PostCodeId').change(function () {
+        var postcodeid = $('#PostCodeId').val();
+        if (postcodeid == "") {
+            $('#StateId').val("");
+            $('#AreaId').val("");
+        } else {
+        $.ajax({
+                type: 'POST',
+                url:'@Url.Content("~/PostCodes/GetstateandArea/")',
+                  data: "{postcode:'" + postcodeid + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    $('#StateId').val(data.StateId);
+                   // getarea(data.StateId, data.AreaId);
+                    $('#AreaId').val(data.AreaId);
+                },
+
+            });
+        }
+
+    });
+        $("#PostCodeId").select2({
+            placeholder: "Start Post Code",
+            allowClear: true,
+            ajax: {
+                url: "../../PostCodes/Getpostcode",
+                type: 'get',
+                dataType: 'json',
+                delay: 500,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term,
+                        areaid:$('#AreaId').val(),
+                    };
+                },
+                processResults: function (res) {
+                    return {
+                        results: res
+                    }
+                },
+                cache: true,
+            }
+        });
+
+
+    function getarea(stateid, areaid) {
+        $.ajax({
+                type: 'POST',
+                url:'@Url.Content("~/Areas/GetByState/")',
+                //url: '/State/GetByState/' + id + '',
+            data: "{Stateid:'" + stateid + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    ddlarea.innerHTML = "";
+                    data.forEach((item) => {
+                        ddlarea.options[ddlarea.options.length] = new Option(item.AreaName, item.Id);
+                     });
+                },
+        });
+        $('#AreaId').val(areaid);
+    }
+
+    </script>
+}

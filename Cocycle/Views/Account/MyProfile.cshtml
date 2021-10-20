@@ -1,0 +1,711 @@
+﻿@model Cocycle.Models.ProfileViewModel
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@section Style{
+    @*<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">*@
+    <style>
+        body {
+            background: -webkit-linear-gradient(left, #9fc5b545, #2c91962b);
+        }
+       
+        .emp-profile {
+            padding:1%;
+           /* padding: 3%;
+            margin-top: 3%;*/
+           /* margin-bottom: 3%;*/
+           /* border-radius: 0.5rem;*/
+            background: #fff;
+        }
+
+        .profile-img {
+            text-align: center;
+        }
+
+            .profile-img img {
+                width: 70%;
+                /* height: 100%;*/
+            }
+
+            .profile-img .file {
+                position: relative;
+                overflow: hidden;
+                margin-top: -20%;
+                width: 70%;
+                border: none;
+                border-radius: 0;
+                font-size: 15px;
+                background: #212529b8;
+            }
+
+                .profile-img .file input {
+                    position: absolute;
+                    opacity: 0;
+                    right: 0;
+                    top: 0;
+                }
+
+        .profile-head h5 {
+            color: #333;
+        }
+
+        .profile-head h6 {
+            color: #0062cc;
+        }
+
+        .profile-edit-btn {
+            border: none;
+            border-radius: 1.5rem;
+            width: 70%;
+            padding: 2%;
+            font-weight: 600;
+            color: #6c757d;
+            cursor: pointer;
+        }
+
+        .proile-rating {
+            font-size: 12px;
+            color: #818182;
+            margin-top: 5%;
+        }
+
+            .proile-rating span {
+                color: #495057;
+                font-size: 15px;
+                font-weight: 600;
+            }
+
+        .profile-head .nav-tabs {
+            margin-bottom: 5%;
+        }
+
+            .profile-head .nav-tabs .nav-link {
+                font-weight: 600;
+                border: none;
+                cursor: pointer;
+            }
+
+                .profile-head .nav-tabs .nav-link.active {
+                    border: none;
+                  /*  border-bottom: 2px solid #0062cc;*/
+                    border-bottom: 2px solid #ef972c;
+                }
+
+        .profile-work {
+            padding: 14%;
+            margin-top: -15%;
+        }
+
+            .profile-work p {
+                font-size: 12px;
+                color: #818182;
+                font-weight: 600;
+                margin-top: 10%;
+            }
+
+            .profile-work a {
+                text-decoration: none;
+                color: #495057;
+                font-weight: 600;
+                font-size: 14px;
+            }
+
+            .profile-work ul {
+                list-style: none;
+            }
+
+        .profile-tab label {
+            font-weight: 600;
+        }
+
+        .profile-tab p {
+            font-weight: 600;
+            color: #0062cc;
+        }
+
+        .btnsaveclass {
+            display: flex;
+            align-content: center;
+            padding-top: 10px;
+         
+        }
+
+        .bg-picture {
+            position: relative;
+            min-height: 400px;
+            margin: -20px -25px 0px -25px;
+            background-repeat: no-repeat;
+            background-position: center;
+            -webkit-background-size: cover;
+            background-size: cover;
+        }
+
+            .bg-picture > .bg-picture-overlay {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjxzdmcgeG1sbnM9Imh0dâ€¦0iMSIgaGVpZ2h0PSIxIiBmaWxsPSJ1cmwoI2xlc3NoYXQtZ2VuZXJhdGVkKSIgLz48L3N2Zz4=);
+                background-image: -webkit-linear-gradient(top,rgba(255,255,255,0) 0,rgba(0,0,0,.4) 100%);
+                background-image: -o-linear-gradient(top,rgba(255,255,255,0) 0,rgba(0,0,0,.4) 100%);
+                background-image: -webkit-gradient(linear,left top,left bottom,from(rgba(255,255,255,0)),to(rgba(0,0,0,.4)));
+                background-image: linear-gradient(to bottom,rgba(255,255,255,0) 0,rgba(0,0,0,.4) 100%);
+            }
+
+            .bg-picture > .meta.bottom {
+                bottom: 10px;
+            }
+
+            .bg-picture > .meta {
+                position: absolute;
+                left: 0;
+                right: 0;
+            }
+
+        .box-layout {
+            display: table !important;
+            width: 100%;
+            table-layout: fixed;
+            border-spacing: 0;
+        }
+
+        .m-r-15 {
+            margin-right: 15px;
+        }
+
+        .media-body, .media-left, .media-right {
+            display: table-cell;
+            vertical-align: top;
+        }
+
+        .media-body {
+            width: 10000px;
+        }
+
+        .media, .media-body {
+            overflow: hidden;
+            zoom: 1;
+        }
+
+        .m-t-10 {
+            margin-top: 10px !important;
+        }
+
+        .text-white {
+            color: #ffffff;
+        }
+
+        .h3, h3 {
+            font-size: 24px;
+        }
+
+        .br-radius, .tiles, .tile-stats, .portlet {
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+        .img-profiless {
+            bottom: -66px;
+            width: 160px;
+            position: absolute;
+            left: 80px;
+            border-radius: 50%;
+        }
+        .breadcrumb-style-5 .custom-profile {
+            position: absolute;
+            background: #00000057;
+            right: 0;
+            height: auto;
+            text-align: center;
+            left: 26%;
+            top: 50%;
+            -webkit-transform: translate(-37%, -50%);
+            -ms-transform: translate(-37%, -50%);
+            transform: translate(-37%, -50%);
+            width: 100%;
+            padding: 10px;
+            padding-right: 0%;
+            margin: 15px;
+        }
+        .page-title p {
+            color: #ffffff;
+        }
+
+        .img-groups .file {
+            position: relative;
+            overflow: hidden;
+            /*  margin-top: -20%;
+            width: 70%;*/
+            border: none;
+            /* border-radius: 0;*/
+            font-size: 13px;
+            background: #21252970;
+            top: 50px;
+            left: 85px;
+            z-index: 1;
+        }
+
+            .img-groups .file input {
+                position: absolute;
+                opacity: 0;
+                right: 0;
+                top: 0;
+            }
+        .btnsaveclass a {
+            z-index: 2;
+            position: absolute;
+            top: 55px;
+            left: 240px;
+        }
+
+    </style>
+
+}
+@section Scripts{
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+}
+
+@*@if (Request.IsAuthenticated)
+    {
+        <div id="registered_alert" style="position:fixed ;z-index:999; display:none" class="alert alert-info alert-dismissible fade show col-md-3 offset-md-8 pr-3 mr-3" role="alert">
+            <h4 class="alert-heading">Welcome ! </h4>
+            <p>you have successfully registered with cocycle riding group.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div id="login_alert" style="position:fixed ;z-index:999; top:0;right:0 " class="alert alert-info alert-dismissible fade show  pr-3 mr-3" role="alert">
+            <h4 class="alert-heading">Welcome ! </h4>
+            <p>Login successfully.</p>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    }*@
+
+<div class="package-area" style="padding: 0px!important;">
+    <div class="container-fluid bootstrap snippets bootdeys">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="bg-picture" style="background-image:url('../Content/WebAssets/img/breadcrumb/cr2.jpg')">
+                    <span class="bg-picture-overlay"></span><!-- overlay -->
+                    <!-- meta -->
+                    <div class="box-layout meta bottom">
+                        <div class="col-md-6 clearfix img-groups">
+
+                            @if (Model.User.ImageAddress != null)
+                            {
+                                <span class="img-wrapper pull-left m-r-15 ">
+                                    <img id="profilepic" src="@Model.User.ImageAddress" alt="" class="br-radius img-profiless">
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="img-wrapper pull-left m-r-15">
+                                    <img id="profilepic" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="" class="br-radius img-profiless">
+                                </span>
+                            }
+
+                            <div class="file btn btn-lg btn-primary">
+                                Change
+                                <input onchange="loadFile(event)" id="imageupload" type="file" name="file" />
+                            </div>
+                            <div class="btnsaveclass">
+                                <a style="display:none" id="btnsave" class="btn btn-outline-info"><i class="fa fa-check"></i></a>
+                            </div>
+                            @*<div class="media-body">
+            <h3 class="text-white mb-2 m-t-10 ellipsis">@Model.User.Name</h3>
+            <h5 class="text-white"> @Model.User.UserName</h5>
+        </div>*@
+                        </div>
+
+                    </div>
+                    <!--/ meta -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="container">
+            <div class="event-breadcrumb padding-top-50">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="row">
+                                <div class="breadcrumb-style-5" style="background:unset">
+                                    <div class="custom-profile " style="border-radius: 10px;">
+                                        <h3 class="page-title text-white text-center p-2">My Cocycle</h3>
+                                        <div class="text-left text-white">
+                                            <div class="row">
+                                                <div class="col-md-4 text-right">
+                                                    <label>UserName</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>@Model.User.UserName</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 text-right">
+                                                    <label>Name</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>@Model.User.Name</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 text-right">
+                                                    <label>Email</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>@Model.User.Email</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 text-right">
+                                                    <label>Address</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>@Model.User.Address</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 text-right">
+                                                    <label>State</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>@Model.User.State.StateName</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 text-right">
+                                                    <label>City</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>@Model.User.Area.AreaName</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 text-right">
+                                                    <label>PostCode</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>@Model.User.PostCode.PostCodeName</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 text-right">
+                                                    <label>Phone</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>@Model.User.PhoneNumber</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4 text-right">
+                                                    <label>Role</label>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>@Model.RoleName</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-8">
+
+                                                </div>
+                                                <div class="col-md-4">
+                                                    @Html.ActionLink("Edit Profile", "MyProfile", "Home", "", new { @class = "btn btn-red" })
+
+                                                    @*<p>@Model.User.Roles</p>*@
+                                                </div>
+                                            </div>
+                                            @*<ul class="page-list ">
+            <li><a class="text-white" href="@Url.Action("Index","Home")">Home</a></li>
+            <li><a class="text-white" href="#">Profile</a></li>
+        </ul>*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-7 ">
+                            <div class="row">
+                                <div class="left" style="border: #d2e0e1 solid 10px;">
+                                    <img style=" position: relative; top:12px; left:-20px;" src="../Content/WebAssets/img/breadcrumb/coolguys.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <div class="container-fluid emp-profile mt-4">
+        <div class="container">
+            <form method="post">
+
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="profile-head">
+                          
+
+
+                            @*<p class="proile-rating">RANKINGS : <span>8/10</span></p>*@
+                            <ul class="nav nav-tabs mb-2" id="myTab" role="tablist">
+
+                                @*<li class="nav-item">
+                                    <a class="nav-link active" id="home-tab" data-toggle="tab" data-custom="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>*@
+
+                                @if (Request.IsAuthenticated)
+                                {
+                                    if (User.IsInRole("cyclist"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="my_route-tab" data-toggle="tab" data-custom="#my_route" role="tab" aria-controls="my_route" aria-selected="false">My Routes</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="arranged-tab" data-toggle="tab" data-custom="#arranged" role="tab" aria-controls="arranged" aria-selected="false">My Offers</a>
+                                        </li>
+
+                                    }
+                                    if (User.IsInRole("learner"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="request-tab" data-toggle="tab" data-custom="#request" role="tab" aria-controls="request" aria-selected="false">My Requests for Join Route</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="requestrides-tab" data-toggle="tab" data-custom="#requestrides" role="tab" aria-controls="requestrides" aria-selected="false">My Requests for Ride</a>
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+
+                  
+
+                    <div class="col-md-12">
+                        <div class="tab-content profile-tab" id="myTabContent">
+                      
+                                          
+
+
+                                           
+                                               
+                            <div class="tab-pane fade" id="my_route" role="tabpanel" aria-labelledby="my_route-tab">
+
+                                <div class="event-tab" style="margin: 10px 0px 50px 0px;">
+
+                                    <div class="container-fluid">
+
+                                        <div class="row">
+                                            @*@Html.ActionLink("Create New", "Routes", "", new { @class = "btn btn-red m-3" })*@
+                                            <div class="col-lg-12">
+                                                <div class="tab-accordion">
+                                                    <div class="tab">
+                                                        <ul>
+                                                            <li style="padding: 10px 20px;" class="tab-myroutes active"><i class="fa fa-bicycle"></i>  Created Routes </li>
+                                                            <li style="padding: 10px 20px;" class="tab-requested"><i class="fa fa-users"></i> Participated Routes</li>
+                                                            @*<li class="tab-joined"><i class="fa fa-users"></i>  Participated Routes</li>*@
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="tab-content" style="margin-top: 50px;">
+                                                    <div class="tab-myroutes-content inactive active">
+                                                        <div class="event-left-content" id="divlist">
+                                                            @{
+                                                                Html.RenderPartial("_MyRoutes", Model.routes);
+                                                            }
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="tab-requested-content inactive">
+                                                        <div class="event-left-content" id="divlist">
+                                                            @{
+                                                                Html.RenderPartial("_RouteRequest", Model.routeGroups);
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade show" id="arranged" role="tabpanel" aria-labelledby="home-tab">
+
+                                @{
+                                    Html.RenderPartial("_Arranged", Model.arrangeds);
+                                }
+                            </div>
+                            <div class="tab-pane fade show" id="request" role="tabpanel" aria-labelledby="home-tab">
+                                @{
+                                    Html.RenderPartial("_MyRequest", Model.MyRequests);
+                                }
+                            </div>
+                            <div class="tab-pane fade show" id="requestrides" role="tabpanel" aria-labelledby="home-tab">
+                                @{
+                                    Html.RenderPartial("_RequestedRides", Model.RequestedRides);
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+<!--  jquery script  -->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+<!-- With locals-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+<!-- Without locals-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+
+<script>
+    $(document).ready(function () {
+
+        try {
+            var tabid = getUrlParameter('tabid');
+            console.log("url value",tabid);
+            loadtab('#'+tabid);
+        } catch (e) {
+            console.log(e);
+        }
+
+    });
+
+
+
+
+    var dayslist = Array.from(document.querySelectorAll(".days"));
+    arr = ["", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    dayslist.forEach(function (value) {
+        value.innerHTML = arr[parseInt(value.innerHTML)];
+    });
+    $('#tablerequest').DataTable();
+    $('#tablearranged').DataTable();
+    $('#tablemyrequest').DataTable();
+    $('#tablerequestedride').DataTable();
+
+    var loadFile = function (event) {
+        var output = document.getElementById('profilepic');
+        output.src = URL.createObjectURL(event.target.files[0]);
+        output.onload = function () {
+            URL.revokeObjectURL(output.src) // free memory
+        }
+        $('#btnsave').show();
+    };
+
+
+    $("#btnsave").click(function () {
+        var formData = new FormData();
+        var totalFiles = document.getElementById("imageupload").files.length;
+        for (var i = 0; i < totalFiles; i++) {
+            var file = document.getElementById("imageupload").files[i];
+            formData.append("imageupload", file);
+        }
+        $.ajax({
+            type: "POST",
+            url: '/Account/Upload',
+            data: formData,
+            //dataType: 'formdata',
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                $('#btnsave').hide();
+            },
+            error: function(error) {
+                alert("errror");
+            }
+        }).done(function () {
+            $('#btnsave').hide();
+            alert('success');
+        });
+    });
+
+    $('.nav-link').click(function () {
+        console.log(this);
+        var id = $(this).data("custom");
+        console.log(id);
+        $(".nav-link").removeClass("active");
+        $(this).addClass("active");
+        $(".tab-pane").removeClass("active");
+        $(".tab-pane").removeClass("show");
+        $(id).addClass("fade");
+        $(id).addClass("show");
+        $(id).addClass("active");
+
+
+    });
+
+    function loadtab(tabid) {
+        console.log("Before",tabid);
+        var id = $(""+tabid+"").data("custom");
+        console.log(id);
+
+        $(".nav-link").removeClass("active");
+        $(tabid).addClass("active");
+        $(".tab-pane").removeClass("active");
+        $(".tab-pane").removeClass("show");
+        $(id).addClass("fade");
+        $(id).addClass("show");
+        $(id).addClass("active");
+    }
+
+    function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return typeof sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+        return false;
+    };
+</script>
+
+@if ((string)TempData["message"] != "")
+{
+
+    <script>
+      //  debugger;
+            var msgtype = '@TempData["message"]';
+            console.log(msgtype);
+            $(function () {
+
+                if (msgtype == "registered") {
+                    $("#registered_alert").show();
+                    // toastr.success('Saved Successfully')
+                }
+
+                if (msgtype == "login") {
+                    $("#login_alert").show();
+                    // toastr.success('Saved Successfully')
+                }
+            });
+
+
+    </script>
+}

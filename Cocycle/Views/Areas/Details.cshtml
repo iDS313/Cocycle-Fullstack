@@ -1,0 +1,43 @@
+﻿@model Cocycle.Models.Area
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Area</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.StateId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StateId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AreaName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AreaName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedBy)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

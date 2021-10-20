@@ -1,0 +1,120 @@
+﻿
+@model IEnumerable<Cocycle.Models.Arranged>
+@using Microsoft.AspNet.Identity
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="container-fluid pt-2 pb-2">
+
+
+    @*<p>
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+
+    <div class="card">
+       
+        <div class="card-body">
+            <table class="table table-responsive-lg " id="tablearranged" style="color:black">
+                <thead>
+                    <tr>
+                        <th>
+                            Ride #.
+                        </th>
+                        <th>
+                            Requested By
+                        </th>
+                        <th>
+                            Meet Point
+                        </th>
+                        <th>
+                            Message
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                       
+                        <th>
+                            Details
+                        </th>
+
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.applicationUserRequested.UserName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartPoint)
+                            </td>
+
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.RequestRemark)
+                            </td>
+                            <td>
+                                @if (item.IsScheduled == true)
+                                {
+
+                                    if (item.StartTime < DateTime.Now)
+                                    {
+                                        if (item.FeedBack.Where(x => x.UserId == User.Identity.GetUserId()).Count() > 0)
+                                        {
+                                            <span class="badge badge-success m-2">Completed</span>
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink("Ride Completed", "AddRideFeedback", "FeedBacks", new { id = item.Id }, new { @class = "btn btn-sm btn-success" })
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-success">Scheduled</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="badge badge-secondary"> Not Scheduled</span>
+                                }
+
+
+                            </td>
+                           
+                            <td>  @Html.ActionLink("View", "Details","Arrangeds", new { id = item.Id }, new { @class = "btn btn-sm btn-info " })  </td>
+                            @*<td>
+                                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                </td>*@
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+</div>
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            //$('#tablearranged').DataTable();
+        });
+    </script>
+}
+@section style{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" />
+}
+
+

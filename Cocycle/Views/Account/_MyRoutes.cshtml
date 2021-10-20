@@ -1,0 +1,114 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<Cocycle.Models.Routes>
+
+@{
+    ViewBag.Title = "Index";
+}
+@foreach (var item in Model)
+{
+    <div class="img-item row" style="margin-bottom: 30px;">
+        <div class="col-lg-3">
+            <div class="row h-100">
+                <div class="img-left" style="display: block;">
+                    @if (item.PosterImage != null)
+                    {
+                        <img class="img-fluid pad" src="@Html.DisplayFor(modelItem => item.PosterImage)" style="width:100%" alt="">
+                    }
+                    else
+                    {
+                        <img class="img-fluid pad" src="~/Content/banner-img/Cocycle-bike-orange.png" style="width:100%" alt="">
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9  d-flex align-items-center">
+            <div class="content" style="padding-left: 4%;border-left:unset">
+
+                <h4 style="margin-top: 0px">
+                    <span class="labels">Location : </span> @Html.DisplayFor(modelItem => item.State.StateName),
+                    @Html.DisplayFor(modelItem => item.Area.AreaName)
+                    &emsp;<span class="labels">Route No :  </span> @Html.DisplayFor(modelItem => item.Id)
+                    &emsp; <span class="labels">Created Date : </span> @item.Created.ToString("dd-MMMM-yyyy")
+                </h4>
+
+                <h4 style="margin-top: 0px">
+                    <span class="labels">Departure :</span> @item.StartTime.ToString(" hh:mm tt")
+                    &emsp; <span class="labels">Arrival :</span>  @item.EndTime.ToString(" hh:mm tt")
+                    &nbsp;<span class="labels">Days :</span>
+                    @foreach (var items in @item.RouteSchedule)
+                    {
+                        <span class="days badge badge-primary my-1"> @items.DayId</span>
+                    }
+                </h4>
+                <h4 style="margin-top: 0px">
+                    <span class="labels">By : </span> @Html.DisplayFor(modelItem => item.applicationUserCreated.Name)
+                    &nbsp; <span class="labels ">Phone No : </span> <span style="cursor: pointer;" data-phone="@Html.DisplayFor(modelItem => item.applicationUserCreated.PhoneNumber)" class="decoded"> </span>
+
+                    &nbsp; <span class="labels">Email-ID : </span>@Html.DisplayFor(modelItem => item.applicationUserCreated.Email)
+                </h4>
+                <h4 style="margin-top: 0px">
+                    <span class="labels">Departure Point -</span> @Html.DisplayFor(modelItem => item.StartingPoint)
+                    &nbsp;   <span class="labels">Arrival Point -</span> @Html.DisplayFor(modelItem => item.EndPoint)
+                    &nbsp;
+                    @if (item.Addreturn == true)
+                    {
+                        <span class="labels">Return Journey</span>
+                    }
+                </h4>
+                @if (item.Message != null)
+                {
+                    <p><span class="labels">Message</span> : @Html.DisplayFor(modelItem => item.Message)</p>
+                }
+                @if (item.Description != null)
+                {
+                    <p><span class="labels">Description</span> : @Html.DisplayFor(modelItem => item.Description)</p>
+                }
+
+
+                @if (@item.CreatedBy == User.Identity.GetUserId())
+                {
+                    <div class="btn-wrapper">
+                        <a href="#">
+                            @Html.ActionLink("View Members / Requests", "ViewMembers", "RouteGroups",
+                         new
+                              {
+                             routeid = item.Id
+                              }, new { @class = "btn btn-element  btn-red float-right" })
+                        </a>
+                    </div>
+                }
+
+
+            </div>
+
+        </div>
+
+    </div>
+}
+@section Scripts {
+    <!-- With locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <!-- Without locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+                //var dayslist = Array.from(document.querySelectorAll(".days"));
+                //dayslist.forEach(function (value) {
+                //    if (value.innerHTML == 1) { value.innerHTML = "Monday"; }
+                //    if (value.innerHTML == 2) { value.innerHTML = "Tuesday"; }
+                //    if (value.innerHTML == 3) { value.innerHTML = "Wednesday"; }
+                //    if (value.innerHTML == 4) { value.innerHTML = "Thursday"; }
+                //    if (value.innerHTML == 5) { value.innerHTML = "Friday"; }
+                //    if (value.innerHTML == 6) { value.innerHTML = "Saturday"; }
+                //    if (value.innerHTML == 7) { value.innerHTML = "Sunday"; }
+                //});
+                //$(document).ready(function () {
+
+                //});
+
+    </script>
+}
+

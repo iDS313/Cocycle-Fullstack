@@ -1,0 +1,127 @@
+﻿
+
+@using Microsoft.AspNet.Identity
+@model IEnumerable<Cocycle.Models.RouteGroup>
+
+@{
+    ViewBag.Title = "ViewMembers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-area">
+    <div class="container">
+        <div class="card" style="box-shadow: #00000017 0px 3px 12px;">
+            <div class="card-header" style="background-color: #a5c7b6;font-family: 'Avenir-Bold'">Route Members</div>
+            <div class="card-body">
+                <table class="table " id="tablerequest" style="color:black">
+                    <thead>
+                        <tr>
+                            <th>
+                                RouteNo
+                            </th>
+                            <th>
+                                UserName
+                            </th>
+                            <th>
+                                Requested
+                            </th>
+                            <th>
+                                Approved
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+
+                            </th>
+
+                        </tr>
+                    </thead>
+
+
+                    @foreach (var item in Model)
+                    {
+                        <tbody>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.routes.Id)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.applicationUserRequested.Name)
+                                </td>
+                                <td>
+                                    @item.RequestDate.ToString("dd MMMM yyyy hh:mm tt")
+                                </td>
+                                <td>
+                                    @if (item.IsApproved == true)
+                                    {@item.ApproveDate.ToString("dd MMMM yyyy hh:mm tt")}
+                                </td>
+                                <td>
+                                    @if (item.IsApproved == false)
+                                    {
+                                        <span class="badge badge-warning">Pending</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge badge-success">Approved</span>
+                                    }
+                                </td>
+                                <td>
+                                    @if (item.IsApproved == true)
+                                    {
+                                        <a href="#">
+                                            @Html.ActionLink("Remove", "Delete", "RouteGroups",
+                                         new
+                                         {
+                                             id = item.Id
+                                         }, new { @class = "btn  btn-sm btn-danger " })
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#">
+                                            @Html.ActionLink("Approve", "AcceptRequest", "RouteGroups",
+                                         new
+                                         {
+                                             ApproveBy = User.Identity.GetUserId(),
+                                             Approvedate = DateTime.Now,
+                                             RouteGroupId = item.Id
+                                         }, new { @class = "btn  btn-sm btn-red " })
+                                        </a>
+                                    }
+                                </td>
+                                @*<td>
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                                    </td>*@
+                            </tr>
+                        </tbody>
+                    }
+
+                </table>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+    <!-- With locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <!-- Without locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('#tablerequest').DataTable();
+        });
+    </script>
+
+}

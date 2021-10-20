@@ -1,0 +1,74 @@
+﻿@model Cocycle.Models.Area
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Create</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+<div class="container">
+    <div class="form-horizontal" style="color:black!important">
+        <h4>Area</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.StateId, htmlAttributes: new { @class = "control-label " })
+            <div class="col-md-12">
+                <select class="form-control" id="StateId" name="StateId"><option value="">Select State</option></select>
+                @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AreaName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.AreaName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AreaName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script>
+        getstate();
+    var ddlstate = document.getElementById("StateId");
+  function  getstate(){
+       $.ajax({
+                type: 'GET',
+                url:'@Url.Content("~/States/GetAll/")',
+                //url: '/State/GetByState/' + id + '',
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    data.forEach((item) => {
+                        ddlstate.options[ddlstate.options.length] = new Option(item.StateName, item.Id);
+                    });
+                },
+
+            });
+    }
+
+</script>
+}

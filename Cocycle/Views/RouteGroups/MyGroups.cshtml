@@ -1,0 +1,176 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<Cocycle.Models.RouteGroup>
+
+@{
+    ViewBag.Title = "My Route Group";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container pt-5 pb-5">
+
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Joined Routes</h3>
+
+        </div>
+        <div class="card-body">
+            <table class="table" id="tableindex">
+                <thead>
+                    <tr>
+                        <th>
+                            RouteNo
+                        </th>
+                        <th>
+                         Route Creator
+                        </th>
+                        <th>
+                            Approved 
+                        </th>
+
+                        <th>
+                          Phone No.
+                        </th>
+                        <th>
+                            Email
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.routes.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.applicationUserApproved.Name)
+                            </td>
+                            <td>
+                                @item.ApproveDate.ToString("dd-MMM-yyyy")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.applicationUserApproved.PhoneNumber)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.applicationUserApproved.Email)
+                            </td>
+                            <td>
+                                <a href="#">
+                                    @Html.ActionLink("View Route", "Details", "Routes",
+                                 new
+                                 {
+                                     Id = @item.RouteId
+                                    
+                                 }, new { @class = "btn btn-sm  btn-success " })
+                                </a>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+
+            </table>
+        </div>
+    </div>
+
+    @*<p style="color:black">
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+
+</div>
+
+
+@*<div class="event-tab" style="margin: 10px 0px 50px 0px;">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="tab-content">
+                        <div class="tab-one-content inactive active">
+                            <div class="event-left-content" id="divlist">
+
+                                @foreach (var item in Model)
+                                {
+                                    <div class="img-item row">
+                                        <div class="col-lg-4">
+                                            <div class="row h-100">
+                                                <div class="img-left">
+                                                    <img src="@Html.DisplayFor(modelItem => item.routes.PosterImage)" alt="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8  d-flex align-items-center">
+                                            <div class="content">
+
+                                                <h4 style="margin-top: 0px">@Html.DisplayFor(modelItem => item.routes.State.StateName), @Html.DisplayFor(modelItem => item.routes.Area.AreaName) &emsp;<span class="labels">By:  </span> @Html.DisplayFor(modelItem => item.applicationUserRequested.UserName)  </h4>
+
+                                                <h4 style="margin-top: 0px">
+                                                    <span class="labels">Departure  -</span> @item.routes.StartTime.ToString("dd MMMM yyyy hh:mm tt")
+                                                </h4>
+                                                <h4 style="margin-top: 0px">
+                                                    <span class="labels">Arrival  -</span>  @item.routes.EndTime.ToString("dd MMMM yyyy hh:mm tt")
+                                                </h4>
+                                                <h4 style="margin-top: 0px">
+                                                    <span class="labels">Departure Point -</span> @Html.DisplayFor(modelItem => item.routes.StartingPoint)
+                                                </h4>
+                                                <h4 style="margin-top: 0px">
+                                                    <span class="labels">Arrival Point -</span> @Html.DisplayFor(modelItem => item.routes.EndPoint)
+                                                </h4>
+                                                <h4 style="margin-top: 0px">
+                                                    <span class="labels">Created Date - </span> @item.routes.Created.ToString("dd-MM-yyyy")
+                                                </h4>
+                                                <p>@Html.DisplayFor(modelItem => item.routes.Message)</p>
+                                                @if (@item.IsApproved == false)
+                                                {
+                                                    <div class="btn-wrapper">
+                                                        <a href="#">
+                                                            @Html.ActionLink("Approve Request", "AcceptRequest", "RouteGroups",
+                                                         new
+                                                         {
+                                                             ApproveBy = User.Identity.GetUserId(),
+                                                             Approvedate = DateTime.Now,
+                                                             RouteGroupId = item.Id
+                                                         }, new { @class = "btn btn-element btn-medium btn-red float-right" })
+                                                        </a>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="btn-wrapper">
+                                                        <a href="#" class="btn-disabled btn-element btn-medium btn-red float-right">
+                                                            Request Approved
+                                                        </a>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+    <!-- With locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <!-- Without locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+
+
+    @*@Scripts.Render("~/bundles/jqueryval")*@
+    <script>
+        $(document).ready(function () {
+            $('#tableindex').DataTable();
+        });
+    </script>
+}

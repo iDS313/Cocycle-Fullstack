@@ -1,0 +1,354 @@
+﻿@model Cocycle.Models.Arranged
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+</style>
+
+<div class="event-breadcrumb">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 col-6">
+                <div class="row">
+                    <div class="left">
+                        <img src="~/Content/WebAssets/img/breadcrumb/womanss4.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-6">
+                <div class="row">
+                    <div class="breadcrumb-style-5">
+                        <div class="breadcrumb-inner" style="background:#e7e9d7">
+                            <h2 style="font-weight: bolder;" class="page-title">Request Help</h2>
+                            <ul class="page-list">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="#">Request general help</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    @Html.AntiForgeryToken()
+    @section Style{
+        <link rel="stylesheet" href="~/Content/WebAssets/TavoCalendar-master/dist/tavo-calendar.css" />
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+        @*<style>
+                .error {
+                    color: red;
+                }
+            </style>*@
+    }
+    <!-- form start -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css" />
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />*@
+    <input type="hidden" name="OfferingDates" id="OfferingDates" value="" required="required" />
+    <div class="form-area">
+        <div class="container">
+            <div class="row">
+                @*<div class="cold-md-6">
+
+                    </div>*@
+                <div class="cold-md-12">
+                    <div class="row" style="box-shadow: 0px 0px 15px #ccc;">
+                        <div class="card">
+                            @*<div class="card-header" style="background-color: #a5c7b6;font-family:'Avenir-Bold'">
+                                    Request To Learn
+                                </div>*@
+                            <div class="card-body" style="padding: 40px 40px 15px 40px;">
+                                <div class="row" style="color:black">
+                                    <form action="#" class="form">
+                                        <div class="row">
+                                            <div class="col-md-6 p-3">
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        @Html.EditorFor(model => model.StartPoint, new { htmlAttributes = new { @class = "form-control", @id = "startpoint", placeholder = "Starting Point" } })
+                                                        @Html.ValidationMessageFor(model => model.StartPoint, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        @Html.DropDownList("PostCodeId", new SelectList(ViewBag.postCodes, "Id", "PostCodeName"), " Select PostCode", new { @class = "form-control" })
+                                                        <span class="col-form-label-sm" style="color:#ef972c">Note : we will not share this</span>
+                                                        @Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        @Html.DropDownList("StateId", new SelectList(ViewBag.States, "StateId", "StateName"), " Select State", new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        @Html.DropDownList("AreaId", new SelectList(ViewBag.Areas, "Id", "AreaName"), " Select City", new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        @Html.EditorFor(model => model.RequestRemark, new { htmlAttributes = new { @class = "form-control", placeholder = "my message" } })
+                                                        @Html.ValidationMessageFor(model => model.RequestRemark, "", new { @class = "text-danger" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 pt-3">
+                                              
+                                                <div class="col-md-12">
+                                                    
+                                                    <div class="form-group  " style="width: 100%; margin:0 auto">
+                                                        <label>Select your Availibility</label>
+                                                        @Html.ValidationMessageFor(model => model.OfferingDates, "", new { @class = "text-danger" })
+                                                        <div id="my-calendar"></div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="btn-wrapper ">
+                                                            <button type="submit" class="btn btn-element btn-red float-right">Create</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                              
+                                              
+                                            </div>
+                                        </div>
+                                        @*</div>*@
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- form end -->
+
+}
+
+<div>
+    @*@Html.ActionLink("Back to List", "Index")*@
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment-with-locales.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+
+    <script src="~/Content/WebAssets/TavoCalendar-master/dist/tavo-calendar.js"></script>
+
+    @*<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>*@
+
+    @* <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>*@
+    <script>
+
+        Obj = {};
+        arr = [];
+        var objschedule = "";
+        var selectedDates;
+        var a = [];
+        var b = [];
+        const myCalendar = new TavoCalendar('#my-calendar', {
+            date: new Date(),
+            multi_select: true,
+            highlight_sunday: false,
+            highlight: [/*2021-06-25*/],
+            format: "MM-DD-YYYY"
+        })
+        $(document).ready(function () {
+
+            $('#datepicker').datepicker({
+                startDate: new Date(),
+                multidate: true,
+                format: "dd/mm/yyyy",
+                //daysOfWeekHighlighted: "5,6",
+                //datesDisabled: ['31/08/2017'],
+                language: 'en'
+            }).on('changeDate', function (e) {
+                // `e` here contains the extra attributes
+                $(this).find('.input-group-addon .count').text(' ' + e.dates.length);
+            });
+        });
+
+        document.getElementById('my-calendar').addEventListener('calendar-select', (ev) => {
+            selectedDates = myCalendar.getSelected();
+            $('#OfferingDates').val(selectedDates);
+          //  myCalendar.blacklist = selectedDates;
+        });
+          $('#PostCodeId').change(function () {
+        var postcodeid = $('#PostCodeId').val();
+        if (postcodeid == "") {
+            $('#StateId').val("");
+            $('#AreaId').val("");
+        } else {
+        $.ajax({
+                type: 'POST',
+                url:'@Url.Content("~/PostCodes/GetstateandArea/")',
+                  data: "{postcode:'" + postcodeid + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    $('#StateId').val(data.StateId);
+                   // getarea(data.StateId, data.AreaId);
+                    $('#AreaId').val(data.AreaId);
+                },
+
+            });
+        }
+
+    });
+        $("#PostCodeId").select2({
+            placeholder: "Start Post Code",
+            allowClear: true,
+            ajax: {
+                url: "../../PostCodes/Getpostcode",
+                type: 'get',
+                dataType: 'json',
+                delay: 500,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term,
+                        areaid:$('#AreaId').val(),
+                    };
+                },
+                processResults: function (res) {
+                    return {
+                        results: res
+                    }
+                },
+                cache: true,
+            }
+        });
+
+
+    function getarea(stateid, areaid) {
+        $.ajax({
+                type: 'POST',
+                url:'@Url.Content("~/Areas/GetByState/")',
+                //url: '/State/GetByState/' + id + '',
+            data: "{Stateid:'" + stateid + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    ddlarea.innerHTML = "";
+                    data.forEach((item) => {
+                        ddlarea.options[ddlarea.options.length] = new Option(item.AreaName, item.Id);
+                     });
+                },
+        });
+        $('#AreaId').val(areaid);
+    }
+
+    @*var routes;
+    getstate();
+    var ddlstate = document.getElementById("StateId");
+  function  getstate(){
+       $.ajax({
+                type: 'GET',
+                url:'@Url.Content("~/States/GetAll/")',
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    data.forEach((item) => {
+                        ddlstate.options[ddlstate.options.length] = new Option(item.StateName, item.Id);
+                    });
+                },
+            });
+    }*@
+
+    var ddlarea = document.getElementById("AreaId");
+
+    $('#StateId').change(function () {
+        var id = $('#StateId option:selected').val();
+            if (id > 0) {
+
+            $.ajax({
+                type: 'POST',
+                url:'@Url.Content("~/Areas/GetByState/")',
+                data: "{Stateid:'" + id + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    ddlarea.innerHTML = "";
+                    ddlarea.options[ddlarea.options.length] = new Option("Select City", "");
+                    data.forEach((item) => {
+                        ddlarea.options[ddlarea.options.length] = new Option(item.AreaName, item.Id);
+                    });
+                },
+
+            });
+        }
+            else {
+                ddlarea.innerHTML = "";
+                ddlarea.options[ddlarea.options.length] = new Option("Select Area", "");
+            }
+        });
+
+        @*var ddlroute = document.getElementById("RouteId");
+
+        $('#AreaId').change(function () {
+        var Areaid = $('#AreaId option:selected').val();
+           // alert("Hello" + Areaid);
+            if (Areaid > 0) {
+
+            $.ajax({
+                type: 'GET',
+                url:'@Url.Content("~/Routes/GetByArea?areaid=")'+Areaid,
+                //url: '/State/GetByState/' + id + '',
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    routes = data;
+                    ddlroute.innerHTML = "";
+                    ddlroute.options[ddlroute.options.length] = new Option("Select Route", "");
+                    data.forEach((item) => {
+                        ddlroute.options[ddlroute.options.length] = new Option(item.StartingPoint, item.Id);
+                    });
+                },
+
+            });
+        }
+            else {
+                ddlroute.innerHTML = "";
+                ddlroute.options[ddlroute.options.length] = new Option("Select Route", "");
+            }
+        });
+
+    $('#RouteId').change(function () {
+        var RouteId = $('#RouteId option:selected').val();
+
+        routes.forEach((item) => {
+            if (item.Id == RouteId) {
+                $('#startpoint').val(item.StartingPoint);
+                $('#endpoint').val(item.EndPoint);
+                //var start = moment(item.StartTime).format("YYYY-MM-DDTHH:mm");
+                //var end = moment(item.EndTime).format("YYYY-MM-DDTHH:mm");
+                //$('#starttime').val(start);
+                //$('#endtime').val(end);
+            }
+        });
+    });*@
+    </script>
+}

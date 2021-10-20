@@ -1,0 +1,327 @@
+﻿@model Cocycle.Models.Arranged
+
+@{
+    ViewBag.Title = "ScheduleDate";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @section Style{
+        <link rel="stylesheet" href="~/Content/WebAssets/TavoCalendar-master/dist/tavo-calendar.css" />
+        <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+        @*<style>
+                .error {
+                    color: red;
+                }
+            </style>*@
+    }
+}
+
+<div class="form-area">
+    <div class="container">
+        <div class="card" style="box-shadow: #00000017 0px 3px 12px;">
+            <div class="card-header" style="background-color: #a5c7b6;font-family: 'Avenir-Bold'">Schedule Ride</div>
+            <div class="card-body">
+
+                <form action="#" class="form">
+
+                    <div class="row">
+                        <div class="col-md-12  d-flex justify-content-center">
+                            <div class="form-group">
+
+                                <div class="form-group">
+                                    <div class="col-md-6 offset-3">
+                                        <div class="form-group  mt-3 " style="width: 100%; margin:0 auto">
+                                            <div id="my-calendar"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6 offset-3">
+                                        @*<input id="txtpostcode" type="text" class="form-control" placeholder="postcode" required />*@
+                                        <label>Your Message</label>
+                                        @Html.EditorFor(model => model.ApproveRemark, new { htmlAttributes = new { @class = "form-control", placeholder = "Message" } })
+                                        @Html.ValidationMessageFor(model => model.ApproveRemark, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                                <div class="btn-wrapper mt-3">
+                                    <button type="button" id="btnsubmit" class="btn btn-element  btn-red float-right">Create</button>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="col-lg-4" id="divtime">
+                            <div class="form-group">
+                                <div class="col-md-12 ">
+
+                                    <ul id="listtime">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>*@
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Modal -->
+@*<div class="modal fade" id="exampleModal" data-dates="2021-07-24" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Set Time</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <div class="col-md-12 ">
+                            <label>Date</label>
+                            <input id="txtdate" type="text" class="form-control" disabled/>
+                            <label>Time</label>
+                            <input id="txttime" type="time" class="form-control" placeholder="start time" required />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="btnsave" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>*@
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @*<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>*@
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- With locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <!-- Without locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <script src="~/Content/WebAssets/TavoCalendar-master/dist/tavo-calendar.js"></script>
+
+
+    @*<script src="~/Content/WebAssets/evo-calendar/demo/demo.js"></script>*@
+
+<script>
+        $.noConflict();
+        jQuery(document).ready(function ($) {
+            // Code that uses jQuery's $ can follow here.
+        });
+        //Obj = {};
+        //arr = [];
+        //var objschedule ="";
+        var selectedDates;
+     //   var a=[];
+     //var b = [];
+    var finaldate ="";
+
+
+
+
+
+    var datess = `@Html.Raw(@Model.OfferingDates)`.split(',');
+       // var alldates = `@Html.Raw(@Model.OfferingDates)`.replace("/","");
+    //var values = JSON.parse(datess);
+    //console.log("values", values);
+    //        var timers = new Array();
+
+    //        values.forEach((item) => {
+    //            var d = item.date
+    //            var a = moment(d).format('MM-DD-YYYY');
+    //            var date = "" + "" + a + "" + ""
+    //            timers.push(date);
+
+    //        });
+
+            const myCalendar = new TavoCalendar('#my-calendar', {
+                date: new Date(),
+                highlight_sunday: false,
+                // multi_select: true,
+                highlight: datess,
+                format: "MM-DD-YYYY"
+
+            })
+
+    document.getElementById('my-calendar').addEventListener('calendar-select', (ev) => {
+        selectedDates = myCalendar.getSelected();
+
+        if (selectedDates != "") {
+            console.log("Selected", selectedDates);
+
+            const date1 = datess.find(element => element == selectedDates);
+            console.log("date1", date1);
+            if (date1 != undefined) {
+                var a = moment(date1).format('YYYY-MM-DD');
+                finaldate = a;
+            }
+            else {
+                finaldate = "";
+            }
+            console.log("final", finaldate);
+
+            //datess.forEach((item) => {
+            //    if (selectedDates === item) {
+            //        console.log("Matched", item);
+            //        //const timeString12hr = new Date('1970-01-01T' + selectedDates.time + 'Z')
+            //        //    .toLocaleTimeString({},
+            //        //        { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: 'numeric' }
+            //        //    );
+            //        //var d = item
+            //        var a = moment(selectedDates).format('YYYY-MM-DD');
+            //        finaldate = a;
+            //        console.log("final 1", finaldate);
+
+            //    }
+            //    else {
+            //        console.log("unmatch", selectedDates);
+                   
+            //        //console.log("UnMatched", item);
+            //        //swal("Warning", "please select from the available dates", "warning")
+            //        // myCalendar.clearSelected();
+            //    }
+            //});
+        }
+
+
+
+
+
+
+
+        //console.log("a", a);
+        //console.log(a.length);
+        //console.log(b.length);
+        //myCalendar.blacklist = selectedDates;
+        //var finalarr = arr.map(myFunctions);
+
+        //function myFunctions(val) {
+        //    var dates = val.date == selectedDates.find(function (vals) {
+        //        return vals == val.date
+        //    })
+        //    if (dates) {
+        //        return val;
+        //    }
+        //}
+        //finalarr = finalarr.filter(function (element) {
+        //    return element !== undefined;
+        //});
+
+        //arr = finalarr.slice();
+        //console.log("after arr", arr);
+
+        //viewschedule(finalarr);
+        //var currentdate = "";
+        //currentdate = selectedDates.slice(-1).pop();
+        //console.log("currentdate", currentdate);
+        //if (!currentdate) {
+        //    a = "";
+        //    console.log("currentdate", currentdate);
+        //}
+        //else {
+        //    if (b.length >= a.length) {
+        //        $('#txtdate').val(currentdate);
+        //        $('#exampleModal').data('dates', currentdate);
+        //        $('#exampleModal').modal('show');
+        //    }
+        //    else {
+        //        a = b;
+        //    }
+        //}
+
+
+    });
+
+
+        //$("#btnsave").click(function () {
+
+        //    selectedDates = myCalendar.getSelected()
+        //    myCalendar.blacklist = selectedDates;
+
+        //    time=$("#txttime").val();
+        //    var date = $('#exampleModal').data("dates");
+        //    Obj = {
+        //        date: date,
+        //        time: time
+        //    };
+        //    arr.push(Obj);
+        //    viewschedule(arr);
+        //    a = b;
+        //    // objschedule = JSON.stringify(arr);
+        //    $("#txttime").val("");
+        //    $('#exampleModal').modal('hide');
+
+        //});
+
+
+    $("#btnsubmit").click(function () {
+        console.log(finaldate);
+        if (finaldate == "") {
+           
+            console.log("error");
+                swal("Warning", "please select from the available dates", "warning")
+                myCalendar.clearSelected();
+            }
+        else {
+            console.log("Success");
+                  console.log("final 1", finaldate);
+            obj = { Id: @ViewBag.ArrangeId, startdate: finaldate,ApproveRemark:$('#ApproveRemark').val()}
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Content("~/Arrangeds/ScheduleDate/")',
+                    data: JSON.stringify(obj),
+                    dataType: 'json',
+                    contentType: "application/json",
+                    success: function (data) {
+                        window.location = "../../Account/MyProfile?tabid=arranged-tab"
+                    },
+                });
+            }
+          
+        });
+
+        function viewschedule(finaldate) {
+           // console.log("view schedule",finaldate);
+            htmllist = '';
+            finaldate.forEach(function (value, index) {
+                const timeString12hr = new Date('1970-01-01T' + value.time + 'Z')
+                    .toLocaleTimeString({},
+                        { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: 'numeric' }
+                    );
+                var d = value.date
+               // var a = moment(d).format('DD-MMM-YYYY');
+                htmllist += '<li><h5>' + d + ' - ' + timeString12hr + '</h5></li>';
+            })
+            $('#listtime').html("");
+            $('#listtime').append(htmllist);
+        }
+        function deleteItem(index) {
+            console.log("index value", index);
+            if (index > -1) {
+                arr.splice(index, 1);
+                console.log("arr",arr);
+            }
+            viewschedule(arr);
+            var str;
+            arr.forEach(function (value, index) {
+                str += value.date;
+            });
+            myCalendar.selected = str;
+
+        }
+
+</script>
+
+}

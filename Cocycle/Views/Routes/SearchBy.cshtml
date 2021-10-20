@@ -1,0 +1,452 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<Cocycle.Models.Routes>
+
+@{
+    ViewBag.Title = "Routes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="search-area padding-top-50 padding-bottom-30">
+    <div class="container">
+
+        <form method="post" action="~/Routes/SearchBy">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        <div class="form-field">
+                            <label>State</label>
+                            <select id="StateId" name="stateid" class="form-control"><option>Select State</option></select>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        <div class="form-field">
+                            <label>Area</label>
+                            <select id="AreaId" name="areaid" class="form-control"><option>Select Area</option></select>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+
+                        <div class="form-field">
+                            <label>Postal Code</label>
+                            <input id="txtpostcode" name="postcode" class="form-control" type="text" placeholder="search by postcode" />
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="btn-wrapper ">
+                <input href="#" type="submit" Value="Search" class="btn btn-element btn-medium btn-red float-right" />
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<div class="event-tab" style="margin: 10px 0px 50px 0px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="tab-accordion">
+                    <div class="tab">
+                        <ul>
+                            <li class="tab-All active">All</li>
+                            <li class="tab-Commute">Commute</li>
+                            <li class="tab-Social">Social</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="tab-content" style="margin-top: 50px;">
+                    <div class="tab-All-content inactive active">
+                        <div class="event-left-content" id="divlist">
+
+                            @foreach (var item in Model)
+                            {
+                                <div class="img-item row">
+                                    <div class="col-lg-3">
+                                        <div class="row h-100">
+                                            <div class="img-left" style="display: block;">
+                                                @if (item.PosterImage != null)
+                                                {<img src="@Html.DisplayFor(modelItem => item.PosterImage)" alt=""> }
+                                                else
+                                                { <img src="~/Content/banner-img/Cocycle-bike-orange.png" alt="">}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9  d-flex align-items-center">
+                                        <div class="content">
+
+                                            <h4 style="margin-top: 0px">@Html.DisplayFor(modelItem => item.State.StateName), @Html.DisplayFor(modelItem => item.Area.AreaName) &emsp;<span class="labels">By:  </span> @Html.DisplayFor(modelItem => item.applicationUserCreated.UserName) &emsp;<span class="labels">Route No:  </span> @Html.DisplayFor(modelItem => item.Id) </h4>
+
+                                            <h4 style="margin-top: 0px">
+                                                <span class="labels">Departure  -</span> @item.StartTime.ToString("dd MMMM yyyy hh:mm tt")  &emsp; <span class="labels">Arrival  -</span>  @item.EndTime.ToString("dd MMMM yyyy hh:mm tt")
+                                            </h4>
+                                            <h4 style="margin-top: 0px">
+                                                <span class="labels">Departure Point -</span> @Html.DisplayFor(modelItem => item.StartingPoint)
+                                            </h4>
+                                            <h4 style="margin-top: 0px">
+                                                <span class="labels">Arrival Point -</span> @Html.DisplayFor(modelItem => item.EndPoint)
+                                            </h4>
+                                            <h4 style="margin-top: 0px">
+                                                <span class="labels">Postal Code - </span> @item.PostCode   &emsp;   <span class="labels">Created Date - </span> @item.Created.ToString("dd-MM-yyyy")
+                                            </h4>
+                                            @if (item.Addreturn == true)
+                                            {
+                                                <h4 style="margin-top: 0px"> <span class="labels">Return Journey</span></h4>
+                                            }
+                                            <p>@Html.DisplayFor(modelItem => item.Message)</p>
+                                            @if (item.RouteSchedule.Count > 0)
+                                            {
+                                                <a href="#" role="button" data-toggle="collapse" data-target="#r_@item.Id" aria-expanded="false" aria-controls="r_@item.Id" class="collapsed btn btn-element btn-active">
+                                                    View Schedule
+                                                </a>
+                                                <div class="accordion-style-2">
+                                                    <div id="r_@item.Id" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="">
+                                                        <div class="card-body">
+                                                            <div class="popover-element ">
+                                                                <div class="list-menu">
+                                                                    <ul class="list-group list-group-flush">
+                                                                        @foreach (var items in @item.RouteSchedule)
+                                                                        {
+                                                                            <li style="font-size: unset;padding:unset" class="list-group-item"><i class="fa fa-check"></i><span class="days">@Html.DisplayFor(modelItem => items.DayId)</span> </li>
+                                                                        }
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            @if (@item.CreatedBy == User.Identity.GetUserId())
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                <div class="btn-wrapper">
+                                                    <a href="#">
+                                                        @Html.ActionLink("Request To Join", "RequestToJoin", "RouteGroups",
+                                                     new
+                                                     {
+                                                         requestby = User.Identity.GetUserId(),
+                                                         requestdate = DateTime.Now,
+                                                         RouteId = item.Id
+                                                     }, new { @class = "btn btn-element  btn-red float-right" })
+                                                    </a>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tab-Commute-content inactive">
+                        <div class="event-left-content" id="divlist">
+
+                            @foreach (var item in Model.Where(x => x.RouteType == 2))
+                            {
+                                <div class="img-item row">
+                                    <div class="col-lg-3">
+                                        <div class="row h-100">
+                                            <div class="img-left" style="display: block;">
+                                                @if (item.PosterImage != null)
+                                                {<img src="@Html.DisplayFor(modelItem => item.PosterImage)" alt=""> }
+                                                else
+                                                { <img src="~/Content/banner-img/Cocycle-bike-orange.png" alt="">}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9  d-flex align-items-center">
+                                        <div class="content">
+
+                                            <h4 style="margin-top: 0px">@Html.DisplayFor(modelItem => item.State.StateName), @Html.DisplayFor(modelItem => item.Area.AreaName) &emsp;<span class="labels">By:  </span> @Html.DisplayFor(modelItem => item.applicationUserCreated.UserName) &emsp;<span class="labels">Route No:  </span> @Html.DisplayFor(modelItem => item.Id) </h4>
+
+                                            <h4 style="margin-top: 0px">
+                                                <span class="labels">Departure  -</span> @item.StartTime.ToString("dd MMMM yyyy hh:mm tt")  &emsp; <span class="labels">Arrival  -</span>  @item.EndTime.ToString("dd MMMM yyyy hh:mm tt")
+                                            </h4>
+                                            <h4 style="margin-top: 0px">
+                                                <span class="labels">Departure Point -</span> @Html.DisplayFor(modelItem => item.StartingPoint)
+                                            </h4>
+                                            <h4 style="margin-top: 0px">
+                                                <span class="labels">Arrival Point -</span> @Html.DisplayFor(modelItem => item.EndPoint)
+                                            </h4>
+                                            <h4 style="margin-top: 0px">
+                                                 <span class="labels">Created Date - </span> @item.Created.ToString("dd-MM-yyyy")
+                                            </h4>
+                                            @if (item.Addreturn == true)
+                                            {
+                                                <h4 style="margin-top: 0px"> <span class="labels">Return Journey</span></h4>
+                                            }
+                                            <p>@Html.DisplayFor(modelItem => item.Message)</p>
+
+                                            @if (item.RouteSchedule.Count > 0)
+                                            {
+                                                <a href="#" role="button" data-toggle="collapse" data-target="#c_@item.Id" aria-expanded="false" aria-controls="c_@item.Id" class="collapsed btn btn-element btn-active">
+                                                    View Schedule
+                                                </a>
+                                                <div class="accordion-style-2">
+                                                    <div id="c_@item.Id" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="">
+                                                        <div class="card-body">
+                                                            <div class="popover-element ">
+                                                                <div class="list-menu">
+                                                                    <ul class="list-group list-group-flush">
+                                                                        @foreach (var items in @item.RouteSchedule)
+                                                                        {
+                                                                            <li style="font-size: unset;padding:unset" class="list-group-item"><i class="fa fa-check"></i><span class="days">@Html.DisplayFor(modelItem => items.DayId)</span> </li>
+                                                                        }
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                            @if (@item.CreatedBy == User.Identity.GetUserId())
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                <div class="btn-wrapper">
+                                                    <a href="#">
+                                                        @Html.ActionLink("Request To Join", "RequestToJoin", "RouteGroups",
+                                                     new
+                                                          {
+                                                              requestby = User.Identity.GetUserId(),
+                                                              requestdate = DateTime.Now,
+                                                              RouteId = item.Id
+                                                          }, new { @class = "btn btn-element btn-medium btn-red float-right" })
+                                                    </a>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="tab-Social-content inactive">
+                        <div class="event-left-content" id="divlist">
+
+                            @foreach (var item in Model.Where(x => x.RouteType == 1))
+                            {
+                                <div class="img-item row">
+                                    <div class="col-lg-3">
+                                        <div class="row h-100">
+                                            <div class="img-left" style="display: block;">
+                                                @if (item.PosterImage != null)
+                                                {<img src="@Html.DisplayFor(modelItem => item.PosterImage)" alt=""> }
+                                                else
+                                                { <img src="~/Content/banner-img/Cocycle-bike-orange.png" alt="">}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9  d-flex align-items-center">
+                                        <div class="content">
+
+                                            <h4 style="margin-top: 0px">@Html.DisplayFor(modelItem => item.State.StateName), @Html.DisplayFor(modelItem => item.Area.AreaName) &emsp;<span class="labels">By:  </span> @Html.DisplayFor(modelItem => item.applicationUserCreated.UserName) &emsp;<span class="labels">Route No:  </span> @Html.DisplayFor(modelItem => item.Id) </h4>
+
+                                            <h4 style="margin-top: 0px">
+                                                <span class="labels">Departure  -</span> @item.StartTime.ToString("dd MMMM yyyy hh:mm tt")  &emsp; <span class="labels">Arrival  -</span>  @item.EndTime.ToString("dd MMMM yyyy hh:mm tt")
+                                            </h4>
+                                            <h4 style="margin-top: 0px">
+                                                <span class="labels">Departure Point -</span> @Html.DisplayFor(modelItem => item.StartingPoint)
+                                            </h4>
+                                            <h4 style="margin-top: 0px">
+                                                <span class="labels">Arrival Point -</span> @Html.DisplayFor(modelItem => item.EndPoint)
+                                            </h4>
+                                            <h4 style="margin-top: 0px">
+                                                <span class="labels">Postal Code - </span> @item.PostCode   &emsp;   <span class="labels">Created Date - </span> @item.Created.ToString("dd-MM-yyyy")
+                                            </h4>
+                                            @if (item.Addreturn == true)
+                                            {
+                                                <h4 style="margin-top: 0px"> <span class="labels">Return Journey</span></h4>
+                                            }
+                                            <p>@Html.DisplayFor(modelItem => item.Message)</p>
+                                            @if (item.RouteSchedule.Count > 0)
+                                            {
+                                                <a href="#" role="button" data-toggle="collapse" data-target="#s_@item.Id" aria-expanded="false" aria-controls="s_@item.Id" class="collapsed btn btn-element btn-active">
+                                                    View Schedule
+                                                </a>
+                                                <div class="accordion-style-2">
+                                                    <div id="s_@item.Id" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="">
+                                                        <div class="card-body">
+                                                            <div class="popover-element ">
+                                                                <div class="list-menu">
+                                                                    <ul class="list-group list-group-flush">
+                                                                        @foreach (var items in @item.RouteSchedule)
+                                                                        {
+                                                                            <li style="font-size: unset;padding:unset" class="list-group-item"><i class="fa fa-check"></i><span class="days">@Html.DisplayFor(modelItem => items.DayId)</span> <span class="labels">Start Time - </span> @items.StartTime.ToString("hh:mm tt")  <span class="labels">End Time - </span> @items.EndTime.ToString("hh:mm tt") </li>
+                                                                        }
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                            @*<a href="@item.RouteVideo" class="btn btn-element btn-medium btn-style-2"> <i class="fa fa-download"></i> Video</a>*@
+                                            @if (@item.CreatedBy == User.Identity.GetUserId())
+                                            {
+
+                                            }
+                                            else
+                                            {
+                                                <div class="btn-wrapper">
+                                                    <a href="#">
+                                                        @Html.ActionLink("Request To Join", "RequestToJoin", "RouteGroups",
+                                                     new
+                                                          {
+                                                              requestby = User.Identity.GetUserId(),
+                                                              requestdate = DateTime.Now,
+                                                         RouteId = item.Id
+                                                          }, new { @class = "btn btn-element btn-medium btn-red float-right" })
+                                                    </a>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*@foreach (var item in Model)
+    {
+        <div class="img-item row">
+            <div class="col-lg-4">
+                <div class="row h-100">
+                    <div class="img-left">
+                        <img src="@Html.DisplayFor(modelItem => item.PosterImage)" alt="">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8  d-flex align-items-center">
+                <div class="content">
+
+                    <h4 style="margin-top: 0px">@Html.DisplayFor(modelItem => item.State.StateName), @Html.DisplayFor(modelItem => item.Area.AreaName) &emsp;<span class="labels">By:  </span> @Html.DisplayFor(modelItem => item.applicationUserCreated.UserName) &emsp;<span class="labels">Route No:  </span> @Html.DisplayFor(modelItem => item.Id) </h4>
+
+                    <h4 style="margin-top: 0px">
+                        <span class="labels">Departure  -</span> @item.StartTime.ToString("dd MMMM yyyy hh:mm tt")  &emsp; <span class="labels">Arrival  -</span>  @item.EndTime.ToString("dd MMMM yyyy hh:mm tt")
+                    </h4>
+                    <h4 style="margin-top: 0px">
+                        <span class="labels">Departure Point -</span> @Html.DisplayFor(modelItem => item.StartingPoint)
+                    </h4>
+                    <h4 style="margin-top: 0px">
+                        <span class="labels">Arrival Point -</span> @Html.DisplayFor(modelItem => item.EndPoint)
+                    </h4>
+                    <h4 style="margin-top: 0px">
+                        <span class="labels">Created Date - </span> @item.Created.ToString("dd MMM yyyy")
+                    </h4>
+                    <p>@Html.DisplayFor(modelItem => item.Message)</p>
+
+                    <div class="btn-wrapper">
+                        <a href="#" class="btn btn-element btn-medium btn-red float-right">Request To Join</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }*@
+
+
+@section Scripts {
+    <!-- With locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <!-- Without locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            var dayslist = Array.from(document.querySelectorAll(".days"));
+            dayslist.forEach(function (item) {
+                if (item.innerHTML == 1) { item.innerHTML = "Mon"; }
+                if (item.innerHTML == 2) { item.innerHTML = "Tue"; }
+                if (item.innerHTML == 3) { item.innerHTML = "Wed"; }
+                if (item.innerHTML == 4) { item.innerHTML = "Thu"; }
+                if (item.innerHTML == 5) { item.innerHTML = "Fri"; }
+                if (item.innerHTML == 6) { item.innerHTML = "Sat"; }
+                if (item.innerHTML == 7) { item.innerHTML = "Sun"; }
+            });
+        });
+    var ddlarea = document.getElementById("AreaId");
+     getstate();
+    var ddlstate = document.getElementById("StateId");
+  function  getstate(){
+       $.ajax({
+                type: 'GET',
+                url:'@Url.Content("~/States/GetAll/")',
+                //url: '/State/GetByState/' + id + '',
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    data.forEach((item) => {
+                        ddlstate.options[ddlstate.options.length] = new Option(item.StateName, item.Id);
+                    });
+                },
+
+            });
+        }
+
+        $('#StateId').change(function () {
+        var id = $('#StateId option:selected').val();
+           // alert(id);
+        if (id > 0) {
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Content("~/Areas/GetByState/")',
+                //url: '/State/GetByState/' + id + '',
+                data: "{Stateid:'" + id + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    ddlarea.innerHTML = "";
+                    ddlarea.options[ddlarea.options.length] = new Option("Select Area",0);
+                    data.forEach((item) => {
+                        ddlarea.options[ddlarea.options.length] = new Option(item.AreaName, item.Id);
+                    });
+                },
+
+            });
+        }
+        else {
+            ddlarea.innerHTML = "";
+            ddlarea.options[ddlarea.options.length] = new Option("Select Area","");
+        }
+        });
+
+    </script>
+}

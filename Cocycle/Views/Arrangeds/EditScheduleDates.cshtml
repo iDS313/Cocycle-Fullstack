@@ -1,0 +1,267 @@
+﻿@model Cocycle.Models.Arranged
+@{
+    ViewBag.Title = "EditScheduleDates";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @section Style{
+        <link rel="stylesheet" href="~/Content/WebAssets/TavoCalendar-master/dist/tavo-calendar.css" />
+        @*<style>
+                .error {
+                    color: red;
+                }
+            </style>*@
+    }
+}
+
+<div class="form-area">
+    <div class="container">
+        <div class="card" style="box-shadow: #00000017 0px 3px 12px;">
+            <div class="card-header" style="background-color: #a5c7b6;font-family: 'Avenir-Bold'">Edit Schedule</div>
+            <div class="card-body">
+                <div class="row" style="color:black">
+                    <form action="#" class="form">
+                        <div class="row">
+                            @*<div class="col-md-12 offset-3">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PostCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-6">
+                                        @Html.EditorFor(model => model.PostCode, new { htmlAttributes = new { @class = "form-control", id = "txtpostcode" } })
+                                        @Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>*@
+                            <div class="col-lg-12  ">
+
+                                @*<div class="form-group">
+                                <div class="col-md-6 offset-3">
+                                    @Html.EditorFor(model => model.PostCode, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>*@
+                                <div class="row">
+                                   
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <div class="form-group  mt-3 d-flex justify-content-center" style="width: 100%; margin:0 auto">
+                                                    <div id="my-calendar"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="btn-wrapper m-3">
+                                    <button type="button" id="btnsubmit" class="btn btn-element btn-medium btn-red float-right">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" data-dates="2021-07-24" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Set Time</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <div class="col-md-12 ">
+                            <label>Time</label>
+                            <input id="txttime" type="time" class="form-control" placeholder="start time" required />
+                        </div>
+                    </div>
+
+                </div>@*<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>*@
+            </div>
+            <div class="modal-footer">
+                
+                <button type="button" id="btnsave" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- With locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <!-- Without locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <script src="~/Content/WebAssets/TavoCalendar-master/dist/tavo-calendar.js"></script>
+
+
+    <script>
+
+
+        $.noConflict();
+        jQuery(document).ready(function ($) {
+            // Code that uses jQuery's $ can follow here.
+
+        });
+
+
+        Obj = {};
+        arr = [];
+        var objschedule = "";
+
+        var finaldate="";
+        var selectedDates;
+        var datess = `@Html.Raw(@Model.OfferingDates)`.split(',');
+        @* var alldates = `@Html.Raw(@Model.OfferingDates)`.replace("/","");
+        var values = JSON.parse(alldates);
+        console.log("parsed", values);
+        viewschedule(values);
+        var timers = new Array();*@
+
+        //datess.forEach((item) => {
+        //    var d = item
+        //    var a = moment(d).format('MM-DD-YYYY');
+        //    var date = "" + "" + a + "" + ""
+        //    console.log("values",item);
+        //    timers.push(date);
+        //    arr.push(item);
+        //});
+       // console.log("timers",timers);
+
+        const myCalendar = new TavoCalendar('#my-calendar', {
+            date: new Date(),
+            highlight_sunday: false,
+            multi_select: true,
+            //frozen:true,
+            highlight: datess,
+            format: "MM-DD-YYYY",
+            selected: datess
+          
+
+        })
+
+        document.getElementById('my-calendar').addEventListener('calendar-select', (ev) => {
+            //   alert(myCalendar.getSelected());
+            selectedDates = myCalendar.getSelected();
+            var currentdate = selectedDates.slice(-1).pop();
+            console.log("currentdate", selectedDates);
+
+            //var finald = arr.map(myFunctions);
+            //function myFunctions(val) {
+            //    var dates = val.date == selectedDates.find(function (vals) {
+            //        return vals == val.date
+            //    })
+            //    if (dates) {
+            //        return val;
+            //    }
+
+            //}
+            //finald = finald.filter(function (element) {
+            //    return element !== undefined;
+            //});
+           
+            //viewschedule(arr);
+            //var currentdate = "";
+            //currentdate = selectedDates.slice(-1).pop();
+            //if (!currentdate) {
+            //    console.log("currentdate", currentdate);
+            //}
+            //else {
+            //    $('#exampleModal').data('dates', currentdate);
+            //    $('#exampleModal').modal('show');
+            //}
+
+        });
+
+        $("#btnsave").click(function () {
+
+            selectedDates = myCalendar.getSelected()
+            time = $("#txttime").val();
+            var date = $('#exampleModal').data("dates");
+            Obj = {
+                date: date,
+                time: time
+            };
+            arr.push(Obj);
+            console.log("arr",arr);
+            viewschedule(arr);
+            objschedule = JSON.stringify(arr);
+            $("#txttime").val("");
+            $('#exampleModal').modal('hide');
+
+        });
+
+          $("#btnsubmit").click(function () {
+
+            //  selectedDates = myCalendar.getSelected();
+            //  console.log("selectedDates", selectedDates);
+            //var finald = arr.map(myFunctions);
+            //function myFunctions(val) {
+            //    var dates =  val.date == selectedDates.find(function (vals) {
+            //        return  vals == val.date
+            //    })
+            //    if (dates) {
+            //        return val;
+            //    }
+
+            //}
+            //finald = finald.filter(function (element) {
+            //    return element !== undefined;
+            //});
+
+             // console.log("finald", arr);
+           // var postcode = $("#txtpostcode").val();
+
+
+              if (finaldate != "" ) {
+             //   console.log("validated",objschedule);
+                obj = { Id: @ViewBag.ArrangeId, offeringdates: finaldate }
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Content("~/Arrangeds/ScheduleDate/")',
+                    data: JSON.stringify(obj),
+                    dataType: 'json',
+                    contentType: "application/json",
+                    success: function (data) {
+                        window.location = "../Account/MyProfile"
+                        // location.reload();
+                        console.log(data);
+
+                    },
+                });
+            }
+            else {
+                swal("Warning", "please provide the schedule and postcode first", "warning");
+            }
+        });
+        function viewschedule(lists) {
+            console.log("viewschedule", lists);
+            htmllist = '';
+            lists.forEach(function (value, index) {
+                const timeString12hr = new Date('1970-01-01T' + value.time + 'Z')
+                    .toLocaleTimeString({},
+                        { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: 'numeric' }
+                    );
+                var d = value.date
+                var a = moment(d).format('DD-MMM-YYYY');
+                htmllist += '<li><h5> ' + a + ' - ' + timeString12hr + '</h5></li>';
+            })
+            $('#listtime').html("");
+            $('#listtime').append(htmllist);
+        }
+    </script>
+
+}

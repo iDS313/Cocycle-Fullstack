@@ -1,0 +1,143 @@
+﻿@model Cocycle.Models.Arranged
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Style{
+    <link rel="stylesheet" href="~/Content/WebAssets/TavoCalendar-master/dist/tavo-calendar.css" />
+    @*<style>
+            .error {
+                color: red;
+            }
+        </style>*@
+}
+<div class="form-area">
+    
+        <div class="event-tab" style="margin:unset">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-12">
+                        <div class="tab-content" style="margin:unset">
+                            <div class="tab-one-content inactive active">
+                                <div class="event-left-content" id="divlist">
+
+                                    <div class="img-item row">
+                                        <div class="col-lg-12  d-flex align-items-center">
+                                            <div class="content">
+                                                <h4 style="margin-top: 0px">  @Html.DisplayFor(model => model.Area.AreaName), @Html.DisplayFor(model => model.State.StateName) &emsp;   </h4>
+                                                <h4 style="margin-top: 0px"> <span class="labels">Ride Requested By  -</span>  @Html.DisplayFor(model => model.applicationUserRequested.UserName) &emsp; <span class="labels">Co Ordinated By  -</span>  @Html.DisplayFor(model => model.applicationUserApproved.UserName) &emsp; <span class="labels">Ride No :</span>  @Html.DisplayFor(model => model.Id) </h4>
+                                                <h4 style="margin-top: 0px">
+                                                    <span class="labels">Ride Requested on -  </span>@Model.RequestDate.ToString("dd-MM-yyyy") &nbsp;
+                                                    @if (Model.IsScheduled == true)
+                                                    {
+                                                        <span class="labels">Scheduled On  - </span>@Model.StartTime.ToString("dd-MM-yyyy")
+                                                    }
+                                                </h4>
+
+                                                @if (Model.RouteId > 0 && Model.RouteId != null)
+                                                {
+                                                    <h4 style="margin-top: 0px">
+                                                        <span class="labels">Route Start - </span>@Model.routes.StartingPoint &emsp;  <span class="labels">Route End- </span>@Html.DisplayFor(model => model.routes.EndPoint)
+                                                    </h4>
+                                                }
+
+
+                                                <h4 style="margin-top: 0px">
+                                                    <span class="labels">Address - </span>@Html.DisplayFor(model => model.StartPoint)
+                                                </h4>
+                                                <h4 style="margin-top: 0px" class="text-dark">  <span class="labels">Learner Remark - </span> @Html.DisplayFor(model => model.RequestRemark)</h4>
+                                                <h4 style="margin-top: 0px" class="text-dark">  <span class="labels">Cyclist Remark - </span> @Html.DisplayFor(model => model.ApproveRemark)</h4>
+                                                @if (Model.IsApproved == true)
+                                                {
+                                                    if (Model.IsScheduled == true)
+                                                    {
+
+                                                        <h4 class="text-success"><span class="labels">Status</span> - Ride Is Scheduled</h4>
+                                                        if (@ViewBag.CyclistFeedback != null)
+                                                        {
+                                                            <p> <span class="labels">Feedback By Cyclist -</span> @ViewBag.CyclistFeedback.description</p>
+                                                        }
+                                                        if (@ViewBag.LearnerFeedback != null)
+                                                        {
+                                                            <p> <span class="labels">Feedback By Learner -</span> @ViewBag.LearnerFeedback.description</p>
+                                                        }
+
+
+                                                    }
+                                                    else
+                                                    {
+                                                        <h4 class="text-Info"><span class="labels">Status</span> - Ride Is Not Scheduled</h4>
+                                                        <h4 class="text-dark"> Available Schedule</h4>
+                                                        <div class="row" id="schedulelist">
+
+                                                        </div>
+
+                                                    }
+
+                                                }
+                                                else
+                                                {
+                                                    <h4 class="text-danger"><span class="labels">Status</span> - Pending</h4>
+                                                }
+                                                @*<div class="form-group  mt-3 " style="width: 100%; margin:0 auto">
+            <div id="my-calendar"></div>
+        </div>*@
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+   
+</div>
+
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://adminlte.io/themes/v3/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <!-- With locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <!-- Without locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+    <script src="~/Content/WebAssets/TavoCalendar-master/dist/tavo-calendar.js"></script>
+
+    <script>
+       // schedulelist
+          var datess = `@Html.Raw(@Model.OfferingDates)`.split(',');
+        var alldates = `@Html.Raw(@Model.OfferingDates)`.replace("/","");
+        var values = JSON.parse(alldates);
+        console.log("fetched", values);
+        htmllist = '';
+        values.forEach(function (value, index) {
+            const timeString12hr = new Date('1970-01-01T' + value.time + 'Z')
+                .toLocaleTimeString({},
+                    { timeZone: 'UTC', hour12: true, hour: 'numeric', minute: 'numeric' }
+                );
+            var d = value.date
+            var a = moment(d).format('DD-MMM-YYYY');
+            htmllist += ' <a class="btn btn-element btn-second"> ' + a + ' - ' + timeString12hr + ' </a> &nbsp;';
+            $('#schedulelist').html("");
+           
+        })
+        $('#schedulelist').append(htmllist);
+    </script>
+
+
+}

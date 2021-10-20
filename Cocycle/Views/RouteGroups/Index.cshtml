@@ -1,0 +1,115 @@
+﻿@using Microsoft.AspNet.Identity
+@model IEnumerable<Cocycle.Models.RouteGroup>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container pt-5 pb-5">
+
+
+    <div class="card">
+        <div class="card-header">
+            <h3>Join Route Request</h3>
+
+        </div>
+        <div class="card-body">
+            <table class="table" id="tableindex">
+                <thead>
+                    <tr>
+                        <th>
+                            RouteNo
+                        </th>
+                        <th>
+                            Request By
+                        </th>
+                        <th>
+                            Request Date
+                        </th>
+
+                        <th>
+                            @Html.DisplayNameFor(model => model.ApproveDate)
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                @foreach (var item in Model)
+                {
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.routes.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.applicationUserRequested.UserName)
+                            </td>
+                            <td>
+                                @item.RequestDate.ToString("dd-MMM-yyyy")
+                            </td>
+                            <td>
+                                @if (item.IsApproved == true)
+                                {
+                                    @item.ApproveDate.ToString("dd-MMM-yyyy")
+                                }
+                            </td>
+
+                            <td>
+                                @if (item.IsApproved == true)
+                                {
+                                    <a href="#">
+                                        @Html.ActionLink("Remove", "Delete", "RouteGroups",
+                                     new
+                                     {
+                                         id = item.Id
+                                     }, new { @class = "btn btn-sm  btn-danger " })
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a href="#">
+                                        @Html.ActionLink("Approve", "AcceptRequest", "RouteGroups",
+                                     new
+                                     {
+                                         ApproveBy = User.Identity.GetUserId(),
+                                         Approvedate = DateTime.Now,
+                                         RouteGroupId = item.Id
+                                     }, new { @class = "btn btn-sm  btn-success " })
+                                    </a>
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                }
+
+            </table>
+        </div>
+    </div>
+
+    @*<p style="color:black">
+            @Html.ActionLink("Create New", "Create")
+        </p>*@
+
+</div>
+
+
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+    <!-- With locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <!-- Without locals-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('#tableindex').DataTable();
+        });
+    </script>
+
+
+}

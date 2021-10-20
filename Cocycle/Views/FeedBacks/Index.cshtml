@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Cocycle.Models.FeedBack>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h2>Feedback</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table table-responsive-lg" id="tablefeedback" style="color:black">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.RideId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Created)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+
+
+        @foreach (var item in Model)
+        {
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RideId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.user.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Created)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            </tbody>
+
+        }
+
+    </table>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#tablearranged').DataTable();
+           
+        });
+    </script>
+}
+
+

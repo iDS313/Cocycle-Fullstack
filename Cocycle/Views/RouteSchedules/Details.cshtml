@@ -1,0 +1,37 @@
+﻿@model Cocycle.Models.RouteSchedule
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RouteSchedule</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.routes.PosterImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.routes.PosterImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DayId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DayId)
+        </dd>
+
+       
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

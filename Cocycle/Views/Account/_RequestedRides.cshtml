@@ -1,0 +1,187 @@
+﻿@model IEnumerable<Cocycle.Models.Arranged>
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container pt-2 pb-2">
+
+
+    @*<p>
+            @Html.ActionLink("Create New", "Create", null, "@style=color:black")
+        </p>*@
+    <div class="card">
+       
+        <div class="card-body">
+            <table class="table table-hover" id="tablerequestedride" style="color:black">
+                <thead>
+                    <tr>
+                        <th>
+                            Ride #.
+                        </th>
+                        <th>
+                            Address
+                        </th>
+                        <th>
+                            Requested Date
+                        </th>
+                        <th>
+                            Help Offered By
+                        </th>
+                        <th>
+                            Ride Schedule
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                      
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Id)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.StartPoint)
+                            </td>
+                            <td>
+                                @item.ApproveDate.ToString("dd-MM-yyyy")
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.applicationUserApproved.UserName)
+                            </td>
+                            <td>
+                                @if (@item.IsApproved == true)
+                                {
+                                    if (item.IsScheduled == true)
+                                    {
+                                        @item.StartTime.ToString("dd-MM-yyyy")
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @if (item.IsApproved == false)
+                                {
+                                    <span class="badge badge-warning">Pending</span>
+                                }
+                                else
+                                {
+                                    if (item.IsScheduled == false)
+                                    {
+                                        <a href="#">
+                                            @Html.ActionLink("Confirm Date" + "" + "", "ViewSchedule", "Arrangeds",
+                                         new { Id = @item.Id }, new { @class = "btn btn-sm btn-primary " })
+                                        </a>
+
+                                    }
+                                    else
+                                    {
+                                        if (item.StartTime < DateTime.Now)
+                                        {
+
+                                            if (item.FeedBack.Where(x => x.UserId == User.Identity.GetUserId()).Count() > 0)
+                                            {
+                                                <span class="badge badge-success m-2">Completed</span>
+                                            }
+                                            else
+                                            {
+                                                @Html.ActionLink("Ride Completed", "AddRideFeedback", "FeedBacks", new { id = item.Id }, new { @class = "btn btn-sm btn-success" })
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span class="badge badge-success">Scheduled</span>
+                                        }
+                                    }
+                                }
+
+                            </td>
+                          
+                            <td> <a> @Html.ActionLink("View", "Details","Arrangeds", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })</a>  </td>
+                            @*<td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>*@
+                        </tr>
+
+                    }
+                </tbody>
+                </table>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Schedule Your Date</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="color:black">
+                <label class="label-info">Start Date</label>
+                <input class="form-control" id="startdate" type="datetime-local" />
+                <label class="label-info">End Date</label>
+                <input class="form-control" id="enddate" type="datetime-local" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                <button type="button" class="btn btn-element btn-medium btn-red" id="btnsubmit">
+                    @*@Html.ActionLink("Submit", "ScheduleDate","Arrangeds",
+                        new { id = 1, StartDate="2021/01/01",EndDate= "2021/01/01" }, new { @class = "btn btn-element btn-medium btn-red " })*@
+                    Submit
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script>
+        var ArrangedId;
+        $(document).ready(function () {
+            //$('#tablearranged').DataTable();
+        });
+        $('.btnschedule').click(function () {
+          var id =  $(this).data('id');
+            console.log(id);
+            ArrangedId = id;
+        })
+
+        $('#btnsubmit').click(function (e) {
+            e.preventDefault();
+            var startdate = $('#startdate').val();
+            var enddate = $('#enddate').val();
+            var Id = ArrangedId
+            //location.href = " /Arrangeds/ScheduleDate/" + Id + "&StartDate=" + startdate + "&EndDate=" + enddate + "";
+
+            obj = { Id: Id, StartDate: startdate, EndDate: enddate}
+
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Content("~/Arrangeds/ScheduleDate/")',
+                data: JSON.stringify(obj),
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    location.reload();
+                },
+            });
+        })
+    </script>
+}

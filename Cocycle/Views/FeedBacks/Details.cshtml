@@ -1,0 +1,43 @@
+﻿@model Cocycle.Models.FeedBack
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="form-area">
+    <div class="col-md-6 offset-3">
+        <div class="container">
+            <div class="card" style="box-shadow: #00000017 0px 3px 12px;">
+                <div class="card-header" style="background-color: #a5c7b6;font-family: 'Avenir-Bold'">
+                    Feedback
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <dl class="dl-horizontal">
+
+                            <dt>
+                                Description
+                            </dt>
+
+                            <dd>
+                                @Html.DisplayFor(model => model.description)
+                            </dd>
+
+                            <dt>
+                                @Html.DisplayNameFor(model => model.Created)
+                            </dt>
+
+                            <dd>
+                                @Model.Created.ToString("dd-MMM-yyyy")
+                            </dd>
+
+                        </dl>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

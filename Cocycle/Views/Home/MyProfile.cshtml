@@ -1,0 +1,235 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Cocycle.Models.ApplicationUser
+@{
+    ViewBag.Title = "MyProfile";
+}
+
+@using (Html.BeginForm("EditUser", "Account", FormMethod.Post, new { @class = "container-fluid p-0", role = "form" }))
+{@Html.HiddenFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
+@Html.AntiForgeryToken()
+
+@section Style{
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+}
+
+
+
+<div class="form-area">
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-8 offset-lg-2">
+                <div class="card" style="box-shadow: #00000017 0px 3px 12px;">
+                    <div class="card-header" style="background-color: #a5c7b6;font-family: 'Avenir-Bold'">
+                       Edit Profile
+                    </div>
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0 mt-2">Full Name</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", @placeholder = "Name" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0 mt-2">Email</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @placeholder = "Email", @readonly = "readonly" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0 mt-2">Phone</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control", @placeholder = "PhoneNumber" } })
+                                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0 mt-2">Address</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = "Address" } })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0 mt-2">State</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @*<select id="StateId" class="form-control" name="StateId">   </select>*@
+                                @Html.DropDownList("StateId", new SelectList(ViewBag.States, "StateId", "StateName"), " Select State", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0 mt-2">Area</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @*<select id="AreaId" class="form-control" name="AreaId">   </select>*@
+                                @Html.DropDownList("AreaId", new SelectList(ViewBag.Areas, "Id", "AreaName"), " Select City", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0 mt-2">PostCode</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Html.DropDownList("PostCodeId", new SelectList(ViewBag.postCodes, "Id", "PostCodeName"), " Select PostCode", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.PostCodeId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0 mt-2">Description</h6>
+                            </div>
+                            <div class="col-sm-9 text-secondary">
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", @placeholder = "Description" } })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-sm-3">
+                                <h6 class="mb-0">Is Available</h6>
+                            </div>
+                            <div class="col-sm-1 text-secondary">
+                                @Html.EditorFor(model => model.IsAvailable, new { htmlAttributes = new { @class = "form-control", @placeholder = "Is Available" } })
+                                @Html.ValidationMessageFor(model => model.IsAvailable, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3"></div>
+                            <div class="col-sm-9 text-secondary">
+                                <input type="submit" class="btn-element btn-red" value="Save Changes">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+
+<script type="text/javascript">
+    var ddlarea = document.getElementById("AreaId");
+      $('#StateId').change(function () {
+        var id = $('#StateId option:selected').val();
+           // alert(id);
+            if (id > 0) {
+
+            $.ajax({
+                type: 'POST',
+                url:'@Url.Content("~/Areas/GetByState/")',
+                //url: '/State/GetByState/' + id + '',
+                data: "{Stateid:'" + id + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    ddlarea.innerHTML = "";
+                    data.forEach((item) => {
+                        ddlarea.options[ddlarea.options.length] = new Option(item.AreaName, item.Id);
+                     });
+                },
+            });
+        }
+            else {
+                ddlarea.innerHTML = "";
+                ddlarea.options[ddlarea.options.length] = new Option("Select City", "");
+            }
+        });
+
+    $('#PostCodeId').change(function () {
+        var postcodeid = $('#PostCodeId').val();
+        if (postcodeid == "") {
+            $('#StateId').val("");
+            $('#AreaId').val("");
+        } else {
+        $.ajax({
+                type: 'POST',
+                url:'@Url.Content("~/PostCodes/GetstateandArea/")',
+                  data: "{postcode:'" + postcodeid + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    $('#StateId').val(data.StateId);
+                   // getarea(data.StateId, data.AreaId);
+                    $('#AreaId').val(data.AreaId);
+                },
+
+            });
+        }
+
+    });
+        $("#PostCodeId").select2({
+            placeholder: "Start Post Code",
+            allowClear: true,
+            ajax: {
+                url: "../../PostCodes/Getpostcode",
+                type: 'get',
+                dataType: 'json',
+                delay: 500,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term,
+                        areaid:$('#AreaId').val(),
+                    };
+                },
+                processResults: function (res) {
+                    return {
+                        results: res
+                    }
+                },
+                cache: true,
+            }
+        });
+        $("#PostCodeId").select2().select2('val',''+@Model.PostCodeId+'');
+
+
+    function getarea(stateid, areaid) {
+        $.ajax({
+                type: 'POST',
+                url:'@Url.Content("~/Areas/GetByState/")',
+                //url: '/State/GetByState/' + id + '',
+            data: "{Stateid:'" + stateid + "'}",
+                dataType: 'json',
+                contentType: "application/json",
+                success: function (data) {
+                    console.log(data);
+                    ddlarea.innerHTML = "";
+                    data.forEach((item) => {
+                        ddlarea.options[ddlarea.options.length] = new Option(item.AreaName, item.Id);
+                     });
+                },
+        });
+        $('#AreaId').val(areaid);
+    }
+
+</script>
+}

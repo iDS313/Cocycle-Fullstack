@@ -1,0 +1,1005 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{016CC972-9FC5-40B9-B6CD-C36C0EBB651B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Cocycle</RootNamespace>
+    <AssemblyName>Cocycle</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort>44352</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.5.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.5\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.14.0.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.14.0\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4, Version=1.1.11.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.1.1.11\lib\net46\K4os.Compression.LZ4.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.1.11.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.Streams.1.1.11\lib\net46\K4os.Compression.LZ4.Streams.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Hash.xxHash, Version=1.0.6.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Hash.xxHash.1.0.6\lib\net46\K4os.Hash.xxHash.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.2\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard2.0\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.4.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Threading.Tasks.Extensions.4.3.0\lib\portable-net45+win8+wp8+wpa81\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.7\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.7\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.7\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.7\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.7\lib\net45\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.7\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.3\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.3\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.4.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.4.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.4.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.4.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.4.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter">
+      <HintPath>..\packages\Microsoft.Owin.Security.Twitter.4.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount">
+      <HintPath>..\packages\Microsoft.Owin.Security.MicrosoftAccount.4.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AreasController.cs" />
+    <Compile Include="Controllers\ArrangedsController.cs" />
+    <Compile Include="Controllers\EmailAccountsController.cs" />
+    <Compile Include="Controllers\FeedBacksController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PostCodesController.cs" />
+    <Compile Include="Controllers\RouteGroupsController.cs" />
+    <Compile Include="Controllers\RouteSchedulesController.cs" />
+    <Compile Include="Controllers\RoutesController.cs" />
+    <Compile Include="Controllers\StatesController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107010642074_init.cs" />
+    <Compile Include="Migrations\202107010642074_init.Designer.cs">
+      <DependentUpon>202107010642074_init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107021128591_addrouteschedules.cs" />
+    <Compile Include="Migrations\202107021128591_addrouteschedules.Designer.cs">
+      <DependentUpon>202107021128591_addrouteschedules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107021134198_routeschedulesrelationship.cs" />
+    <Compile Include="Migrations\202107021134198_routeschedulesrelationship.Designer.cs">
+      <DependentUpon>202107021134198_routeschedulesrelationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107261257403_changes_in_arranged.cs" />
+    <Compile Include="Migrations\202107261257403_changes_in_arranged.Designer.cs">
+      <DependentUpon>202107261257403_changes_in_arranged.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202107311004530_EmailAccount_Added.cs" />
+    <Compile Include="Migrations\202107311004530_EmailAccount_Added.Designer.cs">
+      <DependentUpon>202107311004530_EmailAccount_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108070736200_Arranged_addridecompleted.cs" />
+    <Compile Include="Migrations\202108070736200_Arranged_addridecompleted.Designer.cs">
+      <DependentUpon>202108070736200_Arranged_addridecompleted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108110623057_area_state_changes.cs" />
+    <Compile Include="Migrations\202108110623057_area_state_changes.Designer.cs">
+      <DependentUpon>202108110623057_area_state_changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108181138418_aspUsersChanges.cs" />
+    <Compile Include="Migrations\202108181138418_aspUsersChanges.Designer.cs">
+      <DependentUpon>202108181138418_aspUsersChanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108191045085_route_changesnew.cs" />
+    <Compile Include="Migrations\202108191045085_route_changesnew.Designer.cs">
+      <DependentUpon>202108191045085_route_changesnew.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108251250114_added_postcode.cs" />
+    <Compile Include="Migrations\202108251250114_added_postcode.Designer.cs">
+      <DependentUpon>202108251250114_added_postcode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108251319568_postcode_state_city_relations.cs" />
+    <Compile Include="Migrations\202108251319568_postcode_state_city_relations.Designer.cs">
+      <DependentUpon>202108251319568_postcode_state_city_relations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108271057139_user_postcode_newchanges3.cs" />
+    <Compile Include="Migrations\202108271057139_user_postcode_newchanges3.Designer.cs">
+      <DependentUpon>202108271057139_user_postcode_newchanges3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108281152449_Feedback_Changed1.cs" />
+    <Compile Include="Migrations\202108281152449_Feedback_Changed1.Designer.cs">
+      <DependentUpon>202108281152449_Feedback_Changed1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108301027588_routes-postcode_relationship.cs" />
+    <Compile Include="Migrations\202108301027588_routes-postcode_relationship.Designer.cs">
+      <DependentUpon>202108301027588_routes-postcode_relationship.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202108310546448_addmessage_and_arrangedchanges.cs" />
+    <Compile Include="Migrations\202108310546448_addmessage_and_arrangedchanges.Designer.cs">
+      <DependentUpon>202108310546448_addmessage_and_arrangedchanges.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202110090759462_arrange_changes.cs" />
+    <Compile Include="Migrations\202110090759462_arrange_changes.Designer.cs">
+      <DependentUpon>202110090759462_arrange_changes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Area.cs" />
+    <Compile Include="Models\Arranged.cs" />
+    <Compile Include="Models\EmailAccount.cs" />
+    <Compile Include="Models\FeedBack.cs" />
+    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\PostCode.cs" />
+    <Compile Include="Models\ProfileViewModel.cs" />
+    <Compile Include="Models\RouteGroup.cs" />
+    <Compile Include="Models\Routes.cs" />
+    <Compile Include="Models\RouteSchedule.cs" />
+    <Compile Include="Models\State.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Startup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\banner-img\banner-first.jpg" />
+    <Content Include="Content\banner-img\banner-second.jpg" />
+    <Content Include="Content\banner-img\Cocycle-bike-orange.png" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\0481116b-219b-487c-8669-786bec96c099b4u.jpg" />
+    <Content Include="Content\Images\0a551fca-452e-4adf-85a3-99a422ec1cfafox.jpg" />
+    <Content Include="Content\Images\0ff13745-7eb3-4486-9132-7c7bf609d48bb4u.jpg" />
+    <Content Include="Content\Images\10ad138b-92d5-4dd3-9e81-7675658ec75deros.jpg" />
+    <Content Include="Content\Images\14d913af-f6c8-4962-a336-927658430ac1b4u.jpg" />
+    <Content Include="Content\Images\183f0a9c-fce2-4dbb-bf19-183faf5ec203event3.png" />
+    <Content Include="Content\Images\24b2f169-64b9-46d8-bf62-5e42f27576c2disney utv.jpg" />
+    <Content Include="Content\Images\24cb68bb-fee7-4eda-a98f-f5e19e2d505eb4u.jpg" />
+    <Content Include="Content\Images\25fee566-1ff1-4388-96e9-c2d92100274eb4u.jpg" />
+    <Content Include="Content\Images\2a817cb5-e886-40c9-b58b-2eb13f5c3136eros.jpg" />
+    <Content Include="Content\Images\3580178f-8444-4280-a3d8-4a17496ae841disney utv.jpg" />
+    <Content Include="Content\Images\3a3b3567-37ba-4c04-a86e-6bd979ed855f7875593099.png" />
+    <Content Include="Content\Images\3bbbfd66-e37d-45e0-b7dd-be22e7b0ebc5b4u.jpg" />
+    <Content Include="Content\Images\4873ab10-74a8-4ce5-bff9-6186c390c488b4u.jpg" />
+    <Content Include="Content\Images\573357e1-83c5-4927-9ee1-9464dde74448event.png" />
+    <Content Include="Content\Images\5a662424-bf6e-4e6e-86fb-6ccee44904fbbr studio.jpg" />
+    <Content Include="Content\Images\6926d415-0cca-41a3-90a7-d0b1dd766dc8pexels-fotografierende-3278757.jpg" />
+    <Content Include="Content\Images\794d1b54-e7f9-4eec-85e3-43a1be31ed6ab4u.jpg" />
+    <Content Include="Content\Images\7eec5cb6-44af-4d37-b04c-ee8ad8535f12b4u.jpg" />
+    <Content Include="Content\Images\88482c1e-75bc-43d1-aeba-52fbef988eeabr studio.jpg" />
+    <Content Include="Content\Images\8f5439a6-a83a-4dc7-9da5-ba6321573f1eeros.jpg" />
+    <Content Include="Content\Images\92fbbfbe-d990-4dc6-a892-5355d391be50event.png" />
+    <Content Include="Content\Images\940c82b8-6370-4d0e-8989-63fd2abcca27disney utv.jpg" />
+    <Content Include="Content\Images\94a91b89-1ca5-46f9-9319-279a795d3497b4u.jpg" />
+    <Content Include="Content\Images\995dafb8-d4d3-4985-9f22-22b97d773b3bdisney utv.jpg" />
+    <Content Include="Content\Images\99825835-73cf-48b8-9d96-f06ded902fdeevent.png" />
+    <Content Include="Content\Images\9b671ece-f5e9-42f8-a527-6022aa79500edisney utv.jpg" />
+    <Content Include="Content\Images\9e716f7f-290d-47bf-b2bb-b5aaafb0d882disney utv.jpg" />
+    <Content Include="Content\Images\a18cc113-65da-4eb5-9820-eee80274a3ed7875593099.png" />
+    <Content Include="Content\Images\a2a1332e-cc6e-4fa9-8081-5c2e0e69f7fa1.jpg" />
+    <Content Include="Content\Images\a7d14fde-1fc6-443f-a922-8bd9fd60afd5event3.png" />
+    <Content Include="Content\Images\b0f4a4c2-4a64-4743-b917-366baf744b15b4u.jpg" />
+    <Content Include="Content\Images\ba526f30-eeb0-4fbd-ba71-9815e1708d021.jpg" />
+    <Content Include="Content\Images\bb6483c0-58c6-4d10-a3db-83575afd7235eros.jpg" />
+    <Content Include="Content\Images\c4cba7a8-5754-4fe2-9bc1-47aa32bf6970br studio.jpg" />
+    <Content Include="Content\Images\c6ee7e75-4fbb-4b30-a10b-c1444e293f7eeros.jpg" />
+    <Content Include="Content\Images\cfdaadbf-8a63-4cb0-a6f0-eaf823e2bf9dbr studio.jpg" />
+    <Content Include="Content\Images\d866813d-bc52-4934-87e9-32d1d69c4de1pexels-fotografierende-3278757.jpg" />
+    <Content Include="Content\Images\dcd0075a-b9c3-4943-8732-3f034eb045aeb4u.jpg" />
+    <Content Include="Content\Images\e1b4405f-5a90-4600-8f52-b2f13423d941b4u.jpg" />
+    <Content Include="Content\Images\e684708f-89f3-49ab-a146-bab522877c63b4u.jpg" />
+    <Content Include="Content\Images\f0c11e95-9cc9-4621-a480-06b26c709675b4u.jpg" />
+    <Content Include="Content\Images\f12b7fc7-f774-4dbc-b7ee-ed440c493e8eevent2.png" />
+    <Content Include="Content\Images\f25687a0-413a-49a6-9955-147f87498674br studio.jpg" />
+    <Content Include="Content\Images\fe7d08e8-f9be-4654-9a1c-559a14c7c5b21.jpg" />
+    <Content Include="Content\ProfilePic\0d47a43d-787a-4100-9978-1ea5cf28a331comment1.png" />
+    <Content Include="Content\ProfilePic\16467d24-1ad7-4147-97e0-811433d82174comment2.png" />
+    <Content Include="Content\ProfilePic\1828b4c7-62bc-4066-a086-223bd96bf424operator.png" />
+    <Content Include="Content\ProfilePic\260a512c-c31a-4a61-998c-a49b5447395acomment2.png" />
+    <Content Include="Content\ProfilePic\2dfe564e-5933-4482-bc8a-5654e6f9a3747504353152.png" />
+    <Content Include="Content\ProfilePic\316e7e4d-8752-40cf-a02c-965113144dec9681590368.png" />
+    <Content Include="Content\ProfilePic\3654b870-5d51-4e0d-a627-91905418f96ccomment1.png" />
+    <Content Include="Content\ProfilePic\3c94472e-f6a4-42bf-858c-fa96da4b1787comment1.png" />
+    <Content Include="Content\ProfilePic\3d46839e-df2b-4920-bb9e-951f7c6ad7e2comment1.png" />
+    <Content Include="Content\ProfilePic\3f2ec2f5-219f-43cc-8ebc-c46bf61a8772share3.png" />
+    <Content Include="Content\ProfilePic\4ab6a10d-6052-4b2a-a9ad-1d7076de9d81comment1.png" />
+    <Content Include="Content\ProfilePic\4fe98988-f9ce-42d3-9e5a-9a3ba3c95746comment1.png" />
+    <Content Include="Content\ProfilePic\733ccde0-a9db-4cff-88e8-d5aa0d81a4f7comment2.png" />
+    <Content Include="Content\ProfilePic\7e5e8912-6147-43bb-b9ed-2ba65e7952bdcomment2.png" />
+    <Content Include="Content\ProfilePic\7f0618a8-e1cd-45ad-9cf0-b0ac0f726136comment2.png" />
+    <Content Include="Content\ProfilePic\9bd83693-c530-4b55-bb7c-ca4c036a8a24ee0a6bc7-c9d2-422f-a867-47049bc22636image.jpg" />
+    <Content Include="Content\ProfilePic\a87c4f49-8358-450e-a181-b2b5d566ffc8comment1.png" />
+    <Content Include="Content\ProfilePic\adadd255-e716-49f3-826b-e298e8a53023comment1.png" />
+    <Content Include="Content\ProfilePic\b2db8e0f-bcee-44d6-84df-7fca9f1195bacomment2.png" />
+    <Content Include="Content\ProfilePic\c7d01da7-21c0-4e32-a6b3-02c95a01dfeboperator.png" />
+    <Content Include="Content\ProfilePic\cce3f975-c798-44d0-970e-f9b0b834710bcomment2.png" />
+    <Content Include="Content\ProfilePic\daa5c65e-3396-49be-b85c-61b7bf81a00fcomment2.png" />
+    <Content Include="Content\ProfilePic\df09d744-9cda-49e3-8c4f-29238c99b34ccomment1.png" />
+    <Content Include="Content\ProfilePic\ee0a6bc7-c9d2-422f-a867-47049bc22636image.jpg" />
+    <Content Include="Content\ProfilePic\mm.jpg" />
+    <Content Include="Content\WebAssets\css\animate.css" />
+    <Content Include="Content\WebAssets\css\bootstrap.min.css" />
+    <Content Include="Content\WebAssets\css\Flaticon-2.html" />
+    <Content Include="Content\WebAssets\css\Flaticon-3.html" />
+    <Content Include="Content\WebAssets\css\Flaticon-4.html" />
+    <Content Include="Content\WebAssets\css\Flaticon-5.html" />
+    <Content Include="Content\WebAssets\css\flaticon.css" />
+    <Content Include="Content\WebAssets\css\Flaticon.html" />
+    <Content Include="Content\WebAssets\css\Flaticond41d.html" />
+    <Content Include="Content\WebAssets\css\font-awesome.min.css" />
+    <Content Include="Content\WebAssets\css\jquery.rprogessbar.min.css" />
+    <Content Include="Content\WebAssets\css\magnific-popup.css" />
+    <Content Include="Content\WebAssets\css\nice-select.css" />
+    <Content Include="Content\WebAssets\css\owl.carousel.min.css" />
+    <Content Include="Content\WebAssets\css\owl.video.play.html" />
+    <Content Include="Content\WebAssets\css\responsive.css" />
+    <Content Include="Content\WebAssets\css\slick-theme.css" />
+    <Content Include="Content\WebAssets\css\slick.css" />
+    <Content Include="Content\WebAssets\css\style.css" />
+    <Content Include="Content\WebAssets\css\swiper.min.css" />
+    <Content Include="Content\WebAssets\fonts\Flaticon.html" />
+    <Content Include="Content\WebAssets\fonts\Flaticon.svg" />
+    <Content Include="Content\WebAssets\fonts\fontawesome-webfont3e6e.html" />
+    <Content Include="Content\WebAssets\fonts\fontawesome-webfont3e6e.svg" />
+    <Content Include="Content\WebAssets\fonts\SIL Open Font License.txt" />
+    <Content Include="Content\WebAssets\fonts\slick-2.html" />
+    <Content Include="Content\WebAssets\fonts\slick.html" />
+    <Content Include="Content\WebAssets\fonts\slickd41d.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\background-events.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\daygrid-views.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\external-dragging-2cals.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\external-dragging-builtin.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\full-height.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\google-calendar.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\icalendar.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\json.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\js\theme-chooser.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\list-sticky-header.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\list-views.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\locales.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\month-view.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\natural-height.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\php\get-events.php" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\php\get-time-zones.php" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\php\utils.php" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\selectable.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\theming.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\time-zones.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\timegrid-sticky-header.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\timegrid-views-hscroll.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\timegrid-views.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\week-numbers.html" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales-all.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales-all.min.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\af.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ar-dz.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ar-kw.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ar-ly.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ar-ma.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ar-sa.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ar-tn.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ar.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\az.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\bg.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\bn.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\bs.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ca.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\cs.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\cy.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\da.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\de-at.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\de.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\el.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\en-au.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\en-gb.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\en-nz.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\eo.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\es-us.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\es.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\et.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\eu.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\fa.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\fi.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\fr-ca.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\fr-ch.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\fr.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\gl.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\he.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\hi.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\hr.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\hu.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\hy-am.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\id.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\is.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\it.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ja.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ka.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\kk.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ko.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\lb.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\lt.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\lv.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\mk.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ms.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\nb.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ne.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\nl.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\nn.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\pl.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\pt-br.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\pt.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ro.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ru.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\sk.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\sl.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\sq.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\sr-cyrl.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\sr.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\sv.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ta-in.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\th.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\tr.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\ug.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\uk.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\uz.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\vi.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\zh-cn.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\locales\zh-tw.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\main.css" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\main.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\main.min.css" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\lib\main.min.js" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\LICENSE.txt" />
+    <Content Include="Content\WebAssets\img\4788-ai.png" />
+    <Content Include="Content\WebAssets\img\5243-ai.png" />
+    <Content Include="Content\WebAssets\img\about-page\about.png" />
+    <Content Include="Content\WebAssets\img\about-page\blokes.jpg" />
+    <Content Include="Content\WebAssets\img\about-page\brand1.png" />
+    <Content Include="Content\WebAssets\img\about-page\brand2.png" />
+    <Content Include="Content\WebAssets\img\about-page\brand3.png" />
+    <Content Include="Content\WebAssets\img\about-page\brand4.png" />
+    <Content Include="Content\WebAssets\img\about-page\brand5.png" />
+    <Content Include="Content\WebAssets\img\about-page\explore.png" />
+    <Content Include="Content\WebAssets\img\about-page\fun1.png" />
+    <Content Include="Content\WebAssets\img\about-page\fun2.png" />
+    <Content Include="Content\WebAssets\img\about-page\fun3.png" />
+    <Content Include="Content\WebAssets\img\about-page\fun4.png" />
+    <Content Include="Content\WebAssets\img\about-page\fun5.png" />
+    <Content Include="Content\WebAssets\img\about-page\fun6.png" />
+    <Content Include="Content\WebAssets\img\about-page\fun7.png" />
+    <Content Include="Content\WebAssets\img\about-page\fun8.png" />
+    <Content Include="Content\WebAssets\img\about-page\kids.jpg" />
+    <Content Include="Content\WebAssets\img\about-page\sm.jpg" />
+    <Content Include="Content\WebAssets\img\about-page\video.png" />
+    <Content Include="Content\WebAssets\img\ajax-loader.gif" />
+    <Content Include="Content\WebAssets\img\bg\05.jpg" />
+    <Content Include="Content\WebAssets\img\bg\1.png" />
+    <Content Include="Content\WebAssets\img\bg\11.jpg" />
+    <Content Include="Content\WebAssets\img\bg\2.png" />
+    <Content Include="Content\WebAssets\img\bg\3.png" />
+    <Content Include="Content\WebAssets\img\bg\4.png" />
+    <Content Include="Content\WebAssets\img\bg\404.png" />
+    <Content Include="Content\WebAssets\img\bg\coming-soon.png" />
+    <Content Include="Content\WebAssets\img\bg\error3.png" />
+    <Content Include="Content\WebAssets\img\bg\footer.png" />
+    <Content Include="Content\WebAssets\img\bg\home2-slider1.png" />
+    <Content Include="Content\WebAssets\img\bg\home2-slider2.png" />
+    <Content Include="Content\WebAssets\img\bg\home2-slider3.jpg" />
+    <Content Include="Content\WebAssets\img\bg\icon.png" />
+    <Content Include="Content\WebAssets\img\bg\logins.jpg" />
+    <Content Include="Content\WebAssets\img\bg\sign1.png" />
+    <Content Include="Content\WebAssets\img\bg\signin.png" />
+    <Content Include="Content\WebAssets\img\bg\signup.png" />
+    <Content Include="Content\WebAssets\img\bg\sm1.jpg" />
+    <Content Include="Content\WebAssets\img\bg\sm2.jpg" />
+    <Content Include="Content\WebAssets\img\bg\sm3.jpg" />
+    <Content Include="Content\WebAssets\img\bg\sm4.jpg" />
+    <Content Include="Content\WebAssets\img\bg\sm5.jpg" />
+    <Content Include="Content\WebAssets\img\blog-bg.html" />
+    <Content Include="Content\WebAssets\img\blog\blog-details.png" />
+    <Content Include="Content\WebAssets\img\blog\comment1.png" />
+    <Content Include="Content\WebAssets\img\blog\comment2.png" />
+    <Content Include="Content\WebAssets\img\blog\comment3.png" />
+    <Content Include="Content\WebAssets\img\blog\image-item1.png" />
+    <Content Include="Content\WebAssets\img\blog\image-item2.png" />
+    <Content Include="Content\WebAssets\img\blog\instagram1.png" />
+    <Content Include="Content\WebAssets\img\blog\instagram2.png" />
+    <Content Include="Content\WebAssets\img\blog\instagram3.png" />
+    <Content Include="Content\WebAssets\img\blog\instagram4.png" />
+    <Content Include="Content\WebAssets\img\blog\instagram5.png" />
+    <Content Include="Content\WebAssets\img\blog\instagram6.png" />
+    <Content Include="Content\WebAssets\img\blog\right-slider1.png" />
+    <Content Include="Content\WebAssets\img\blog\roadrunner.png" />
+    <Content Include="Content\WebAssets\img\blog\share1.png" />
+    <Content Include="Content\WebAssets\img\blog\share2.png" />
+    <Content Include="Content\WebAssets\img\blog\share3.png" />
+    <Content Include="Content\WebAssets\img\blog\share4.png" />
+    <Content Include="Content\WebAssets\img\blog\single-blog.png" />
+    <Content Include="Content\WebAssets\img\blog\slider-item1.png" />
+    <Content Include="Content\WebAssets\img\blog\top-slider1.png" />
+    <Content Include="Content\WebAssets\img\blog\top-slider2.png" />
+    <Content Include="Content\WebAssets\img\blog\top-slider3.png" />
+    <Content Include="Content\WebAssets\img\breadcrumb\alert.png" />
+    <Content Include="Content\WebAssets\img\breadcrumb\breadcrumb22.png" />
+    <Content Include="Content\WebAssets\img\breadcrumb\breadcrumb3.png" />
+    <Content Include="Content\WebAssets\img\breadcrumb\breadcrumb4.png" />
+    <Content Include="Content\WebAssets\img\breadcrumb\breadcrumb6.png" />
+    <Content Include="Content\WebAssets\img\breadcrumb\button.png" />
+    <Content Include="Content\WebAssets\img\breadcrumb\coolguy.jpg" />
+    <Content Include="Content\WebAssets\img\breadcrumb\coolguys.jpg" />
+    <Content Include="Content\WebAssets\img\breadcrumb\countdown.png" />
+    <Content Include="Content\WebAssets\img\breadcrumb\cr2.jpg" />
+    <Content Include="Content\WebAssets\img\breadcrumb\crowds.jpg" />
+    <Content Include="Content\WebAssets\img\breadcrumb\header.png" />
+    <Content Include="Content\WebAssets\img\breadcrumb\modals.png" />
+    <Content Include="Content\WebAssets\img\breadcrumb\pagination.png" />
+    <Content Include="Content\WebAssets\img\breadcrumb\route1.jpg" />
+    <Content Include="Content\WebAssets\img\breadcrumb\typography.html" />
+    <Content Include="Content\WebAssets\img\breadcrumb\womanss4.jpg" />
+    <Content Include="Content\WebAssets\img\checkout\item1.png" />
+    <Content Include="Content\WebAssets\img\checkout\item2.png" />
+    <Content Include="Content\WebAssets\img\checkout\item3.png" />
+    <Content Include="Content\WebAssets\img\checkout\item4.png" />
+    <Content Include="Content\WebAssets\img\checkout\item5.png" />
+    <Content Include="Content\WebAssets\img\Cocycle-bike-grey.png" />
+    <Content Include="Content\WebAssets\img\Cocycle-bike-orange.png" />
+    <Content Include="Content\WebAssets\img\Cocycle-bike-transparent.png" />
+    <Content Include="Content\WebAssets\img\Cocycle-name-grey.png" />
+    <Content Include="Content\WebAssets\img\Cocycle-name-no-bike.png" />
+    <Content Include="Content\WebAssets\img\Cocycle-name-transparent.png" />
+    <Content Include="Content\WebAssets\img\event\bottom-slider1.png" />
+    <Content Include="Content\WebAssets\img\event\bottom-slider2.png" />
+    <Content Include="Content\WebAssets\img\event\bottom-slider3.png" />
+    <Content Include="Content\WebAssets\img\event\bottom-slider4.png" />
+    <Content Include="Content\WebAssets\img\event\event-slider1.png" />
+    <Content Include="Content\WebAssets\img\event\event.png" />
+    <Content Include="Content\WebAssets\img\event\event2.png" />
+    <Content Include="Content\WebAssets\img\event\event3.png" />
+    <Content Include="Content\WebAssets\img\favicon.png" />
+    <Content Include="Content\WebAssets\img\home1\about-slider1.png" />
+    <Content Include="Content\WebAssets\img\home1\about-slider2.png" />
+    <Content Include="Content\WebAssets\img\home1\about.png" />
+    <Content Include="Content\WebAssets\img\home1\blog1.png" />
+    <Content Include="Content\WebAssets\img\home1\blog2.png" />
+    <Content Include="Content\WebAssets\img\home1\blog3.png" />
+    <Content Include="Content\WebAssets\img\home1\blog4.png" />
+    <Content Include="Content\WebAssets\img\home1\blog5.png" />
+    <Content Include="Content\WebAssets\img\home1\blog6.png" />
+    <Content Include="Content\WebAssets\img\home1\customer.png" />
+    <Content Include="Content\WebAssets\img\home1\discount.png" />
+    <Content Include="Content\WebAssets\img\home1\discovery.png" />
+    <Content Include="Content\WebAssets\img\home1\KHPmoseleymaidens.jpg" />
+    <Content Include="Content\WebAssets\img\home1\line1.png" />
+    <Content Include="Content\WebAssets\img\home1\line2.png" />
+    <Content Include="Content\WebAssets\img\home1\package.png" />
+    <Content Include="Content\WebAssets\img\home1\rolling-slider1.png" />
+    <Content Include="Content\WebAssets\img\home1\shop1.png" />
+    <Content Include="Content\WebAssets\img\home1\shop2.png" />
+    <Content Include="Content\WebAssets\img\home1\shop3.png" />
+    <Content Include="Content\WebAssets\img\home1\shop4.png" />
+    <Content Include="Content\WebAssets\img\home1\shop5.png" />
+    <Content Include="Content\WebAssets\img\home1\shop6.png" />
+    <Content Include="Content\WebAssets\img\home1\src1.png" />
+    <Content Include="Content\WebAssets\img\home1\src2.png" />
+    <Content Include="Content\WebAssets\img\home1\src3.png" />
+    <Content Include="Content\WebAssets\img\home1\src4.png" />
+    <Content Include="Content\WebAssets\img\home1\tour1.png" />
+    <Content Include="Content\WebAssets\img\home1\tour2.png" />
+    <Content Include="Content\WebAssets\img\home1\tour3.png" />
+    <Content Include="Content\WebAssets\img\home1\tour4.png" />
+    <Content Include="Content\WebAssets\img\home2\about.png" />
+    <Content Include="Content\WebAssets\img\home2\rolling.png" />
+    <Content Include="Content\WebAssets\img\home3\belun.png" />
+    <Content Include="Content\WebAssets\img\home3\bg.png" />
+    <Content Include="Content\WebAssets\img\home3\bike.png" />
+    <Content Include="Content\WebAssets\img\login_logo.png" />
+    <Content Include="Content\WebAssets\img\logo.png" />
+    <Content Include="Content\WebAssets\img\modal\one.png" />
+    <Content Include="Content\WebAssets\img\modal\three.png" />
+    <Content Include="Content\WebAssets\img\modal\two.png" />
+    <Content Include="Content\WebAssets\img\payment\card-logo.png" />
+    <Content Include="Content\WebAssets\img\payment\mastercard.png" />
+    <Content Include="Content\WebAssets\img\payment\paypal.png" />
+    <Content Include="Content\WebAssets\img\popup-info.html" />
+    <Content Include="Content\WebAssets\img\product-details\1.png" />
+    <Content Include="Content\WebAssets\img\product-details\2.png" />
+    <Content Include="Content\WebAssets\img\product-details\3.png" />
+    <Content Include="Content\WebAssets\img\product-details\4.png" />
+    <Content Include="Content\WebAssets\img\product-details\big1.png" />
+    <Content Include="Content\WebAssets\img\product-details\big2.png" />
+    <Content Include="Content\WebAssets\img\product-details\big3.png" />
+    <Content Include="Content\WebAssets\img\product-details\big4.png" />
+    <Content Include="Content\WebAssets\img\quote\1.png" />
+    <Content Include="Content\WebAssets\img\quote\2.jpg" />
+    <Content Include="Content\WebAssets\img\quote\3.jpg" />
+    <Content Include="Content\WebAssets\img\quote\4.jpg" />
+    <Content Include="Content\WebAssets\img\quote\5.jpg" />
+    <Content Include="Content\WebAssets\img\quote\6.jpg" />
+    <Content Include="Content\WebAssets\img\quote\7.jpg" />
+    <Content Include="Content\WebAssets\img\quote\8.jpg" />
+    <Content Include="Content\WebAssets\img\quote\9.jpg" />
+    <Content Include="Content\WebAssets\img\quote\quote-bg.png" />
+    <Content Include="Content\WebAssets\img\shop\banner1.png" />
+    <Content Include="Content\WebAssets\img\shop\banner2.png" />
+    <Content Include="Content\WebAssets\img\shop\banner3.png" />
+    <Content Include="Content\WebAssets\img\shop\item1.png" />
+    <Content Include="Content\WebAssets\img\shop\item2.png" />
+    <Content Include="Content\WebAssets\img\shop\item3.png" />
+    <Content Include="Content\WebAssets\img\shop\item4.png" />
+    <Content Include="Content\WebAssets\img\shop\item5.png" />
+    <Content Include="Content\WebAssets\img\shop\item6.png" />
+    <Content Include="Content\WebAssets\img\shop\shop-big.png" />
+    <Content Include="Content\WebAssets\img\slide-three.html" />
+    <Content Include="Content\WebAssets\img\trails\breadcrumb.png" />
+    <Content Include="Content\WebAssets\img\trails\masonry1.png" />
+    <Content Include="Content\WebAssets\img\trails\masonry2.png" />
+    <Content Include="Content\WebAssets\img\trails\masonry3.png" />
+    <Content Include="Content\WebAssets\img\trails\masonry4.png" />
+    <Content Include="Content\WebAssets\img\trails\masonry5.png" />
+    <Content Include="Content\WebAssets\img\trails\masonry6.png" />
+    <Content Include="Content\WebAssets\img\trails\slider1.png" />
+    <Content Include="Content\WebAssets\img\trails\slider2.png" />
+    <Content Include="Content\WebAssets\js\bootstrap.min.js" />
+    <Content Include="Content\WebAssets\js\contact.js" />
+    <Content Include="Content\WebAssets\js\countdown.js" />
+    <Content Include="Content\WebAssets\js\imagesloaded.pkgd.min.js" />
+    <Content Include="Content\WebAssets\js\isotope.pkgd.min.js" />
+    <Content Include="Content\WebAssets\js\jquery-2.2.4.min.js" />
+    <Content Include="Content\WebAssets\js\jquery.counterup.min.js" />
+    <Content Include="Content\WebAssets\js\jquery.magnific-popup.js" />
+    <Content Include="Content\WebAssets\js\jQuery.rProgressbar.min.js" />
+    <Content Include="Content\WebAssets\js\jquery.validate.min.js" />
+    <Content Include="Content\WebAssets\js\main.js" />
+    <Content Include="Content\WebAssets\js\nice-select.js" />
+    <Content Include="Content\WebAssets\js\owl.carousel.min.js" />
+    <Content Include="Content\WebAssets\js\popper.min.js" />
+    <Content Include="Content\WebAssets\js\script.js" />
+    <Content Include="Content\WebAssets\js\slick-animation.js" />
+    <Content Include="Content\WebAssets\js\slick.min.js" />
+    <Content Include="Content\WebAssets\js\swiper.min.js" />
+    <Content Include="Content\WebAssets\js\waypoints.min.js" />
+    <Content Include="Content\WebAssets\js\wow.min.js" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\dist\tavo-calendar.css" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\dist\tavo-calendar.js" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\examples\basic.html" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\examples\es-basic.html" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\examples\event.html" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\examples\range-select.html" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\examples\saturday-highlight.html" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\examples\setters.html" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\examples\sync-calendars.html" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\gulpfile.js" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\screenshot.png" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\src\TavoCalendar.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\WebAssets\fonts\Flaticon.eot" />
+    <Content Include="Content\WebAssets\fonts\Flaticon.ttf" />
+    <Content Include="Content\WebAssets\fonts\Flaticon.woff" />
+    <Content Include="Content\WebAssets\fonts\Flaticond41d.eot" />
+    <Content Include="Content\WebAssets\fonts\fontawesome-webfont3e6e.eot" />
+    <Content Include="Content\WebAssets\fonts\fontawesome-webfont3e6e.ttf" />
+    <Content Include="Content\WebAssets\fonts\fontawesome-webfont3e6e.woff" />
+    <Content Include="Content\WebAssets\fonts\fontawesome-webfontd41d.eot" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-Black.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-BlackItalic.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-Bold.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-BoldItalic.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-ExtraBold.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-ExtraBoldItalic.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-ExtraLight.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-ExtraLightItalic.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-Light.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-LightItalic.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-Medium.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-MediumItalic.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-Regular.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-RegularItalic.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-SemiBold.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-SemiBoldItalic.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-Thin.otf" />
+    <Content Include="Content\WebAssets\fonts\Metropolis-ThinItalic.otf" />
+    <Content Include="Content\WebAssets\fonts\MidnightSignature.otf" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\examples\json\events.json" />
+    <Content Include="Content\WebAssets\fullcalendar-5.8.0\README.md" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\.gitignore" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\package.json" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\README.md" />
+    <Content Include="Content\WebAssets\TavoCalendar-master\src\scss\tavo-calendar.scss" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
+    <Content Include="Views\Account\ConfirmEmail.cshtml" />
+    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
+    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\ResetPassword.cshtml" />
+    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
+    <Content Include="Views\Account\SendCode.cshtml" />
+    <Content Include="Views\Account\VerifyCode.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\States\Create.cshtml" />
+    <Content Include="Views\States\Delete.cshtml" />
+    <Content Include="Views\States\Details.cshtml" />
+    <Content Include="Views\States\Edit.cshtml" />
+    <Content Include="Views\States\Index.cshtml" />
+    <Content Include="Views\Areas\Create.cshtml" />
+    <Content Include="Views\Areas\Delete.cshtml" />
+    <Content Include="Views\Areas\Details.cshtml" />
+    <Content Include="Views\Areas\Edit.cshtml" />
+    <Content Include="Views\Areas\Index.cshtml" />
+    <Content Include="Views\Routes\Create.cshtml" />
+    <Content Include="Views\Routes\Delete.cshtml" />
+    <Content Include="Views\Routes\Details.cshtml" />
+    <Content Include="Views\Routes\Edit.cshtml" />
+    <Content Include="Views\Routes\Index.cshtml" />
+    <Content Include="Views\Routes\ViewRequest.cshtml" />
+    <Content Include="Views\RouteGroups\Create.cshtml" />
+    <Content Include="Views\RouteGroups\Delete.cshtml" />
+    <Content Include="Views\RouteGroups\Details.cshtml" />
+    <Content Include="Views\RouteGroups\Edit.cshtml" />
+    <Content Include="Views\RouteGroups\Index.cshtml" />
+    <Content Include="Views\Arrangeds\Create.cshtml" />
+    <Content Include="Views\Arrangeds\Delete.cshtml" />
+    <Content Include="Views\Arrangeds\Details.cshtml" />
+    <Content Include="Views\Arrangeds\Edit.cshtml" />
+    <Content Include="Views\Arrangeds\Index.cshtml" />
+    <Content Include="Views\RouteGroups\MyRequest.cshtml" />
+    <Content Include="Views\Arrangeds\IndexLearner.cshtml" />
+    <Content Include="Views\Arrangeds\ScheduleDate.cshtml" />
+    <Content Include="Views\Arrangeds\IndexCyclist.cshtml" />
+    <Content Include="Views\Routes\MyRoutes.cshtml" />
+    <Content Include="Views\Home\Gallery.cshtml" />
+    <Content Include="Views\RouteGroups\ViewMembers.cshtml" />
+    <Content Include="Views\FeedBacks\Create.cshtml" />
+    <Content Include="Views\FeedBacks\Delete.cshtml" />
+    <Content Include="Views\FeedBacks\Details.cshtml" />
+    <Content Include="Views\FeedBacks\Edit.cshtml" />
+    <Content Include="Views\FeedBacks\Index.cshtml" />
+    <Content Include="Views\Arrangeds\ViewSchedule.cshtml" />
+    <Content Include="Views\Home\MyProfile.cshtml" />
+    <Content Include="Views\Arrangeds\EditScheduleDates.cshtml" />
+    <Content Include="Views\EmailAccounts\Create.cshtml" />
+    <Content Include="Views\EmailAccounts\Delete.cshtml" />
+    <Content Include="Views\EmailAccounts\Details.cshtml" />
+    <Content Include="Views\EmailAccounts\Edit.cshtml" />
+    <Content Include="Views\EmailAccounts\Index.cshtml" />
+    <Content Include="Views\RouteGroups\MyGroups.cshtml" />
+    <Content Include="Views\PostCodes\Create.cshtml" />
+    <Content Include="Views\PostCodes\Delete.cshtml" />
+    <Content Include="Views\PostCodes\Details.cshtml" />
+    <Content Include="Views\PostCodes\Edit.cshtml" />
+    <Content Include="Views\PostCodes\Index.cshtml" />
+    <Content Include="Views\Account\MyProfile.cshtml" />
+    <Content Include="Views\Account\_MyRoutes.cshtml" />
+    <Content Include="Views\Account\_RouteRequest.cshtml" />
+    <Content Include="Views\Account\_JoinedRoutes.cshtml" />
+    <Content Include="Views\Account\_Arranged.cshtml" />
+    <Content Include="Views\Account\_MyRequest.cshtml" />
+    <Content Include="Views\Account\_RequestedRides.cshtml" />
+    <Content Include="Views\FeedBacks\AddRouteFeedback.cshtml" />
+    <Content Include="Views\FeedBacks\AddRideFeedback.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Content\Video\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202107010642074_init.resx">
+      <DependentUpon>202107010642074_init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107021128591_addrouteschedules.resx">
+      <DependentUpon>202107021128591_addrouteschedules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107021134198_routeschedulesrelationship.resx">
+      <DependentUpon>202107021134198_routeschedulesrelationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107261257403_changes_in_arranged.resx">
+      <DependentUpon>202107261257403_changes_in_arranged.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202107311004530_EmailAccount_Added.resx">
+      <DependentUpon>202107311004530_EmailAccount_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108070736200_Arranged_addridecompleted.resx">
+      <DependentUpon>202108070736200_Arranged_addridecompleted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108110623057_area_state_changes.resx">
+      <DependentUpon>202108110623057_area_state_changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108181138418_aspUsersChanges.resx">
+      <DependentUpon>202108181138418_aspUsersChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108191045085_route_changesnew.resx">
+      <DependentUpon>202108191045085_route_changesnew.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108251250114_added_postcode.resx">
+      <DependentUpon>202108251250114_added_postcode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108251319568_postcode_state_city_relations.resx">
+      <DependentUpon>202108251319568_postcode_state_city_relations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108271057139_user_postcode_newchanges3.resx">
+      <DependentUpon>202108271057139_user_postcode_newchanges3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108281152449_Feedback_Changed1.resx">
+      <DependentUpon>202108281152449_Feedback_Changed1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108301027588_routes-postcode_relationship.resx">
+      <DependentUpon>202108301027588_routes-postcode_relationship.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202108310546448_addmessage_and_arrangedchanges.resx">
+      <DependentUpon>202108310546448_addmessage_and_arrangedchanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110090759462_arrange_changes.resx">
+      <DependentUpon>202110090759462_arrange_changes.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>62623</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44352/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>
