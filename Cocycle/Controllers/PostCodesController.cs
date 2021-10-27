@@ -22,7 +22,7 @@ namespace Cocycle.Controllers
         {
             var p = db.postCodes;
             var a = areaid != null ? p.Where(x => x.AreaId == areaid) : p;
-            var postcodes = searchTerm != null ? a.Where(x => x.PostCodeName.Contains(searchTerm)) : a;
+            var postcodes = searchTerm != null ? a.Where(x => x.PostCodeName.Contains(searchTerm) && x.IsActive == true) : a;
             return Json(postcodes.Select(x => new {id = x.Id,text = x.PostCodeName}).ToList(), 
                 JsonRequestBehavior.AllowGet);
 
@@ -30,7 +30,7 @@ namespace Cocycle.Controllers
         public ActionResult GetstateandArea(int postcode)
         {
             
-            var postcodes = db.postCodes.Where(x=>x.Id==postcode).FirstOrDefault();
+            var postcodes = db.postCodes.Where(x=>x.Id==postcode && x.IsActive == true).FirstOrDefault();
             return Json(postcodes,JsonRequestBehavior.AllowGet);
 
         }

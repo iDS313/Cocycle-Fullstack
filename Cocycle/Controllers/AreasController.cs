@@ -18,7 +18,7 @@ namespace Cocycle.Controllers
         // GET: Areas
         public ActionResult Index()
         {
-            return View(db.Areas.ToList());
+            return View(db.Areas.Where(x => x.IsActive == true).ToList());
         }
 
         // GET: Areas/Details/5
@@ -41,11 +41,11 @@ namespace Cocycle.Controllers
             List<Area> Areas = new List<Area>();
             if (Stateid > 0)
             {
-                Areas = db.Areas.Where(x => x.StateId == Stateid).ToList();
+                Areas = db.Areas.Where(x => x.StateId == Stateid && x.IsActive==true).ToList();
             }
             else
             {
-                Areas = db.Areas.ToList();
+                Areas = db.Areas.Where(x => x.IsActive == true).ToList();
             }
           
             return Json(Areas, JsonRequestBehavior.AllowGet);

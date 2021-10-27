@@ -17,47 +17,43 @@ namespace Cocycle.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: RouteGroups
-        public ActionResult Index()
+        public void fillviewbags()
         {
-            var userid = User.Identity.GetUserId();
             ViewBag.States = db.States.ToList();
             ViewBag.Areas = db.Areas.ToList();
             ViewBag.Users = db.Users.ToList();
             ViewBag.Routes = db.Routes.ToList();
+        }
+        public ActionResult Index()
+        {
+            fillviewbags();
+               var userid = User.Identity.GetUserId();
+           
             //return View(db.RouteGroup.ToList());
-            return View(db.RouteGroup.Where(x=>x.routes.CreatedBy==userid).ToList());
+            return View(db.RouteGroup.Where(x=>x.routes.CreatedBy==userid && x.IsActive == true).OrderByDescending(x => x.Id).ToList());
         }
         public ActionResult MyGroups()
         {
             var userid = User.Identity.GetUserId();
-            ViewBag.States = db.States.ToList();
-            ViewBag.Areas = db.Areas.ToList();
-            ViewBag.Users = db.Users.ToList();
-            ViewBag.Routes = db.Routes.ToList();
+            fillviewbags();
             //return View(db.RouteGroup.ToList());
-            return View(db.RouteGroup.Where(x => x.RequestBy == userid).ToList());
+            return View(db.RouteGroup.Where(x => x.RequestBy == userid && x.IsActive == true).OrderByDescending(x => x.Id).ToList());
         }
 
 
         public ActionResult MyRequest()
         {
             var userid = User.Identity.GetUserId();
-            ViewBag.States = db.States.ToList();
-            ViewBag.Areas = db.Areas.ToList();
-            ViewBag.Users = db.Users.ToList();
-            ViewBag.Routes = db.Routes.ToList();
+            fillviewbags();
             //return View(db.RouteGroup.ToList());
-            return View(db.RouteGroup.Where(x => x.RequestBy == userid).ToList());
+            return View(db.RouteGroup.Where(x => x.RequestBy == userid && x.IsActive == true).OrderByDescending(x => x.Id).ToList());
         }
         public ActionResult ViewMembers(int routeid)
         {
             var userid = User.Identity.GetUserId();
-            ViewBag.States = db.States.ToList();
-            ViewBag.Areas = db.Areas.ToList();
-            ViewBag.Users = db.Users.ToList();
-            ViewBag.Routes = db.Routes.ToList();
+            fillviewbags();
             //return View(db.RouteGroup.ToList());
-            return View(db.RouteGroup.Where(x => x.RouteId == routeid).ToList());
+            return View(db.RouteGroup.Where(x => x.RouteId == routeid).OrderByDescending(x => x.Id).ToList());
         }
 
 
@@ -108,7 +104,7 @@ namespace Cocycle.Controllers
                 routeGroup.RequestBy = requestby;
                 routeGroup.RequestDate = requestdate;
                 routeGroup.RouteId = RouteId;
-                var IsExist = db.RouteGroup.Where(x => x.RouteId == RouteId && x.RequestBy == requestby).FirstOrDefault();
+                var IsExist = db.RouteGroup.Where(x => x.RouteId == RouteId && x.RequestBy == requestby && x.IsActive == true).FirstOrDefault();
                 if (IsExist != null)
                 {
                     return RedirectToAction("MyProfile","Account");

@@ -11,10 +11,15 @@ namespace Cocycle.Models
         public string StateName { get; set; }
         public DateTime Created { get; set; }
         public string CreatedBy { get; set; }
+        public Boolean IsActive { get; set; }
+
         public ICollection<Routes> RoutesList { get; set; }
         public ICollection<Arranged> Arranged { get; set; }
-       
 
+        public State()
+        {
+            this.IsActive = true;
+        }
 
     }
 
@@ -22,5 +27,6 @@ namespace Cocycle.Models
     {   
         public int StateId { get; set; }
         public string StateName { get; set; }
+        
     }
 }

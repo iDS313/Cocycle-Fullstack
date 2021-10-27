@@ -299,6 +299,10 @@
     <Compile Include="Migrations\202110090759462_arrange_changes.Designer.cs">
       <DependentUpon>202110090759462_arrange_changes.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202110220624105_add_DeleteFlags_allTables.cs" />
+    <Compile Include="Migrations\202110220624105_add_DeleteFlags_allTables.Designer.cs">
+      <DependentUpon>202110220624105_add_DeleteFlags_allTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Area.cs" />
@@ -960,6 +964,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202110090759462_arrange_changes.resx">
       <DependentUpon>202110090759462_arrange_changes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202110220624105_add_DeleteFlags_allTables.resx">
+      <DependentUpon>202110220624105_add_DeleteFlags_allTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

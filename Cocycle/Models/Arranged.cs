@@ -40,6 +40,7 @@ namespace Cocycle.Models
         public ApplicationUser applicationUserApproved { get; set; }
         [ForeignKey("RequestBy")]
         public ApplicationUser applicationUserRequested { get; set; }
+       // [Required]
         public int? PostCodeId { get; set; }
         public int StateId { get; set; }
         public int AreaId { get; set; }
@@ -56,13 +57,13 @@ namespace Cocycle.Models
             this.StartTime = DateTime.Now;
             this.ApproveDate = DateTime.Now;
             this.RequestDate = DateTime.Now;
-
+            this.IsActive = true;
         }
         public Boolean RideCompleted { get; set; }
 
         [ForeignKey("PostCodeId")]
         public virtual PostCode PostCode { get; set; }
+        public Boolean IsActive { get; set; }
 
-       
     }
 }

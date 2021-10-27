@@ -13,7 +13,7 @@ namespace Cocycle.Models
         public int? RideId { get; set; }
         public int? RouteId { get; set; }
         public string UserId { get; set; }
-
+        [Required]
         [DataType(DataType.MultilineText)]
         public string  description { get; set; }
         public DateTime Created { get; set; }
@@ -30,8 +30,11 @@ namespace Cocycle.Models
         public FeedBack()
         {
             this.Created = DateTime.Now;
+            this.IsActive = true;
         }
         [NotMapped]
         public Boolean RideHappened { get; set; }
+        public Boolean IsActive { get; set; }
+
     }
 }

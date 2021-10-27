@@ -16,8 +16,12 @@ namespace Cocycle.Models
         public ICollection<Routes> RoutesList { get; set; }
         public ICollection<Arranged> Arranged { get; set; }
         public State state { get; set; }
+        public Boolean IsActive { get; set; }
 
-
+        public Area()
+        {
+            this.IsActive = true;
+        }
     }
 
 

@@ -25,7 +25,7 @@ namespace Cocycle.Controllers
         {
 
             List<State> States = new List<State>();
-            States = db.States.ToList();
+            States = db.States.Where(x => x.IsActive == true).ToList();
             return Json(States, JsonRequestBehavior.AllowGet);
            
         }

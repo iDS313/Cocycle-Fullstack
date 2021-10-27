@@ -18,35 +18,37 @@ namespace Cocycle.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
       
         // GET: Arrangeds
+
+
+        public void filldropdown()
+        {
+            ViewBag.States = db.States.Where(x => x.IsActive == true).ToList();
+            ViewBag.Areas = db.Areas.Where(x => x.IsActive == true).ToList();
+            ViewBag.Users = db.Users.ToList();
+        }
         public ActionResult Index()
         {
-            ViewBag.States = db.States.ToList();
-            ViewBag.Areas = db.Areas.ToList();
-            ViewBag.Users = db.Users.ToList();
+            filldropdown();
             ViewBag.loggedinuser = User.Identity.GetUserId();
-            return View(db.Arranged.Where(x => x.IsScheduled==false).ToList());
+            return View(db.Arranged.Where(x => x.IsScheduled==false && x.IsActive==true).OrderByDescending(x => x.Id).ToList());
         }
 
       
         public ActionResult IndexLearner()
         {
-            ViewBag.States = db.States.ToList();
-            ViewBag.Areas = db.Areas.ToList();
-            ViewBag.Users = db.Users.ToList();
+            filldropdown();
             ViewBag.loggedinuser = User.Identity.GetUserId();
             string userid = User.Identity.GetUserId();
-            ViewBag.feedbacks = db.FeedBacks.Where(x=>x.UserId==userid).ToList(); 
-            return View(db.Arranged.Where(x=>x.RequestBy== userid).Include(x => x.FeedBack).ToList());
+            ViewBag.feedbacks = db.FeedBacks.Where(x=>x.UserId==userid && x.IsActive==true).OrderByDescending(x => x.Id).ToList(); 
+            return View(db.Arranged.Where(x=>x.RequestBy== userid && x.IsActive==true).Include(x => x.FeedBack).OrderByDescending(x => x.Id).ToList());
         }
         public ActionResult IndexCyclist()
         {
-            ViewBag.States = db.States.ToList();
-            ViewBag.Areas = db.Areas.ToList();
-            ViewBag.Users = db.Users.ToList();
+            filldropdown();
             ViewBag.loggedinuser = User.Identity.GetUserId();
             string userid = User.Identity.GetUserId();
-            ViewBag.feedbacks = db.FeedBacks.Where(x => x.UserId == userid).ToList();
-            return View(db.Arranged.Where(x => x.ApprovedBy == userid).Include(x=>x.FeedBack).ToList());
+            ViewBag.feedbacks = db.FeedBacks.Where(x => x.UserId == userid && x.IsActive == true).OrderByDescending(x => x.Id).ToList();
+            return View(db.Arranged.Where(x => x.ApprovedBy == userid && x.IsActive == true).Include(x=>x.FeedBack).OrderByDescending(x => x.Id).ToList());
         }
 
         public ActionResult OfferHelp(int Id)
@@ -173,10 +175,8 @@ namespace Cocycle.Controllers
         // GET: Arrangeds/Details/5
         public ActionResult Details(int? id)
         {
-            ViewBag.States = db.States.ToList();
-            ViewBag.Areas = db.Areas.ToList();
-            ViewBag.Users = db.Users.ToList();
-            ViewBag.Routes = db.Routes.ToList();
+            filldropdown();
+            ViewBag.Routes = db.Routes.Where(x => x.IsActive == true).ToList();
             ViewBag.loggedinuser = User.Identity.GetUserId();
            
             if (id == null)
@@ -184,8 +184,8 @@ namespace Cocycle.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Arranged arranged = db.Arranged.Find(id);
-            ViewBag.CyclistFeedback = db.FeedBacks.Where(x => x.RideId == id && x.UserId == arranged.ApprovedBy).FirstOrDefault();
-            ViewBag.LearnerFeedback = db.FeedBacks.Where(x => x.RideId == id && x.UserId == arranged.RequestBy).FirstOrDefault();
+            ViewBag.CyclistFeedback = db.FeedBacks.Where(x => x.RideId == id && x.UserId == arranged.ApprovedBy && x.IsActive==true).FirstOrDefault();
+            ViewBag.LearnerFeedback = db.FeedBacks.Where(x => x.RideId == id && x.UserId == arranged.RequestBy && x.IsActive == true).FirstOrDefault();
             if (arranged == null)
             {
                 return HttpNotFound();
@@ -196,7 +196,7 @@ namespace Cocycle.Controllers
         public void fill_dropdown()
         {
             List<StateList> liststate = new List<StateList>();
-            var lststate = db.States.ToList();
+            var lststate = db.States.Where(x => x.IsActive == true).ToList();
             foreach (var s in lststate)
             {
                 StateList stateList = new StateList
@@ -208,11 +208,11 @@ namespace Cocycle.Controllers
             }
             ViewBag.States = liststate;
             List<Area> Areas = new List<Area>();
-            Areas = (from c in db.Areas select c).ToList();
+            Areas = (from c in db.Areas select c).Where(x => x.IsActive == true).ToList();
             ViewBag.Areas = Areas;
 
             List<PostCode> postCodes = new List<PostCode>();
-            postCodes = (from c in db.postCodes select c).ToList();
+            postCodes = (from c in db.postCodes select c).Where(x => x.IsActive == true).ToList();
             ViewBag.postCodes = postCodes;
         }
 

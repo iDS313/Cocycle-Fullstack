@@ -170,7 +170,7 @@ namespace Cocycle.Controllers
         public void fillstates()
         {
             List<StateList> liststate = new List<StateList>();
-            var lststate = DbContext.States.ToList();
+            var lststate = DbContext.States.Where(x=>x.IsActive==true).ToList();
             foreach (var s in lststate)
             {
                 StateList stateList = new StateList
@@ -185,10 +185,10 @@ namespace Cocycle.Controllers
         public void fillareas()
         {
             List<Area> Areas = new List<Area>();
-            Areas = (from c in DbContext.Areas select c).ToList();
+            Areas = (from c in DbContext.Areas select c ).Where(x => x.IsActive == true).ToList();
             ViewBag.Areas = Areas;
         }
-
+        
         public void fillusertypes()
         {
             List<UserType> UserTypes = new List<UserType>()
@@ -246,7 +246,7 @@ namespace Cocycle.Controllers
             fillusertypes();
 
             List<PostCode> postCodes = new List<PostCode>();
-            postCodes = (from c in DbContext.postCodes select c).ToList();
+            postCodes = (from c in DbContext.postCodes select c).Where(x => x.IsActive == true).ToList();
             ViewBag.postCodes = postCodes;
          
             return View();
@@ -264,7 +264,7 @@ namespace Cocycle.Controllers
             fillusertypes();
 
             List<PostCode>  postCodes = new List<PostCode>();
-            postCodes = (from c in DbContext.postCodes select c).ToList();
+            postCodes = (from c in DbContext.postCodes select c).Where(x => x.IsActive == true).ToList();
             ViewBag.postCodes = postCodes;
 
             if (ModelState.IsValid)

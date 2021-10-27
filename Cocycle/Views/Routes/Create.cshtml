@@ -23,91 +23,88 @@
                     <div class="row" style="color:black">
                         <form action="#" class="form" id="frmroutes">
                             <input type="hidden" name="hidInput" id="hidInput" value="" required="required" />
-                            <div class="col-lg-6  d-flex justify-content-center">
-                                <div class="form-group">
+                            <div class="col-lg-6  col-md-6 col-sm-12">
                                     @*@Html.ValidationSummary(true, "", new { @class = "text-danger" })*@
                                     <div class="form-group ">
-
                                         <div class="col-md-12">
-                                            <label class="label-default">Route Type</label>
+                                            <label class="control-label">Route Type <span class="text-danger" >*</span> </label>
                                             <select name="RouteType" class="form-control" required>
                                                 <option value="1">Commute</option>
                                                 <option value="2">Social</option>
                                             </select>
-                                            @Html.ValidationMessageFor(model => model.RouteType, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.RouteType, "", new { @class = "text-danger label-validations" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
 
                                         <div class="col-md-12">
-                                            <label class="label-default">Departure Point</label>
+                                            <label class="control-label">Departure Point</label>
                                             @Html.EditorFor(model => model.StartingPoint, new { htmlAttributes = new { @class = "form-control", @required = "required", placeholder = "e.g. Kings Heath" } })
-                                            @Html.ValidationMessageFor(model => model.StartingPoint, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.StartingPoint, "", new { @class = "text-danger label-validations" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
 
                                         <div class="col-md-12">
-                                            <label class="label-default">Arrival Point</label>
+                                            <label class="control-label">Arrival Point</label>
                                             @Html.EditorFor(model => model.EndPoint, new { htmlAttributes = new { @class = "form-control", @required = "required", placeholder = "to Selly Oak  " } })
-                                            @Html.ValidationMessageFor(model => model.EndPoint, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.EndPoint, "", new { @class = "text-danger label-validations" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
 
                                         <div class="col-md-12">
-                                            <label class="label-default">Your Message</label>
+                                            <label class="control-label">Your Message</label>
                                             @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control",placeholder="your message" } })
-                                            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger label-validations" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
 
                                         <div class="col-md-12">
-                                            <label class="label-default">Add Image</label>
+                                            <label class="control-label">Add Image</label>
                                             <input type="file" name="PosterImage" id="PosterImage" class="form-control" />
                                             @*@Html.EditorFor(model => model.PosterImage, new { htmlAttributes = new { @class = "form-control" } })*@
-                                            @Html.ValidationMessageFor(model => model.PosterImage, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.PosterImage, "", new { @class = "text-danger label-validations" })
                                         </div>
                                     </div>
                                     <div class="form-group">
 
                                         <div class="col-md-12">
-                                            <label class="label-default">Description</label>
+                                            <label class="control-label">Description</label>
                                             @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", placeholder = "Please add details of your route in terms of how long / busy / difficult it is, how much riding on the road / quieter paths is involved / how hilly etc… " } })
                                             @*<input type="text" name="Description" id="Description"  />*@
                                             @*@Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })*@
-                                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger label-validations" })
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <div class="row ml-1">
                                             <div class="col-md-4">
-                                              
-                                                    @Html.EditorFor(model => model.Addreturn)
-                                                    @Html.ValidationMessageFor(model => model.Addreturn, "", new { @class = "text-danger" })
-                                                
+                                                @Html.ValidationMessageFor(model => model.Addreturn, "", new { @class = "text-danger label-validations" })
+                                                @Html.EditorFor(model => model.Addreturn)
+
+                                                &nbsp;
                                                 <label>Round Trip</label>
                                             </div>
                                         </div>
                                        
                                     </div>
 
-                                </div>
                             </div>
-                            <div class="col-lg-6  d-flex justify-content-center">
-                                <div class="form-group">
+                            <div class="col-lg-6  col-md-6 col-sm-12">
+                              
                                     <div class="form-group">
                                       
                                         <div class="col-md-12">
-                                            <label class="label-default">Postal Code </label>
+                                            <label class="control-label">Postal Code </label>
                                             @Html.DropDownList("PostCodeId", new SelectList(ViewBag.postCodes, "Id", "PostCodeName"), " Select PostCode", new { @class = "form-control" })
-                                            <span class="col-form-label-sm" style="color:red">Note : your postcode is hidden , we will not share this</span>
-                                            @Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger" })
+                                            <span class="col-form-label-sm" style="color:#163738">Note : your postcode is hidden , we will not share this</span>
+                                            @Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger label-validations" })
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -115,40 +112,40 @@
                                         <div class="col-md-12">
                                             <label class="label-default">State</label>
                                             @Html.DropDownList("StateId", new SelectList(ViewBag.States, "StateId", "StateName"), " Select State", new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.StateId, "", new { @class = "text-danger label-validations" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                       
                                         <div class="col-md-12">
-                                            <label class="label-default">City</label>
+                                            <label class="control-label">City</label>
                                             @Html.DropDownList("AreaId", new SelectList(ViewBag.Areas, "Id", "AreaName"), " Select City", new { @class = "form-control" })
-                                            @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.AreaId, "", new { @class = "text-danger label-validations" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <label class="label-default">Departure Time</label>
+                                            <label class="control-label">Departure Time</label>
                                             <input type="time" name="StartTime" placeholder="Start time" class="form-control" required />
                                             @*@Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })*@
-                                            @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger" })
+                                            @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger label-validations" })
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                       
                                         <div class="col-md-12">
-                                            <label class="label-default">Arrival Time</label>
+                                            <label class="control-label">Arrival Time</label>
                                             <input type="time" name="EndTime" placeholder="End time" class="form-control" required />
                                             @*@Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })*@
-                                            @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger", @type = "time" })
+                                            @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger label-validations", @type = "time" })
                                         </div>
                                     </div>
 
                                     <div class="container pt-3">
-                                        @Html.ValidationMessageFor(model => model.hidInput, "", new { @class = "text-danger" })
+                                        @Html.ValidationMessageFor(model => model.hidInput, "", new { @class = "text-danger label-validations" })
                                         <div class="row">
 
                                             <div class="col-4">
@@ -190,7 +187,7 @@
                                     <div class="btn-wrapper mt-3">
                                         <button type="submit" class="btn btn-element btn-medium btn-red float-right">Create</button>
                                     </div>
-                                </div>
+                               
 
 
                                 @*<div class="form-group">
@@ -360,6 +357,14 @@
     <style>
         body {
             padding-right: 0 !important
+        }
+        .label-validations {
+            font-size: small;
+            font-style: italic;
+            color: #ff0c00 !important;
+        }
+        label {
+            font-weight: bold;
         }
     </style>
 }

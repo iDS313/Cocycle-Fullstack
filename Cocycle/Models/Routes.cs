@@ -65,6 +65,7 @@ namespace Cocycle.Models
         {
             this.RequestedDate = DateTime.Now;
             this.Created = DateTime.Now;
+            this.IsActive = true;
         }
 
     }
