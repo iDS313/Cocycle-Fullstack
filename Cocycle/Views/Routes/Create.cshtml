@@ -39,7 +39,7 @@
                                     <div class="form-group">
 
                                         <div class="col-md-12">
-                                            <label class="control-label">Departure Point</label>
+                                            <label class="control-label">Departure Point <span class="text-danger">*</span></label>
                                             @Html.EditorFor(model => model.StartingPoint, new { htmlAttributes = new { @class = "form-control", @required = "required", placeholder = "e.g. Kings Heath" } })
                                             @Html.ValidationMessageFor(model => model.StartingPoint, "", new { @class = "text-danger label-validations" })
                                         </div>
@@ -48,20 +48,20 @@
                                     <div class="form-group">
 
                                         <div class="col-md-12">
-                                            <label class="control-label">Arrival Point</label>
+                                            <label class="control-label">Arrival Point <span class="text-danger">*</span></label>
                                             @Html.EditorFor(model => model.EndPoint, new { htmlAttributes = new { @class = "form-control", @required = "required", placeholder = "to Selly Oak  " } })
                                             @Html.ValidationMessageFor(model => model.EndPoint, "", new { @class = "text-danger label-validations" })
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
+                                    @*<div class="form-group">
 
                                         <div class="col-md-12">
                                             <label class="control-label">Your Message</label>
                                             @Html.EditorFor(model => model.Message, new { htmlAttributes = new { @class = "form-control",placeholder="your message" } })
                                             @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger label-validations" })
                                         </div>
-                                    </div>
+                                    </div>*@
 
                                     <div class="form-group">
 
@@ -101,7 +101,7 @@
                                     <div class="form-group">
                                       
                                         <div class="col-md-12">
-                                            <label class="control-label">Postal Code </label>
+                                            <label class="control-label">Postal Code <span class="text-danger">*</span></label>
                                             @Html.DropDownList("PostCodeId", new SelectList(ViewBag.postCodes, "Id", "PostCodeName"), " Select PostCode", new { @class = "form-control" })
                                             <span class="col-form-label-sm" style="color:#163738">Note : your postcode is hidden , we will not share this</span>
                                             @Html.ValidationMessageFor(model => model.PostCode, "", new { @class = "text-danger label-validations" })
@@ -127,7 +127,7 @@
 
                                     <div class="form-group">
                                         <div class="col-md-12">
-                                            <label class="control-label">Departure Time</label>
+                                            <label class="control-label">Departure Time <span class="text-danger">*</span></label>
                                             <input type="time" name="StartTime" placeholder="Start time" class="form-control" required />
                                             @*@Html.EditorFor(model => model.StartTime, new { htmlAttributes = new { @class = "form-control" } })*@
                                             @Html.ValidationMessageFor(model => model.StartTime, "", new { @class = "text-danger label-validations" })
@@ -137,48 +137,50 @@
                                     <div class="form-group">
                                       
                                         <div class="col-md-12">
-                                            <label class="control-label">Arrival Time</label>
+                                            <label class="control-label">Arrival Time <span class="text-danger">*</span></label>
                                             <input type="time" name="EndTime" placeholder="End time" class="form-control" required />
                                             @*@Html.EditorFor(model => model.EndTime, new { htmlAttributes = new { @class = "form-control" } })*@
                                             @Html.ValidationMessageFor(model => model.EndTime, "", new { @class = "text-danger label-validations", @type = "time" })
                                         </div>
                                     </div>
 
-                                    <div class="container pt-3">
+                                    <div class="container pt-2">
+                                        <label class="control-label">Normal days of Travelling <span class="text-danger">*</span></label>
                                         @Html.ValidationMessageFor(model => model.hidInput, "", new { @class = "text-danger label-validations" })
+
                                         <div class="row">
 
                                             <div class="col-4">
                                                 <input name="chkday" class=" chk" data-day="monday" type="checkbox" value="1" />
-                                                <label class="form-check-label">Monday</label>
+                                                <label style="font-weight: normal;" class="form-check-label">Monday</label>
                                             </div>
                                             <div class="col-4">
                                                 <input name="chkday" data-day="tuesday" class="chk" type="checkbox" value="2" />
-                                                <label>Tuesday</label>
+                                                <label style="font-weight: normal;">Tuesday</label>
                                             </div>
                                             <div class="col-4">
                                                 <input name="chk" class="chk" type="checkbox" value="3" data-day="wednesday" />
-                                                <label>Wednesday</label>
+                                                <label style="font-weight: normal;">Wednesday</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-4">
                                                 <input name="chk" class="chk" type="checkbox" value="4" data-day="thursday" />
-                                                <label>Thursday</label>
+                                                <label style="font-weight: normal;">Thursday</label>
                                             </div>
                                             <div class="col-4">
                                                 <input name="chk" class="chk" data-day="friday" type="checkbox" value="5" />
-                                                <label>Friday</label>
+                                                <label style="font-weight: normal;">Friday</label>
                                             </div>
                                             <div class="col-4">
                                                 <input name="chk" class="chk" type="checkbox" value="6" data-day="saturday" />
-                                                <label>Saturday</label>
+                                                <label style="font-weight: normal;">Saturday</label>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-4">
                                                 <input name="chk" class="chk" type="checkbox" value="7" data-day="sunday" />
-                                                <label>Sunday</label>
+                                                <label style="font-weight: normal;">Sunday</label>
                                             </div>
                                         </div>
                                     </div>

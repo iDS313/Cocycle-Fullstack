@@ -84,11 +84,14 @@ namespace Cocycle.Controllers
             pvm.RoleName = role.Name;
             pvm.User = DbContext.Users.Where(x => x.Id == currentUser).Include(x=>x.PostCode).FirstOrDefault();
             pvm.routes = DbContext.Routes.Include(x => x.RouteSchedule).Include(x => x.FeedBack).Where(x => x.CreatedBy == currentUser).ToList();
+            pvm.Requestedroutes = DbContext.Routes.Include(x => x.RouteSchedule).Include(x => x.FeedBack).Where(x => x.RequestedBy == currentUser).ToList();
             pvm.routeGroups = DbContext.RouteGroup.Include(x => x.routes).Include(x => x.routes.FeedBack).Where(x => x.RequestBy == currentUser).ToList();
             pvm.arrangeds = DbContext.Arranged.Include(x => x.FeedBack).Where(x => x.ApprovedBy == currentUser).ToList();
             pvm.MyRequests = DbContext.RouteGroup.Where(x => x.RequestBy == currentUser).Include(x => x.routes.FeedBack).ToList();
             pvm.RequestedRides = DbContext.Arranged.Include(x => x.FeedBack).Where(x => x.RequestBy == currentUser).ToList();
             pvm.RideFeedbacks = DbContext.FeedBacks.Where(x => x.UserId == currentUser).ToList();
+            
+            
             return View(pvm);
         }
 

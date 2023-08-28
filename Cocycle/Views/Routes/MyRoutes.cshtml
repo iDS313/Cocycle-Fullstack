@@ -33,18 +33,18 @@
                                             <div class="img-left" style="display: block;">
                                                 @if (item.PosterImage != null)
                                                 {
-                                                    <img class="img-fluid pad" src="@Html.DisplayFor(modelItem => item.PosterImage)" style="height: 100%; width:100%" alt="">
+                                                    <img class="img-fluid pad" src="@Html.DisplayFor(modelItem => item.PosterImage)" style="width:100%" alt="">
                                                 }
                                                 else
                                                 {
-                                                    <img class="img-fluid pad" src="~/Content/banner-img/Cocycle-bike-orange.png" style="height: 100%;width:100%" alt="">
+                                                    <img class="img-fluid pad" src="~/Content/banner-img/Cocycle-bike-orange.png" style="width:100%" alt="">
                                                 }
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-9  d-flex align-items-center">
-                                        <div class="content">
+                                        <div class="content" style="padding-left: 4%;border-left:unset">
 
                                             <h4 style="margin-top: 0px">
                                                 <span class="labels">Location : </span> @Html.DisplayFor(modelItem => item.State.StateName),
@@ -56,63 +56,35 @@
                                             <h4 style="margin-top: 0px">
                                                 <span class="labels">Departure :</span> @item.StartTime.ToString(" hh:mm tt")
                                                 &emsp; <span class="labels">Arrival :</span>  @item.EndTime.ToString(" hh:mm tt")
-                                            </h4>
-                                            <h4 style="margin-top:0px">
+                                                &nbsp;<span class="labels">Days :</span>
                                                 @foreach (var items in @item.RouteSchedule)
                                                 {
                                                     <span class="days badge badge-primary my-1"> @items.DayId</span>
                                                 }
                                             </h4>
-                                            <h4 style="margin-top: 0px">
-                                                <span class="labels">By :  </span> @Html.DisplayFor(modelItem => item.applicationUserCreated.Name)
-                                                &nbsp; <span class="labels">Phone No : </span>@Html.DisplayFor(modelItem => item.applicationUserCreated.PhoneNumber)
-                                                &nbsp; <span class="labels">Email-ID : </span>@Html.DisplayFor(modelItem => item.applicationUserCreated.Email)
-                                            </h4>
-                                            <p><span class="labels">Message</span> : @Html.DisplayFor(modelItem => item.Message)</p>
+
+                                            @*<h4 style="margin-top: 0px">
+            <span class="labels">By : </span> @Html.DisplayFor(modelItem => item.applicationUserCreated.Name)
+            &nbsp; <span class="labels ">Phone No : </span> <span style="cursor: pointer;" data-phone="@Html.DisplayFor(modelItem => item.applicationUserCreated.PhoneNumber)" class="decoded"> </span>
+
+            &nbsp; <span class="labels">Email-ID : </span>@Html.DisplayFor(modelItem => item.applicationUserCreated.Email)
+        </h4>*@
                                             <h4 style="margin-top: 0px">
                                                 <span class="labels">Departure Point -</span> @Html.DisplayFor(modelItem => item.StartingPoint)
+                                                &nbsp;   <span class="labels">Arrival Point -</span> @Html.DisplayFor(modelItem => item.EndPoint)
+                                                &nbsp;
+                                                @if (item.Addreturn == true)
+                                                {
+                                                    <span class="labels">Return Journey</span>
+                                                }
                                             </h4>
-                                            <h4 style="margin-top: 0px">
-                                                <span class="labels">Arrival Point -</span> @Html.DisplayFor(modelItem => item.EndPoint)
-                                            </h4>
-                                            <h4 style="margin-top: 0px">
-                                            </h4>
-                                            @if (item.Addreturn == true)
+
+                                            @if (item.Description != null)
                                             {
-                                                <h4 style="margin-top: 0px"> <span class="labels">Return Journey</span></h4>
+                                                <p><span class="labels">Description</span> : @Html.DisplayFor(modelItem => item.Description)</p>
                                             }
-                                            <p><span class="labels">Description</span> : @Html.DisplayFor(modelItem => item.Description)</p>
 
-                                            @*@if (item.RouteSchedule.Count > 0)
-        {
-            <a href="#" role="button" data-toggle="collapse" data-target="#r_@item.Id" aria-expanded="false" aria-controls="r_@item.Id" class="collapsed btn btn-element btn-active">
-                View Schedule
-            </a>
-            <div class="accordion-style-2">
-                <div id="r_@item.Id" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="">
-                    <div class="card-body">
-                        <div class="popover-element ">
-                            <div class="list-menu">
-                                <ul class="list-group list-group-flush">
-                                    @foreach (var items in @item.RouteSchedule)
-                                    {
-                                        <li style="font-size: unset;padding:unset" class="list-group-item"><i class="fa fa-check"></i><span class="days">@Html.DisplayFor(modelItem => items.DayId)</span> </li>
-                                    }
-
-                                </ul>
-                                @foreach (var items in @item.RouteSchedule)
-                                {
-                                    <div class="time">
-                                        <h3 class="days">@Html.DisplayFor(modelItem => items.DayId)</h3>
-                                    </div>
-                                }
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }*@
+                                          
 
                                             @if (@item.CreatedBy == User.Identity.GetUserId())
                                             {
@@ -126,12 +98,8 @@
                                                     </a>
                                                 </div>
                                             }
-
-
                                         </div>
-
                                     </div>
-
                                 </div>
                             }
                         </div>
@@ -147,18 +115,18 @@
                                             <div class="img-left" style="display: block;">
                                                 @if (item.PosterImage != null)
                                                 {
-                                                    <img class="img-fluid pad" src="@Html.DisplayFor(modelItem => item.PosterImage)" style="height: 100%; width:100%" alt="">
+                                                    <img class="img-fluid pad" src="@Html.DisplayFor(modelItem => item.PosterImage)" style="width:100%" alt="">
                                                 }
                                                 else
                                                 {
-                                                    <img class="img-fluid pad" src="~/Content/banner-img/Cocycle-bike-orange.png" style="height: 100%;width:100%" alt="">
+                                                    <img class="img-fluid pad" src="~/Content/banner-img/Cocycle-bike-orange.png" style="width:100%" alt="">
                                                 }
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-9  d-flex align-items-center">
-                                        <div class="content">
+                                        <div class="content" style="padding-left: 4%;border-left:unset">
 
                                             <h4 style="margin-top: 0px">
                                                 <span class="labels">Location : </span> @Html.DisplayFor(modelItem => item.State.StateName),
@@ -170,63 +138,35 @@
                                             <h4 style="margin-top: 0px">
                                                 <span class="labels">Departure :</span> @item.StartTime.ToString(" hh:mm tt")
                                                 &emsp; <span class="labels">Arrival :</span>  @item.EndTime.ToString(" hh:mm tt")
-                                            </h4>
-                                            <h4 style="margin-top:0px">
+                                                &nbsp;<span class="labels">Days :</span>
                                                 @foreach (var items in @item.RouteSchedule)
                                                 {
                                                     <span class="days badge badge-primary my-1"> @items.DayId</span>
                                                 }
                                             </h4>
-                                            <h4 style="margin-top: 0px">
-                                                <span class="labels">By :  </span> @Html.DisplayFor(modelItem => item.applicationUserCreated.Name)
-                                                &nbsp; <span class="labels">Phone No : </span>@Html.DisplayFor(modelItem => item.applicationUserCreated.PhoneNumber)
-                                                &nbsp; <span class="labels">Email-ID : </span>@Html.DisplayFor(modelItem => item.applicationUserCreated.Email)
-                                            </h4>
-                                            <p><span class="labels">Message</span> : @Html.DisplayFor(modelItem => item.Message)</p>
+
+                                            @*<h4 style="margin-top: 0px">
+                            <span class="labels">By : </span> @Html.DisplayFor(modelItem => item.applicationUserCreated.Name)
+                            &nbsp; <span class="labels ">Phone No : </span> <span style="cursor: pointer;" data-phone="@Html.DisplayFor(modelItem => item.applicationUserCreated.PhoneNumber)" class="decoded"> </span>
+
+                            &nbsp; <span class="labels">Email-ID : </span>@Html.DisplayFor(modelItem => item.applicationUserCreated.Email)
+                        </h4>*@
                                             <h4 style="margin-top: 0px">
                                                 <span class="labels">Departure Point -</span> @Html.DisplayFor(modelItem => item.StartingPoint)
+                                                &nbsp;   <span class="labels">Arrival Point -</span> @Html.DisplayFor(modelItem => item.EndPoint)
+                                                &nbsp;
+                                                @if (item.Addreturn == true)
+                                                {
+                                                    <span class="labels">Return Journey</span>
+                                                }
                                             </h4>
-                                            <h4 style="margin-top: 0px">
-                                                <span class="labels">Arrival Point -</span> @Html.DisplayFor(modelItem => item.EndPoint)
-                                            </h4>
-                                            <h4 style="margin-top: 0px">
-                                            </h4>
-                                            @if (item.Addreturn == true)
+
+                                            @if (item.Description != null)
                                             {
-                                                <h4 style="margin-top: 0px"> <span class="labels">Return Journey</span></h4>
+                                                <p><span class="labels">Description</span> : @Html.DisplayFor(modelItem => item.Description)</p>
                                             }
-                                            <p><span class="labels">Description</span> : @Html.DisplayFor(modelItem => item.Description)</p>
 
-                                            @*@if (item.RouteSchedule.Count > 0)
-        {
-            <a href="#" role="button" data-toggle="collapse" data-target="#r_@item.Id" aria-expanded="false" aria-controls="r_@item.Id" class="collapsed btn btn-element btn-active">
-                View Schedule
-            </a>
-            <div class="accordion-style-2">
-                <div id="r_@item.Id" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="">
-                    <div class="card-body">
-                        <div class="popover-element ">
-                            <div class="list-menu">
-                                <ul class="list-group list-group-flush">
-                                    @foreach (var items in @item.RouteSchedule)
-                                    {
-                                        <li style="font-size: unset;padding:unset" class="list-group-item"><i class="fa fa-check"></i><span class="days">@Html.DisplayFor(modelItem => items.DayId)</span> </li>
-                                    }
 
-                                </ul>
-                                @foreach (var items in @item.RouteSchedule)
-                                {
-                                    <div class="time">
-                                        <h3 class="days">@Html.DisplayFor(modelItem => items.DayId)</h3>
-                                    </div>
-                                }
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }*@
 
                                             @if (@item.CreatedBy == User.Identity.GetUserId())
                                             {
@@ -241,9 +181,7 @@
                                                 </div>
                                             }
                                         </div>
-
                                     </div>
-
                                 </div>
                             }
                         </div>
@@ -259,18 +197,18 @@
                                             <div class="img-left" style="display: block;">
                                                 @if (item.PosterImage != null)
                                                 {
-                                                    <img class="img-fluid pad" src="@Html.DisplayFor(modelItem => item.PosterImage)" style="height: 100%; width:100%" alt="">
+                                                    <img class="img-fluid pad" src="@Html.DisplayFor(modelItem => item.PosterImage)" style="width:100%" alt="">
                                                 }
                                                 else
                                                 {
-                                                    <img class="img-fluid pad" src="~/Content/banner-img/Cocycle-bike-orange.png" style="height: 100%;width:100%" alt="">
+                                                    <img class="img-fluid pad" src="~/Content/banner-img/Cocycle-bike-orange.png" style="width:100%" alt="">
                                                 }
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-9  d-flex align-items-center">
-                                        <div class="content">
+                                        <div class="content" style="padding-left: 4%;border-left:unset">
 
                                             <h4 style="margin-top: 0px">
                                                 <span class="labels">Location : </span> @Html.DisplayFor(modelItem => item.State.StateName),
@@ -282,63 +220,35 @@
                                             <h4 style="margin-top: 0px">
                                                 <span class="labels">Departure :</span> @item.StartTime.ToString(" hh:mm tt")
                                                 &emsp; <span class="labels">Arrival :</span>  @item.EndTime.ToString(" hh:mm tt")
-                                            </h4>
-                                            <h4 style="margin-top:0px">
+                                                &nbsp;<span class="labels">Days :</span>
                                                 @foreach (var items in @item.RouteSchedule)
                                                 {
                                                     <span class="days badge badge-primary my-1"> @items.DayId</span>
                                                 }
                                             </h4>
-                                            <h4 style="margin-top: 0px">
-                                                <span class="labels">By :  </span> @Html.DisplayFor(modelItem => item.applicationUserCreated.Name)
-                                                &nbsp; <span class="labels">Phone No : </span>@Html.DisplayFor(modelItem => item.applicationUserCreated.PhoneNumber)
-                                                &nbsp; <span class="labels">Email-ID : </span>@Html.DisplayFor(modelItem => item.applicationUserCreated.Email)
-                                            </h4>
-                                            <p><span class="labels">Message</span> : @Html.DisplayFor(modelItem => item.Message)</p>
+
+                                            @*<h4 style="margin-top: 0px">
+                            <span class="labels">By : </span> @Html.DisplayFor(modelItem => item.applicationUserCreated.Name)
+                            &nbsp; <span class="labels ">Phone No : </span> <span style="cursor: pointer;" data-phone="@Html.DisplayFor(modelItem => item.applicationUserCreated.PhoneNumber)" class="decoded"> </span>
+
+                            &nbsp; <span class="labels">Email-ID : </span>@Html.DisplayFor(modelItem => item.applicationUserCreated.Email)
+                        </h4>*@
                                             <h4 style="margin-top: 0px">
                                                 <span class="labels">Departure Point -</span> @Html.DisplayFor(modelItem => item.StartingPoint)
+                                                &nbsp;   <span class="labels">Arrival Point -</span> @Html.DisplayFor(modelItem => item.EndPoint)
+                                                &nbsp;
+                                                @if (item.Addreturn == true)
+                                                {
+                                                    <span class="labels">Return Journey</span>
+                                                }
                                             </h4>
-                                            <h4 style="margin-top: 0px">
-                                                <span class="labels">Arrival Point -</span> @Html.DisplayFor(modelItem => item.EndPoint)
-                                            </h4>
-                                            <h4 style="margin-top: 0px">
-                                            </h4>
-                                            @if (item.Addreturn == true)
+
+                                            @if (item.Description != null)
                                             {
-                                                <h4 style="margin-top: 0px"> <span class="labels">Return Journey</span></h4>
+                                                <p><span class="labels">Description</span> : @Html.DisplayFor(modelItem => item.Description)</p>
                                             }
-                                            <p><span class="labels">Description</span> : @Html.DisplayFor(modelItem => item.Description)</p>
 
-                                            @*@if (item.RouteSchedule.Count > 0)
-        {
-            <a href="#" role="button" data-toggle="collapse" data-target="#r_@item.Id" aria-expanded="false" aria-controls="r_@item.Id" class="collapsed btn btn-element btn-active">
-                View Schedule
-            </a>
-            <div class="accordion-style-2">
-                <div id="r_@item.Id" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample" style="">
-                    <div class="card-body">
-                        <div class="popover-element ">
-                            <div class="list-menu">
-                                <ul class="list-group list-group-flush">
-                                    @foreach (var items in @item.RouteSchedule)
-                                    {
-                                        <li style="font-size: unset;padding:unset" class="list-group-item"><i class="fa fa-check"></i><span class="days">@Html.DisplayFor(modelItem => items.DayId)</span> </li>
-                                    }
 
-                                </ul>
-                                @foreach (var items in @item.RouteSchedule)
-                                {
-                                    <div class="time">
-                                        <h3 class="days">@Html.DisplayFor(modelItem => items.DayId)</h3>
-                                    </div>
-                                }
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }*@
 
                                             @if (@item.CreatedBy == User.Identity.GetUserId())
                                             {
@@ -352,11 +262,8 @@
                                                     </a>
                                                 </div>
                                             }
-
                                         </div>
-
                                     </div>
-
                                 </div>
                             }
                         </div>

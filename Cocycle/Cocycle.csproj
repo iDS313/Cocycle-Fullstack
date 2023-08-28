@@ -811,6 +811,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\pagination.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -906,6 +907,7 @@
     <Content Include="Views\Account\_RequestedRides.cshtml" />
     <Content Include="Views\FeedBacks\AddRouteFeedback.cshtml" />
     <Content Include="Views\FeedBacks\AddRideFeedback.cshtml" />
+    <Content Include="Views\Account\_RequestedRoutes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

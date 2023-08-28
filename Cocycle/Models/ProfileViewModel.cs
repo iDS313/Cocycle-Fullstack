@@ -10,6 +10,7 @@ namespace Cocycle.Models
         public ApplicationUser User { get; set; }
         public string RoleName { get; set; }
         public ICollection<Routes> routes { get; set; }
+        public ICollection<Routes> Requestedroutes { get; set; }
         public ICollection<RouteGroup> routeGroups { get; set; }
         public ICollection<RouteGroup> joinedroutes { get; set; }
         public ICollection<Arranged> arrangeds  { get; set; }

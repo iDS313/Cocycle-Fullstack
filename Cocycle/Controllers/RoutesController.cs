@@ -37,9 +37,32 @@ namespace Cocycle.Controllers
             fillviewbags();
             ViewBag.loggedinuser = User.Identity.GetUserId();
             //    ViewBag.RouteSchedules = db.RouteSchedules.Include(r => r.RouteId);
-            var routes = db.Routes.Where(x => x.IsApproved == true && x.IsActive == true).Include(x => x.RouteSchedule).OrderByDescending(x => x.Created).ToList(); 
-          
+           // var routes = db.Routes.Where(x => x.IsApproved == true && x.IsActive == true).Include(x => x.RouteSchedule).OrderByDescending(x => x.Created).ToList(); 
+            ViewBag.routecount = db.Routes.Where(x => x.IsApproved == true && x.IsActive == true).Include(x => x.RouteSchedule).OrderByDescending(x => x.Created).Count();
+            var routes = db.Routes.Where(x => x.IsApproved == true && x.IsActive == true).Include(x => x.RouteSchedule).OrderByDescending(x => x.Created).ToList();
             return View(routes);
+        }
+        public ActionResult GetRoute(int? pageNumber=1,int? pageSize=10 )
+        {
+           
+            //    ViewBag.RouteSchedules = db.RouteSchedules.Include(r => r.RouteId);
+            var routes = db.Routes.Where(x => x.IsApproved == true && x.IsActive == true).Include(x => x.RouteSchedule).OrderByDescending(x => x.Created).ToList();
+            var r = db.Routes.Where(x => x.IsApproved == true && x.IsActive == true).OrderByDescending(x => x.Created).ToList();
+           foreach(var item in r)
+            {
+                item.RouteSchedule = db.RouteSchedules.Where(x => x.RouteId == item.Id).ToList();
+                //item.State = db.States.Where(s => s.Id == item.StateId).FirstOrDefault();
+                //item.Area = db.Areas.Where(s => s.Id == item.AreaId).FirstOrDefault();
+                //item.PostCode = db.postCodes.Where(p => p.Id == item.PostCodeId).FirstOrDefault();
+            
+            }
+            var allroutes = JsonConvert.SerializeObject(r, Formatting.None,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        });
+            return Json(allroutes, JsonRequestBehavior.AllowGet);
+           // return View(routes);
         }
 
 

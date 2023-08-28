@@ -12,23 +12,27 @@
         </p>*@
     <div class="card">
         <div class="card-body">
-            <table class="table" id="tablerequest" style="color:black">
+            <table class="table " id="tablerequest" style="color:black">
                 <thead>
                     <tr>
                         <th>
                             Route No
                         </th>
                         <th>
-                          Route Creator
+                            Route Creator
+                        </th>
+                        <th>
+                            Contact No
+                        </th>
+                        <th>
+                           Email
                         </th>
                         <th>
                             @Html.DisplayNameFor(model => model.RequestDate)
                         </th>
+                        
                         <th>
-                            @Html.DisplayNameFor(model => model.ApproveDate)
-                        </th>
-                        <th>
-                           Status
+                            Status
                         </th>
                         <th></th>
                         <th></th>
@@ -38,63 +42,67 @@
                 <tbody>
                     @foreach (var item in Model)
                     {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.routes.Id)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.routes.applicationUserCreated.Name)
-                            </td>
-                            <td>
-                                @item.RequestDate.ToString("dd-MMM-yyyy")
-                            </td>
-                            <td>
-                                @if (item.IsApproved == true)
-                                {@item.ApproveDate.ToString("dd-MMM-yyyy")}
-                            </td>
-                            <td>
-                                @if (item.IsApproved == false)
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.routes.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.routes.applicationUserCreated.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.routes.applicationUserCreated.PhoneNumber)
+                         
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.routes.applicationUserCreated.Email)
+                        </td>
+                        <td>
+                            @item.RequestDate.ToString("dd-MMM-yyyy")
+                        </td>
+                      
+                        <td>
+                            @if (item.IsApproved == false)
+                            {
+                                <span class="badge badge-danger">Pending</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-success">Approved</span>
+                            }
+                        </td>
+                        <td>
+                            @if (item.routes.FeedBack != null)
+                            {
+                                if (item.routes.FeedBack.Count() > 0)
                                 {
-                                    <span class="badge badge-danger">Pending</span>
-                                }
-                                else
-                                {
-                                    <span class="badge badge-success">Approved</span>
-                                }
-                            </td>
-                            <td>
-                                @if (item.routes.FeedBack != null)
-                                {
-                                    if (item.routes.FeedBack.Count() > 0)
+                                    foreach (var items in item.routes.FeedBack)
                                     {
-                                        foreach (var items in item.routes.FeedBack)
+                                        if (User.Identity.GetUserId() == items.UserId)
                                         {
-                                            if (User.Identity.GetUserId() == items.UserId)
-                                            {
-                                                @Html.ActionLink("View Feedback", "Details", "Feedbacks",new { items.Id}, new { @class = "btn btn-success btn-sm" })
-                                                break;
-                                            }
-                                            else
-                                            {
-                                                @Html.ActionLink("Completed", "Addroutefeedback", "Feedbacks", item.routes, new { @class = "btn btn-success btn-sm" })
-                                            }
+                                            @Html.ActionLink("View Feedback", "Details", "Feedbacks", new { items.Id }, new { @class = "btn btn-success btn-sm" })
+                                            break;
                                         }
-                                    }
-                                    else
-                                    {
-                                        @Html.ActionLink("Completed", "Addroutefeedback", "Feedbacks", item.routes, new { @class = "btn btn-success btn-sm" })
+                                        else
+                                        {
+                                            @Html.ActionLink("Completed", "Addroutefeedback", "Feedbacks", item.routes, new { @class = "btn btn-success btn-sm" })
+                                        }
                                     }
                                 }
                                 else
                                 {
                                     @Html.ActionLink("Completed", "Addroutefeedback", "Feedbacks", item.routes, new { @class = "btn btn-success btn-sm" })
                                 }
+                            }
+                            else
+                            {
+                                @Html.ActionLink("Completed", "Addroutefeedback", "Feedbacks", item.routes, new { @class = "btn btn-success btn-sm" })
+                            }
 
 
 
-                            </td>
-                            <td>@Html.ActionLink("View Route", "Details","Routes", item.routes,new { @class= "btn btn-info btn-sm" })</td>
-                        </tr>
+                        </td>
+                        <td>@Html.ActionLink("View Route", "Details", "Routes", item.routes, new { @class = "btn btn-info btn-sm" })</td>
+                    </tr>
 
                     }
                 </tbody>

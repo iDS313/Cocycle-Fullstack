@@ -1,82 +1,34 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+  
 }
 
-@*<div class="jumbotron">
-        <h1>ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-    </div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <h2>Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </div>
-        <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </div>
-    </div>*@
-<!DOCTYPE html>
-<html lang="en">
+ 
 
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>CoCycle Website</title>
-    <!-- favicon -->
-    <link rel=icon href=~/Content/WebAssets/img/favicon.png sizes="20x20" type="image/png">
-    <!-- animate -->
-    <link rel="stylesheet" href="~/Content/WebAssets/css/animate.css">
-    <!-- bootstrap -->
-    <link rel="stylesheet" href="~/Content/WebAssets/css/bootstrap.min.css">
-    <!-- magnific popup -->
-    <link rel="stylesheet" href="~/Content/WebAssets/css/magnific-popup.css">
-    <!-- Slick -->
-    <link rel="stylesheet" href="~/Content/WebAssets/css/slick.css" />
-    <link rel="stylesheet" href="~/Content/WebAssets/css/slick-theme.css" />
-    <!-- swiper -->
-    <link rel="stylesheet" href="~/Content/WebAssets/css/swiper.min.css" />
-    <!-- owl carousel -->
-    <link rel="stylesheet" href="~/Content/WebAssets/css/owl.carousel.min.css">
-    <!-- fontawesome -->
-    <link rel="stylesheet" href="~/Content/WebAssets/css/font-awesome.min.css">
-    <!-- flaticon -->
-    <link rel="stylesheet" href="~/Content/WebAssets/css/flaticon.css">
-    <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="~/Content/WebAssets/css/style.css">
-    <!-- responsive Stylesheet -->
-    <link rel="stylesheet" href="~/Content/WebAssets/css/responsive.css">
+ 
+   
+   
+ 
+ 
+    <!-- //. search Popup -->
+    <!-- home-about start -->
     <style>
         .banner-quote {
             font-size: 1.8rem;
             border-left: 3px solid orange;
-          
         }
 
             .banner-quote span {
                 color: orange;
-                
             }
-        .about-sec-img{
-            width:80%;
-            float:right;
+
+        .about-sec-img {
+            width: 80%;
+            float: right;
         }
+
         .about-sec-overlay {
             margin-top: 70px;
             position: absolute;
@@ -93,42 +45,83 @@
                 padding: 20px;
                 color: white;
             }
-            @@media(max-width:550px){
-                .about-sec-img {
-                display:none;
-                }
-                .about-sec-overlay {
-                    position:static;
-                    width:100%;
-                   
-                }
-                .about-title,.about-title-1{
-                    margin:unset!important;
-                }
-                .home-about{
-                    margin-bottom:30px!important;
-                }
-                }
+        .home-about {
+            margin-bottom: 50px !important;
+        }
+
+        @@media(max-width:550px) {
+            .about-sec-img {
+                display: none;
+            }
+
+            .about-sec-overlay {
+                position: static;
+                width: 100%;
+            }
+
+            .about-title, .about-title-1 {
+                margin: unset !important;
+            }
+
+            .home-about {
+                margin-bottom: 30px !important;
+            }
+        }
     </style>
-
-</head>
-<body>
-
-
-    <!-- preloader area end -->
-    <!-- search Popup -->
-    <!-- <div class="body-overlay" id="body-overlay"></div>
-    <div class="search-popup" id="search-popup">
-        <form action="#" class="search-form">
-            <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search.....">
+    <div class="home-about" id="about-area" >
+        <div class="floating-icon" id="service_info_item">
+            <div class="floating-icon__is floating-icon-info">
+                <i class="flaticon-phone"></i>
             </div>
-            <button type="submit" class="submit-btn"><i class="fa fa-search"></i></button>
-        </form>
-    </div> -->
-    <!-- //. search Popup -->
-   
+            <!--floating-icon-is-->
+            <div class="floating-icon__is floating-icon-location">
+                <i class="flaticon-pin"></i>
+            </div>
+            <!--floating-icon-is-->
+            <div class="floating-icon__is floating-icon-message">
+                <i class="flaticon-mail"></i>
+            </div>
+            <!--floating-icon-is-->
+        </div>
+        <!--floating-icon-->
+        <!--<div class="container" >
+            <div class="row">
+                <div class="about-title about-title-1" style=" border-bottom: 5px solid orange;">About Us</div>
+            </div>
+        </div>
+        <div class="container" style="margin: 20px 0px 178px 0px;" >-->
+        @*<div class="row">
+                    <div class="col-lg-12">
+                        <div class="row">
+                <div class="aboutus-section">
+                    <img src="~/content/webassets/img/home1/about.png" alt="about" style="width:">
+                    <div class="overlay-content">
+                        lorem ipsum dolor sit amet, consectetur adipiscing elit. nulla sit amet semper augue. maecenas gravida tortor sit amet enim venenatis tristique. nulla vehicula porta tortor non maximus. vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; aliquam eu viverra augue
+                    </div>
+                    <span></span>
+                </div>
+            </div>
 
+                    </div>
+
+                </div>*@
+        <!--<div class="row" >
+                <div class="col-lg-12 position-relative">
+                    <img src="~/content/webassets/img/home1/KHPmoseleymaidens.jpg" alt="about m-2" class="about-sec-img">
+                    <div class="about-sec-overlay">
+                        <div class=" m-4 py-3" >
+                          Cocycle was set up in August 2020 under its original name Two Wheels Better, with the intention of creating a bike buddy system that people could use to commute together on two wheels.
+                            The idea was initially very well received with 70-80 people signing up (possibly motivated by free samosas at our launch event), and the first rides started happening shortly afterwards.
+                            We were able to show various people their routes to work by bike, and even took a plucky sixth former to college. It also became clear that a lot of people wanted to have a service that would help them with very basic cycling skills prior to any attempt to commute by bike.
+                            Many of our experienced members travelled far and wide across the city to meet this need, taking people for rides along towpaths or in their local parks to help them build the confidence they needed to get in the saddle for themselves.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+        <!-- <div class="ceramic animated slideRotateFromRight">Ceramic Speed</div> -->
+    </div>
+    <!-- home-about end -->
     <!-- banner area start -->
     <div class="container">
         <div class="row">
@@ -146,16 +139,16 @@
                         {
                             if (User.IsInRole("cyclist"))
                             {
-                                <a href="@Url.Action("Index","Arrangeds")" class="btn btn-element btn-red float-right" style="position:relative;bottom:25px"> I already travel by bike</a>
+                                <a href="@Url.Action("Index","Arrangeds")" class="btn btn-element btn-red float-right" style="position:relative;bottom:25px;margin:23px"> I already travel by bike</a>
                             }
                             else
                             {
-                    <a href="#" onclick='showmessage(1)' ; class="btn btn-element btn-red float-right" style="position:relative;bottom:25px"> I already travel by bike</a>
+                                <a href="#" onclick='showmessage(1)' ; class="btn btn-element btn-red float-right" style="position:relative;bottom:25px;margin:23px"> I already travel by bike</a>
                             }
                         }
                         else
                         {
-                    <a href="@Url.Action("Register","Account")" class="btn btn-element btn-red float-right" style="position:relative;bottom:25px"> I already travel by bike</a>
+                            <a href="@Url.Action("Register","Account")" class="btn btn-element btn-red float-right" style="position:relative;bottom:25px;margin:23px"> I already travel by bike</a>
                         }
 
                     </div>
@@ -175,16 +168,16 @@
                         {
                             if (User.IsInRole("learner"))
                             {
-                    <a href="@Url.Action("Create","Arrangeds")" class="btn btn-element btn-red float-right" style="position:relative;bottom:25px"> I need help with cycling</a>
+                                <a href="@Url.Action("Create","Arrangeds")" class="btn btn-element btn-red float-right" style="position:relative;bottom:25px;margin:23px"> I need help with cycling</a>
                             }
                             else
                             {
-                    <a href="#" onclick='showmessage(2)' ; class="btn btn-element btn-red float-right" style="position:relative;bottom:25px"> I need help with cycling</a>
+                                <a href="#" onclick='showmessage(2)' ; class="btn btn-element btn-red float-right" style="position:relative;bottom:25px;margin:23px"> I need help with cycling</a>
                             }
                         }
                         else
                         {
-                    <a href="@Url.Action("Register","Account")" class="btn btn-element btn-red float-right" style="position:relative;bottom:25px"> I need help with cycling</a>
+                            <a href="@Url.Action("Register","Account")" class="btn btn-element btn-red float-right" style="position:relative;bottom:25px;margin:23px"> I need help with cycling</a>
                         }
 
                     </div>
@@ -196,168 +189,11 @@
 
         </div>
     </div>
-    <!-- home-about start -->
-    <div class="home-about" id="about-area">
-        <div class="floating-icon" id="service_info_item">
-            <div class="floating-icon__is floating-icon-info">
-                <i class="flaticon-phone"></i>
-            </div>
-            <!--floating-icon-is-->
-            <div class="floating-icon__is floating-icon-location">
-                <i class="flaticon-pin"></i>
-            </div>
-            <!--floating-icon-is-->
-            <div class="floating-icon__is floating-icon-message">
-                <i class="flaticon-mail"></i>
-            </div>
-            <!--floating-icon-is-->
-        </div>
-        <!--floating-icon-->
 
-        <div class="container">
-            <div class="row">
-                <div class="about-title about-title-1" style=" border-bottom: 5px solid orange;">About Us</div>
-            </div>
-        </div>
-        <div class="container">
-            @*<div class="row">
-                        <div class="col-lg-12">
-                            <div class="row">
-                    <div class="aboutus-section">
-                        <img src="~/content/webassets/img/home1/about.png" alt="about" style="width:">
-                        <div class="overlay-content">
-                            lorem ipsum dolor sit amet, consectetur adipiscing elit. nulla sit amet semper augue. maecenas gravida tortor sit amet enim venenatis tristique. nulla vehicula porta tortor non maximus. vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; aliquam eu viverra augue
-                        </div>
-                        <span></span>
-                    </div>
-                </div>
-
-                        </div>
-
-                    </div>*@
-            <div class="row">
-                <div class="col-lg-12 position-relative">
-                    <img src="~/content/webassets/img/home1/KHPmoseleymaidens.jpg" alt="about m-2" class="about-sec-img">
-                    <div class="about-sec-overlay">
-                        <div class="m-4 py-3">
-                          Cocycle was set up in August 2020 under its original name Two Wheels Better, with the intention of creating a bike buddy system that people could use to commute together on two wheels. 
-                            The idea was initially very well received with 70-80 people signing up (possibly motivated by free samosas at our launch event), and the first rides started happening shortly afterwards.
-                            We were able to show various people their routes to work by bike, and even took a plucky sixth former to college. It also became clear that a lot of people wanted to have a service that would help them with very basic cycling skills prior to any attempt to commute by bike.
-                            Many of our experienced members travelled far and wide across the city to meet this need, taking people for rides along towpaths or in their local parks to help them build the confidence they needed to get in the saddle for themselves.
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- <div class="ceramic animated slideRotateFromRight">Ceramic Speed</div> -->
-    </div>
-    <!-- home-about end -->
-    <!-- home-blog start -->
-    @*<div class="home-blog ">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="blog-wrapper">
-                        <div class="portfolio-blog">
-                            <div class="blog-item width-33">
-                                <img class="masonry-image" alt="masonry" src="~/Content/WebAssets/img/home1/blog1.png">
-                                <div class="content bottom-0">
-                                    <span>Event Review, xtrmstudio, art</span>
-                                    <h1>Nothing Can Stop You</h1>
-                                </div>
-                            </div>
-
-                            <div class="blog-item width-33 top-100">
-                                <img class="masonry-image" alt="masonry" src="~/Content/WebAssets/img/home1/blog2.png">
-                                <div class="content top-0">
-                                    <span>Event Review, xtrmstudio, art</span>
-                                    <h1>World domination</h1>
-                                </div>
-                            </div>
-
-                            <div class="blog-item width-33">
-                                <img class="masonry-image" alt="masonry" src="~/Content/WebAssets/img/home1/blog3.png">
-                                <div class="content bottom-0">
-                                    <span>Event Review, xtrmstudio, art</span>
-                                    <h1>Nothing Can Stop You</h1>
-                                </div>
-                            </div>
-
-                            <div class="blog-item width-33">
-                                <img class="masonry-image" alt="masonry" src="~/Content/WebAssets/img/home1/blog4.png">
-                                <div class="content bottom-0">
-                                    <span>Event Review, xtrmstudio, art</span>
-                                    <h1>Nothing Can Stop You</h1>
-                                </div>
-                            </div>
-
-                            <div class="blog-item width-33 top-100">
-                                <img class="masonry-image" alt="masonry" src="~/Content/WebAssets/img/home1/blog5.png">
-                                <div class="content top-0">
-                                    <span>Event Review, xtrmstudio, art</span>
-                                    <h1>Nothing Can Stop You</h1>
-                                </div>
-                            </div>
-
-                            <div class="blog-item width-33">
-                                <img class="masonry-image" alt="masonry" src="~/Content/WebAssets/img/home1/blog6.png">
-                                <div class="content bottom-0">
-                                    <span>Event Review, xtrmstudio, art</span>
-                                    <h1>Nothing Can Stop You</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>*@
+   
     <!-- home-blog end -->
     <!-- home-contact start -->
-    <div class="home-contact" style="margin:unset!important">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <div class="contact-title">
-                        <h1>Get In Touch</h1>
-                    </div>
-                </div>
-            </div>
-            <div class="row contact-row m-3">
-                <div class="col-lg-5">
-                    <div class="mapouter">
-                        <div class="gmap_canvas">
-                            <iframe width="100%" height="100%" id="gmap_canvas" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d155526.29466802446!2d-2.0037137714519755!3d52.477354878269686!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4870942d1b417173%3A0xca81fef0aeee7998!2sBirmingham%2C%20UK!5e0!3m2!1sen!2sin!4v1625132662060!5m2!1sen!2sin" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-                            @*<a href="https://www.embedgooglemap.net/blog/elementor-pro-discount-code-review/">elementor review</a>*@
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-7">
-                    <div class="contact-right">
-                        <div class="form-group">
-                            <form class="contact-form form" action="#" name="registration">
-                                <div class="form-field margin-top-30 margin-bottom-30">
-                                    <input name="firstname" id="name" type="text" placeholder="Your name" class="input-form" />
-                                </div>
-                                <div class="form-field margin-top-30 margin-bottom-30">
-                                    <input id="email" type="email" placeholder="santa@gmail.com" class="input-form" data-required="text" data-required-email="email" name="email" />
-                                </div>
-                                <div class="form-field margin-top-30 margin-bottom-30">
-                                    <input name="subject" id="subject" type="text" placeholder="Subject" class="input-form" />
-                                </div>
-                                <div class="form-field margin-top-30 margin-bottom-30">
-                                    <textarea name="message" id="thought" cols="30" rows="5" placeholder="Message"></textarea>
-                                </div>
-                                <div class="btn-wrapper desktop-right">
-                                    <button type="submit" class="btn btn-medium btn-red">Submit</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!-- home-contact end -->
     <!-- footer area start -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -376,7 +212,5 @@
 
     </script>
     <!--  jquery script  -->
-   
 
-</body>
-</html>
+ 
